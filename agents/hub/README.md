@@ -32,8 +32,13 @@ for vlouxe.com).
 1. Go to https://console.anthropic.com → sign in (or create an account).
 2. Add a payment method under **Billing** — this key is billed per use,
    separate from your Claude subscription.
-3. Go to **API Keys** → **Create Key**. Copy it (starts with `sk-ant-`).
-   You won't be able to see it again after leaving the page.
+3. Go to **API Keys** → **Create Key**. When it asks for a **Workspace**,
+   pick a specific one (e.g. "Default") — don't leave it as an
+   identity-linked/"same as account" key, those require an extra
+   `anthropic-workspace-id` header this app doesn't send, and every request
+   fails with `400 anthropic-workspace-id is required`.
+4. Copy it (starts with `sk-ant-`). You won't be able to see it again after
+   leaving the page.
 
 ### 2. Push this repo to GitHub
 Render deploys from a GitHub repo. If `vlouxe` isn't on GitHub yet:
@@ -64,6 +69,27 @@ gh repo create vlouxe --private --source=. --push
    instructs (usually **DNS only**, not proxied, for the TLS handshake to work).
 3. Wait for DNS to propagate (usually minutes), then visit
    `https://agents.vlouxe.com` and log in with `HUB_USERNAME` / `HUB_PASSWORD`.
+
+## Real leads + a fully automatic Sales Agent
+
+The site's contact form (`FinalCTA.tsx` on the main vlouxe.com site) posts to
+`POST /api/leads` on this app, which writes each submission straight into
+the Sales Agent's `workspace/sales/data/`. No manual copy-pasting needed —
+whatever a visitor submits is what the Sales Agent sees.
+
+To make the Sales Agent actually run on its own every morning (not just
+when someone opens the panel and clicks a button):
+
+1. In Render, **New** → **Cron Job** → connect the same GitHub repo.
+2. Root directory: `agents/hub`. Build command: `npm install`. Command:
+   `npm run cron:sales`.
+3. Schedule: `0 13 * * *` (13:00 UTC — adjust for your timezone).
+4. Environment variables: `HUB_USERNAME`, `HUB_PASSWORD` (same values as the
+   web service), and `HUB_BASE_URL=https://agents.vlouxe.com`.
+
+Each run logs in, asks the Sales Agent to qualify whatever's in
+`workspace/sales/data/`, and the report lands in `workspace/sales/reports/`
+— visible next time you open the panel, with zero manual steps.
 
 ## Adding or editing an agent
 
