@@ -92,6 +92,13 @@ export interface Dictionary {
     headline: string;
     body: string;
     button: string;
+    nameLabel: string;
+    emailLabel: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submitting: string;
+    success: string;
+    error: string;
   };
   footer: {
     tagline: string;
@@ -280,6 +287,13 @@ const en: Dictionary = {
     headline: "Ready to build your AI workforce?",
     body: "Tell us what your business does. We'll show you where AI can work for you.",
     button: "Start Building",
+    nameLabel: "Name",
+    emailLabel: "Email",
+    messageLabel: "What does your business do?",
+    messagePlaceholder: "e.g. We run a small dental clinic and lose hours a week on scheduling and follow-ups.",
+    submitting: "Sending…",
+    success: "Thanks — we got it. We'll follow up soon.",
+    error: "Something went wrong. Email us at hello@vlouxe.com instead.",
   },
   footer: {
     tagline: "AI workforce for modern businesses.",
@@ -478,6 +492,13 @@ const es: Dictionary = {
     headline: "¿Listo para construir tu fuerza laboral de IA?",
     body: "Cuéntanos a qué se dedica tu negocio. Te mostraremos dónde la IA puede trabajar para ti.",
     button: "Empezar a Construir",
+    nameLabel: "Nombre",
+    emailLabel: "Correo",
+    messageLabel: "¿A qué se dedica tu negocio?",
+    messagePlaceholder: "ej: tenemos una clínica dental pequeña y perdemos horas a la semana agendando y haciendo seguimiento.",
+    submitting: "Enviando…",
+    success: "Listo — lo recibimos. Te contactaremos pronto.",
+    error: "Algo salió mal. Escríbenos a hello@vlouxe.com.",
   },
   footer: {
     tagline: "Fuerza laboral de IA para empresas modernas.",

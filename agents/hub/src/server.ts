@@ -84,6 +84,52 @@ app.post("/login", (req: Request, res: Response) => {
     .send(LOGIN_PAGE.replace("__ERROR__", '<div class="err">Usuario o contraseña incorrectos.</div>'));
 });
 
+const LEAD_ORIGINS = new Set([
+  "https://vlouxe.com",
+  "https://www.vlouxe.com",
+  "http://localhost:3000",
+]);
+
+function withCors(req: Request, res: Response) {
+  const origin = req.headers.origin;
+  if (origin && LEAD_ORIGINS.has(origin)) {
+    res.set("Access-Control-Allow-Origin", origin);
+    res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.set("Access-Control-Allow-Headers", "Content-Type");
+  }
+}
+
+app.options("/api/leads", (req: Request, res: Response) => {
+  withCors(req, res);
+  res.sendStatus(204);
+});
+
+app.post("/api/leads", (req: Request, res: Response) => {
+  withCors(req, res);
+  const { name, email, message } = req.body ?? {};
+  if (
+    typeof name !== "string" || !name.trim() ||
+    typeof email !== "string" || !email.trim() ||
+    typeof message !== "string" || !message.trim() ||
+    name.length > 200 || email.length > 200 || message.length > 5000
+  ) {
+    return res.status(400).json({ error: "invalid submission" });
+  }
+
+  const { data } = agentWorkspace("sales");
+  const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const content = [
+    `fecha: ${new Date().toISOString()}`,
+    `fuente: sitio web (vlouxe.com)`,
+    `nombre: ${name.trim()}`,
+    `email: ${email.trim()}`,
+    `mensaje: ${message.trim()}`,
+  ].join("\n");
+  writeFileSync(join(data, `lead-${stamp}.txt`), content, "utf8");
+
+  res.status(201).json({ ok: true });
+});
+
 app.use((req: Request, res: Response, next: NextFunction) => {
   if (!HUB_PASSWORD || isLoggedIn(req)) return next();
   if (req.path.startsWith("/api/")) return res.status(401).json({ error: "not logged in" });
