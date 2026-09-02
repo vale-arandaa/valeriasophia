@@ -41,24 +41,26 @@ function listDir(dir: string) {
     .reverse();
 }
 
-app.get("/api/agents", (_req, res) => {
+app.get("/api/agents", (_req: Request, res: Response) => {
   res.json(AGENTS.map(({ id, name, tagline, notesLabel, notesPlaceholder, questionPlaceholder }) => ({
     id, name, tagline, notesLabel, notesPlaceholder, questionPlaceholder,
   })));
 });
 
-app.get("/api/agents/:id/files", (req, res) => {
+app.get("/api/agents/:id/files", (req: Request, res: Response) => {
+  const id = String(req.params.id);
   try {
-    getAgent(req.params.id);
+    getAgent(id);
   } catch {
     return res.status(404).json({ error: "unknown agent" });
   }
-  const { data, reports } = agentWorkspace(req.params.id);
+  const { data, reports } = agentWorkspace(id);
   res.json({ data: listDir(data), reports: listDir(reports) });
 });
 
-app.get("/api/agents/:id/report/:name", (req, res) => {
-  const { id, name } = req.params;
+app.get("/api/agents/:id/report/:name", (req: Request, res: Response) => {
+  const id = String(req.params.id);
+  const name = String(req.params.name);
   if (name.includes("/") || name.includes("..")) return res.status(400).json({ error: "invalid name" });
   try {
     getAgent(id);
@@ -71,8 +73,8 @@ app.get("/api/agents/:id/report/:name", (req, res) => {
   res.type("text/markdown").send(readFileSync(path, "utf8"));
 });
 
-app.post("/api/agents/:id/analyze", async (req, res) => {
-  const { id } = req.params;
+app.post("/api/agents/:id/analyze", async (req: Request, res: Response) => {
+  const id = String(req.params.id);
   let agent;
   try {
     agent = getAgent(id);
