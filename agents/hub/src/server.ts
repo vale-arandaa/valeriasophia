@@ -1,5 +1,6 @@
 import express from "express";
 import type { NextFunction, Request, Response } from "express";
+import { randomBytes } from "node:crypto";
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,26 +11,84 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 4321;
 const HUB_USERNAME = process.env.HUB_USERNAME || "vlouxe";
 const HUB_PASSWORD = process.env.HUB_PASSWORD || "";
+const SESSION_COOKIE = "hub_session";
+const validSessions = new Set<string>();
 
 const app = express();
 app.use(express.json({ limit: "5mb" }));
+app.use(express.urlencoded({ extended: false }));
 
-if (HUB_PASSWORD) {
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    const header = req.headers.authorization || "";
-    const [scheme, encoded] = header.split(" ");
-    if (scheme === "Basic" && encoded) {
-      const [user, pass] = Buffer.from(encoded, "base64").toString().split(":");
-      if (user === HUB_USERNAME && pass === HUB_PASSWORD) return next();
-    }
-    res.set("WWW-Authenticate", 'Basic realm="VLOUXE Agents"');
-    res.status(401).send("Autenticación requerida.");
-  });
-} else {
-  console.warn(
-    "[hub] HUB_PASSWORD no está configurada — el panel queda SIN contraseña. Ok en local, nunca en producción."
-  );
+function parseCookies(req: Request): Record<string, string> {
+  const header = req.headers.cookie || "";
+  const out: Record<string, string> = {};
+  for (const part of header.split(";")) {
+    const i = part.indexOf("=");
+    if (i === -1) continue;
+    out[part.slice(0, i).trim()] = decodeURIComponent(part.slice(i + 1).trim());
+  }
+  return out;
 }
+
+function isLoggedIn(req: Request): boolean {
+  if (!HUB_PASSWORD) return true;
+  const token = parseCookies(req)[SESSION_COOKIE];
+  return !!token && validSessions.has(token);
+}
+
+const LOGIN_PAGE = `<!doctype html>
+<html lang="es"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VLOUXE — Iniciar sesión</title>
+<style>
+  body { margin:0; background:#0b0c10; color:#f2f2f5; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    height:100vh; display:flex; align-items:center; justify-content:center; }
+  form { background:#14161c; border:1px solid #24262e; border-radius:12px; padding:32px; width:280px; }
+  h1 { font-size:16px; margin:0 0 20px; }
+  label { display:block; font-size:13px; color:#8a8d97; margin:14px 0 6px; }
+  label:first-of-type { margin-top:0; }
+  input { width:100%; background:#0e0f14; border:1px solid #24262e; border-radius:8px; color:#f2f2f5; padding:10px 12px; font-size:14px; box-sizing:border-box; }
+  button { margin-top:20px; width:100%; background:#6b76ff; color:white; border:none; border-radius:999px; padding:11px; font-size:14px; font-weight:500; cursor:pointer; }
+  .err { color:#f87171; font-size:13px; margin-top:12px; }
+</style></head>
+<body>
+  <form method="POST" action="/login">
+    <h1>VLOUXE Agents — Iniciar sesión</h1>
+    <label for="u">Usuario</label>
+    <input id="u" name="username" autocomplete="username" autofocus />
+    <label for="p">Contraseña</label>
+    <input id="p" name="password" type="password" autocomplete="current-password" />
+    <button type="submit">Entrar</button>
+    __ERROR__
+  </form>
+</body></html>`;
+
+app.get("/login", (_req: Request, res: Response) => {
+  res.type("html").send(LOGIN_PAGE.replace("__ERROR__", ""));
+});
+
+app.post("/login", (req: Request, res: Response) => {
+  const { username, password } = req.body ?? {};
+  if (username === HUB_USERNAME && password === HUB_PASSWORD) {
+    const token = randomBytes(24).toString("hex");
+    validSessions.add(token);
+    res.set(
+      "Set-Cookie",
+      `${SESSION_COOKIE}=${token}; Path=/; HttpOnly; Max-Age=2592000; SameSite=Lax${
+        req.secure ? "; Secure" : ""
+      }`
+    );
+    return res.redirect("/");
+  }
+  res
+    .type("html")
+    .status(401)
+    .send(LOGIN_PAGE.replace("__ERROR__", '<div class="err">Usuario o contraseña incorrectos.</div>'));
+});
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (!HUB_PASSWORD || isLoggedIn(req)) return next();
+  if (req.path.startsWith("/api/")) return res.status(401).json({ error: "not logged in" });
+  res.redirect("/login");
+});
 
 app.use(express.static(join(__dirname, "..", "public")));
 
@@ -111,5 +170,10 @@ app.post("/api/agents/:id/analyze", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, () => {
+  if (!HUB_PASSWORD) {
+    console.warn(
+      "[hub] HUB_PASSWORD no está configurada — el panel queda SIN contraseña. Ok en local, nunca en producción."
+    );
+  }
   console.log(`\n[hub] VLOUXE Agents running at http://localhost:${PORT}\n`);
 });
