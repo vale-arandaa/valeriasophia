@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VLOUXE — AI Workforce</title>
+<style>
+  :root {
+    --bg: #0b0c10;
+    --panel: #14161c;
+    --border: #24262e;
+    --text: #f2f2f5;
+    --muted: #8a8d97;
+    --accent: #6b76ff;
+    --accent-hover: #7c88ff;
+    --ok: #4ade80;
+    --err: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+  }
+  nav {
+    width: 240px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    padding: 20px 12px;
+    overflow-y: auto;
+  }
+  nav .brand {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 4px 10px 18px;
+    letter-spacing: -0.01em;
+  }
+  nav button.agent-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--muted);
+    padding: 10px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 2px;
+  }
+  nav button.agent-link:hover { background: #1b1d24; color: var(--text); }
+  nav button.agent-link.active { background: var(--accent); color: white; }
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 36px 80px;
+  }
+  .max { max-width: 760px; margin: 0 auto; display: grid; gap: 24px; }
+  h1 { font-size: 20px; margin: 0 0 2px; letter-spacing: -0.01em; }
+  .tagline { color: var(--muted); font-size: 14px; margin: 0 0 4px; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .panel h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin: 14px 0 6px;
+  }
+  label:first-of-type { margin-top: 0; }
+  textarea, input[type="text"] {
+    width: 100%;
+    background: #0e0f14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  textarea:focus, input:focus { outline: none; border-color: var(--accent); }
+  button.run {
+    margin-top: 16px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  button.run:hover:not(:disabled) { background: var(--accent-hover); }
+  button.run:disabled { opacity: 0.5; cursor: not-allowed; }
+  .status { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .status.ok { color: var(--ok); }
+  .status.err { color: var(--err); }
+  #output { white-space: pre-wrap; font-size: 14px; line-height: 1.6; min-height: 40px; }
+  #output:empty::before { content: "El resultado aparecerá aquí."; color: var(--muted); }
+  ul.filelist { list-style: none; margin: 0; padding: 0; font-size: 13px; }
+  ul.filelist li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  ul.filelist li:last-child { border-bottom: none; }
+  ul.filelist a { color: var(--text); text-decoration: none; }
+  ul.filelist a:hover { color: var(--accent-hover); }
+  .empty { color: var(--muted); font-size: 13px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } nav { width: 160px; } }
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="brand">VLOUXE</div>
+</nav>
+
+<main>
+  <div class="max" id="app">Cargando agentes…</div>
+</main>
+
+<script>
+let agents = [];
+let current = null;
+
+async function loadAgents() {
+  const res = await fetch("/api/agents");
+  agents = await res.json();
+  renderNav();
+  if (agents.length) selectAgent(agents[0].id);
+}
+
+function renderNav() {
+  const nav = document.getElementById("nav");
+  nav.innerHTML = '<div class="brand">VLOUXE</div>';
+  for (const a of agents) {
+    const btn = document.createElement("button");
+    btn.className = "agent-link" + (a.id === current ? " active" : "");
+    btn.textContent = a.name;
+    btn.onclick = () => selectAgent(a.id);
+    nav.appendChild(btn);
+  }
+}
+
+function selectAgent(id) {
+  current = id;
+  renderNav();
+  renderAgentPage(agents.find((a) => a.id === id));
+}
+
+function renderAgentPage(agent) {
+  const app = document.getElementById("app");
+  app.innerHTML = `
+    <div>
+      <h1>${agent.name}</h1>
+      <p class="tagline">${agent.tagline}</p>
+    </div>
+    <div class="panel">
+      <h2>Nueva tarea</h2>
+      <label for="notes">${agent.notesLabel}</label>
+      <textarea id="notes" rows="5" placeholder="${agent.notesPlaceholder}"></textarea>
+      <label for="question">¿Qué necesitas?</label>
+      <input id="question" type="text" placeholder="${agent.questionPlaceholder}" />
+      <button class="run" id="runBtn">Ejecutar</button>
+      <div class="status" id="status"></div>
+    </div>
+    <div class="panel">
+      <h2>Resultado</h2>
+      <div id="output"></div>
+    </div>
+    <div class="cols">
+      <div class="panel">
+        <h2>Datos guardados</h2>
+        <ul class="filelist" id="dataFiles"></ul>
+      </div>
+      <div class="panel">
+        <h2>Reportes anteriores</h2>
+        <ul class="filelist" id="reportFiles"></ul>
+      </div>
+    </div>
+  `;
+
+  document.getElementById("runBtn").addEventListener("click", () => run(agent.id));
+  refreshFiles(agent.id);
+}
+
+function renderList(el, files, agentId, kind) {
+  el.innerHTML = "";
+  if (!files.length) {
+    el.innerHTML = '<li class="empty">Vacío por ahora.</li>';
+    return;
+  }
+  for (const f of files) {
+    const li = document.createElement("li");
+    if (kind === "report") {
+      const a = document.createElement("a");
+      a.href = "/api/agents/" + agentId + "/report/" + encodeURIComponent(f);
+      a.target = "_blank";
+      a.textContent = f;
+      li.appendChild(a);
+    } else {
+      li.textContent = f;
+    }
+    el.appendChild(li);
+  }
+}
+
+async function refreshFiles(agentId) {
+  const res = await fetch("/api/agents/" + agentId + "/files");
+  const { data, reports } = await res.json();
+  renderList(document.getElementById("dataFiles"), data, agentId, "data");
+  renderList(document.getElementById("reportFiles"), reports, agentId, "report");
+}
+
+async function run(agentId) {
+  const runBtn = document.getElementById("runBtn");
+  const statusEl = document.getElementById("status");
+  const outputEl = document.getElementById("output");
+  const notesEl = document.getElementById("notes");
+  const questionEl = document.getElementById("question");
+
+  runBtn.disabled = true;
+  outputEl.textContent = "";
+  statusEl.textContent = "Trabajando… esto puede tardar un minuto.";
+  statusEl.className = "status";
+
+  const res = await fetch("/api/agents/" + agentId + "/analyze", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: questionEl.value, notes: notesEl.value }),
+  });
+
+  if (!res.ok || !res.body) {
+    statusEl.textContent = "Error al conectar con el agente.";
+    statusEl.className = "status err";
+    runBtn.disabled = false;
+    return;
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+
+    const events = buffer.split("\n\n");
+    buffer = events.pop() ?? "";
+
+    for (const raw of events) {
+      const lines = raw.split("\n");
+      const eventLine = lines.find((l) => l.startsWith("event: "));
+      const dataLine = lines.find((l) => l.startsWith("data: "));
+      if (!eventLine || !dataLine) continue;
+      const event = eventLine.slice(7);
+      const data = JSON.parse(dataLine.slice(6));
+
+      if (event === "chunk") {
+        outputEl.textContent += data.chunk;
+      } else if (event === "done") {
+        statusEl.textContent = data.ok ? "Listo — guardado." : "Terminó pero no de forma exitosa.";
+        statusEl.className = "status " + (data.ok ? "ok" : "err");
+        renderList(document.getElementById("reportFiles"), data.reports, agentId, "report");
+      } else if (event === "error") {
+        statusEl.textContent = "Error: " + data.message;
+        statusEl.className = "status err";
+      }
+    }
+  }
+
+  notesEl.value = "";
+  runBtn.disabled = false;
+  refreshFiles(agentId);
+}
+
+loadAgents();
+</script>
+</body>
+</html>

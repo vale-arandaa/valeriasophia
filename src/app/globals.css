@@ -1,26 +1,221 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #05060a;
+  --surface: #0a0c14;
+  --surface-elevated: #10131d;
+  --foreground: #f4f5f9;
+  --muted: #9aa0b4;
+  --muted-dim: #656b80;
+  --border: rgba(244, 245, 249, 0.09);
+  --border-strong: rgba(244, 245, 249, 0.16);
+  --accent: #6e7bff;
+  --accent-soft: #4a53b8;
+  --accent-dim: rgba(110, 123, 255, 0.14);
+  --radius-card: 20px;
+  --radius-pill: 999px;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-dim: var(--muted-dim);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-dim: var(--accent-dim);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--foreground);
+}
+
+.balance {
+  text-wrap: balance;
+}
+
+.container-vlouxe {
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+@media (min-width: 640px) {
+  .container-vlouxe {
+    padding-inline: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-vlouxe {
+    padding-inline: 48px;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-120px, -80px, 0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3.2s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+/* Tiny-amplitude drift for the constellation items. Duration and delay are
+   set per item via inline style so each one desyncs from its neighbors;
+   this rule only supplies the keyframe, timing curve, and repeat. */
+@keyframes float-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.animate-float-drift {
+  animation-name: float-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Exactly one property (transform), exactly two keyframes (0% -> 100%),
+   linear timing: this is the only combination that guarantees a perfectly
+   constant travel speed with zero deceleration anywhere in the cycle,
+   including the middle. Do not add a third transform keyframe (e.g. a 50%
+   stop) or an opacity fade tied to position: either reintroduces a visible
+   pause, since easing/interpolation is computed per-segment between
+   whichever keyframes exist. The flare starts and ends fully outside the
+   track's overflow-hidden bounds, so the loop restart is never visible. */
+@keyframes beam-sweep {
+  0% {
+    transform: translateX(-24%);
+  }
+  100% {
+    transform: translateX(124%);
+  }
+}
+
+/* A second, independent opacity animation on the same element as the
+   transform above, so the flare is invisible whenever it is near the
+   track's overflow-hidden edges — regardless of exactly how big the flare
+   or the track are. Without this, any future size change can let part of
+   the flare cross the clip boundary while still partly opaque, showing a
+   hard straight edge where it gets cut off. Fading it out first removes
+   that edge instead of requiring exact margin math. Both animations must
+   be listed in the SAME `animation` shorthand (comma-separated): applying
+   them via two separate classes that each use the `animation` shorthand
+   does not stack them — the one later in the cascade overwrites the other
+   entirely, since shorthand properties don't merge. */
+@keyframes beam-fade {
+  0%,
+  30%,
+  100% {
+    opacity: 0;
+  }
+  38%,
+  62% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+  }
+}
+
+.animate-beam-sweep {
+  animation:
+    beam-sweep 5s linear infinite,
+    beam-fade 5s linear infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-soft,
+  .animate-float-slow,
+  .animate-beam-sweep {
+    animation: none;
+  }
+}
+
+.text-gradient-accent {
+  background: linear-gradient(120deg, #b7bdff 0%, var(--accent) 55%, #545fd9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
