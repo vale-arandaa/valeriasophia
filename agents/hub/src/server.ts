@@ -116,7 +116,7 @@ app.post("/api/leads", (req: Request, res: Response) => {
     return res.status(400).json({ error: "invalid submission" });
   }
 
-  const { data } = agentWorkspace("sales");
+  const { data } = agentWorkspace("automatizacion");
   const stamp = new Date().toISOString().replace(/[:.]/g, "-");
   const content = [
     `fecha: ${new Date().toISOString()}`,

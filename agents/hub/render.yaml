@@ -17,13 +17,13 @@ services:
         sync: false
 
   - type: cron
-    name: vlouxe-sales-cron
+    name: vlouxe-automation-cron
     runtime: node
     plan: free
     rootDir: agents/hub
     buildCommand: npm install
     schedule: "0 13 * * *"
-    startCommand: npm run cron:sales
+    startCommand: npm run cron:automatizacion
     envVars:
       - key: HUB_BASE_URL
         value: https://agents.vlouxe.com

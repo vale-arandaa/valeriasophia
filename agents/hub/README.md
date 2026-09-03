@@ -1,10 +1,11 @@
 # VLOUXE Agents Hub
 
-One panel with all of VLOUXE's internal agents — Sales, Marketing, Customer
-Support, Operations, Research, Analytics, Executive Assistant, and Content.
-Same engine ([Claude Agent SDK](https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk))
-behind all of them, each with its own role, its own data folder, and its own
-saved reports.
+Two agents, on one panel, on the same engine ([Claude Agent SDK](https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk)):
+
+- **Agente de Automatización** (`automatizacion`) — does the repetitive work: follows up leads, drafts customer replies, organizes pending tasks, drafts content. One flexible agent instead of a separate one per function.
+- **Agente de Optimización** (`analytics`) — reads real business data and tells you what to fix.
+
+Each has its own data folder and its own saved reports.
 
 ## Run it locally (free, uses your Claude Code login)
 
@@ -70,29 +71,31 @@ gh repo create vlouxe --private --source=. --push
 3. Wait for DNS to propagate (usually minutes), then visit
    `https://agents.vlouxe.com` and log in with `HUB_USERNAME` / `HUB_PASSWORD`.
 
-## Real leads + a fully automatic Sales Agent
+## Real leads + a fully automatic Automation Agent
 
 The site's contact form (`FinalCTA.tsx` on the main vlouxe.com site) posts to
 `POST /api/leads` on this app, which writes each submission straight into
-the Sales Agent's `workspace/sales/data/`. No manual copy-pasting needed —
-whatever a visitor submits is what the Sales Agent sees.
+the Automation Agent's `workspace/automatizacion/data/`. No manual
+copy-pasting needed — whatever a visitor submits is what the agent sees.
 
-To make the Sales Agent actually run on its own every morning (not just
-when someone opens the panel and clicks a button):
+To make it run on its own every morning (not just when someone opens the
+panel and clicks a button):
 
 1. In Render, **New** → **Cron Job** → connect the same GitHub repo.
 2. Root directory: `agents/hub`. Build command: `npm install`. Command:
-   `npm run cron:sales`.
+   `npm run cron:automatizacion`.
 3. Schedule: `0 13 * * *` (13:00 UTC — adjust for your timezone).
 4. Environment variables: `HUB_USERNAME`, `HUB_PASSWORD` (same values as the
    web service), and `HUB_BASE_URL=https://agents.vlouxe.com`.
 
-Each run logs in, asks the Sales Agent to qualify whatever's in
-`workspace/sales/data/`, and the report lands in `workspace/sales/reports/`
-— visible next time you open the panel, with zero manual steps.
+Each run logs in, asks the Automation Agent to work through whatever's in
+`workspace/automatizacion/data/`, and the report lands in
+`workspace/automatizacion/reports/` — visible next time you open the panel,
+with zero manual steps.
 
 ## Adding or editing an agent
 
-All 8 agents are defined in one place: [`src/agents.config.ts`](src/agents.config.ts).
+Both agents are defined in one place: [`src/agents.config.ts`](src/agents.config.ts).
 Each entry is just a name, tagline, UI placeholders, and a system prompt — add
-a new object to the `AGENTS` array to add an agent, no other code changes needed.
+a new object to the `AGENTS` array to add another agent, no other code
+changes needed.

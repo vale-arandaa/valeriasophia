@@ -15,7 +15,7 @@ async function main() {
   if (!setCookie) throw new Error(`login failed (status ${loginRes.status}), no session cookie returned`);
   const cookie = setCookie.split(";")[0];
 
-  const res = await fetch(`${BASE_URL}/api/agents/sales/analyze`, {
+  const res = await fetch(`${BASE_URL}/api/agents/automatizacion/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Cookie: cookie },
     body: JSON.stringify({ question: "" }),
@@ -25,6 +25,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("[cron-sales] failed:", err);
+  console.error("[cron-automatizacion] failed:", err);
   process.exit(1);
 });
