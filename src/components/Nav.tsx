@@ -15,9 +15,10 @@ export default function Nav() {
       <div className="container-vlouxe flex h-[72px] items-center justify-between">
         <a
           href="#top"
-          className="text-foreground transition-opacity hover:opacity-80"
+          className="flex items-center gap-2.5 text-foreground transition-opacity hover:opacity-80"
           aria-label="VLOUXE home"
         >
+          <img src="/logo-mark.png" alt="" width={28} height={28} className="h-7 w-7" />
           <Wordmark size="nav" />
         </a>
 

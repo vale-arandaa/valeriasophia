@@ -53,7 +53,13 @@ export default function Problem() {
       <div className="container-vlouxe relative">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <h2 className="balance text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-accent-dim px-3.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-muted">
+              <span className="h-1 w-1 rounded-full bg-accent" />
+              {t.problem.eyebrow}
+            </span>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="balance mt-5 text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
               {t.problem.headline}
             </h2>
           </Reveal>

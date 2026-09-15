@@ -10,7 +10,7 @@ export type AgentId =
   | "analytics"
   | "content";
 
-export type StepId = "identify" | "deploy" | "scale";
+export type StepId = "purchase" | "access" | "scale";
 
 export type ProblemItemId =
   | "responses"
@@ -29,12 +29,12 @@ export type NodeId =
   | "analytics";
 
 export type UseCaseId =
-  | "sales"
-  | "support"
-  | "marketing"
-  | "operations"
-  | "research"
-  | "analytics";
+  | "alwaysOn"
+  | "fastSetup"
+  | "integrates"
+  | "bilingual"
+  | "secure"
+  | "scales";
 
 export interface Dictionary {
   nav: {
@@ -55,6 +55,7 @@ export interface Dictionary {
     secondaryCta: string;
   };
   problem: {
+    eyebrow: string;
     headline: string;
     body: string;
     items: Record<ProblemItemId, { title: string; body: string }>;
@@ -62,7 +63,8 @@ export interface Dictionary {
   solution: {
     headline: string;
     subheadline: string;
-    agents: Record<AgentId, { name: string; blurb: string }>;
+    expandHint: string;
+    agents: Record<AgentId, { name: string; blurb: string; pitch: string }>;
   };
   howItWorks: {
     headline: string;
@@ -82,7 +84,8 @@ export interface Dictionary {
   impact: {
     headline: string;
     body: string;
-    outcomes: string[];
+    expandHint: string;
+    outcomes: { title: string; body: string }[];
   };
   vision: {
     headline: string;
@@ -92,13 +95,21 @@ export interface Dictionary {
     headline: string;
     body: string;
     button: string;
-    nameLabel: string;
-    emailLabel: string;
-    messageLabel: string;
-    messagePlaceholder: string;
-    submitting: string;
-    success: string;
+  };
+  chat: {
+    salesTitle: string;
+    supportTitle: string;
+    needHelp: string;
+    needHelpBody: string;
+    needHelpButton: string;
+    placeholder: string;
+    send: string;
+    typing: string;
     error: string;
+    close: string;
+    salesGreeting: string;
+    supportGreeting: string;
+    switchToSales: string;
   };
   footer: {
     tagline: string;
@@ -140,6 +151,7 @@ const en: Dictionary = {
     secondaryCta: "Explore AI Agents",
   },
   problem: {
+    eyebrow: "The Problem",
     headline: "Stop building your business around repetitive work.",
     body: "Modern businesses still spend thousands of hours a year on work that follows the same pattern every time.",
     items: {
@@ -173,55 +185,72 @@ const en: Dictionary = {
     headline: "Meet your new workforce.",
     subheadline:
       "VLOUXE designs specialized AI agents for individual business functions, then connects them into one coordinated system.",
+    expandHint: "Tap to see how it works",
     agents: {
       sales: {
         name: "Sales Agent",
         blurb: "Qualifies leads and moves them through your pipeline.",
+        pitch:
+          "Every new lead gets qualified and followed up on the moment it arrives — no missed opportunities, no manual data entry. Sales Agent reads what a prospect needs, moves them through your pipeline, and keeps reaching out until they're ready to buy.",
       },
       marketing: {
         name: "Marketing Agent",
         blurb: "Plans and drafts campaigns across channels.",
+        pitch:
+          "Give it your product and audience, and Marketing Agent researches angles, drafts campaigns across channels, and keeps everything consistent with your brand voice — so marketing output never bottlenecks on one person's time.",
       },
       support: {
         name: "Customer Support Agent",
         blurb: "Resolves common requests around the clock.",
+        pitch:
+          "Answers customer questions instantly, day or night, using the real details of your business — and knows exactly when to hand a conversation to Sales Agent instead of guessing at pricing.",
       },
       operations: {
         name: "Operations Agent",
         blurb: "Keeps internal systems and processes running.",
+        pitch:
+          "Turns incoming requests into tracked tasks, assigns them to the right person, and follows up until they're actually done — so nothing quietly falls through the cracks.",
       },
       research: {
         name: "Research Agent",
         blurb: "Gathers and synthesizes information on demand.",
+        pitch:
+          "Ask it anything about a prospect, a market, or a competitor, and Research Agent gathers the real information and hands you a clear summary — in minutes, not hours of digging.",
       },
       executive: {
         name: "Executive Assistant",
         blurb: "Handles scheduling, follow-ups, and admin work.",
+        pitch:
+          "Manages your calendar and books real meetings inside your available hours automatically — no back-and-forth emails just to find a time that works.",
       },
       analytics: {
         name: "Analytics Agent",
         blurb: "Turns raw business data into clear reporting.",
+        pitch:
+          "Reads your leads, revenue, and expenses, and turns them into clear reports and real recommendations — so you always know what's working before it becomes a problem.",
       },
       content: {
         name: "Content Agent",
         blurb: "Writes and organizes content at scale.",
+        pitch:
+          "Drafts and organizes the content your business needs, consistently and on-brand, at a volume no single person could keep up with alone.",
       },
     },
   },
   howItWorks: {
     headline: "How VLOUXE builds your workforce.",
     steps: {
-      identify: {
-        title: "Identify",
-        body: "We identify the repetitive, high-value work inside the business.",
+      purchase: {
+        title: "Get the Pack",
+        body: "Get every AI agent VLOUXE offers in one complete pack — no need to figure out which ones you need first.",
       },
-      deploy: {
-        title: "Deploy",
-        body: "We build and deploy specialized AI agents around that work.",
+      access: {
+        title: "Your Site Goes Live",
+        body: "We set up your dedicated VLOUXE site, with every agent from the pack already built in and ready to work.",
       },
       scale: {
-        title: "Scale",
-        body: "The AI workforce handles more of the business as it grows.",
+        title: "Scale as You Grow",
+        body: "Turn on more of your agents whenever your business needs them — everything is already included.",
       },
     },
   },
@@ -240,43 +269,59 @@ const en: Dictionary = {
     },
   },
   useCases: {
-    headline: "Built for the work that runs your business.",
+    headline: "Why businesses choose VLOUXE.",
     items: {
-      sales: {
-        title: "Sales",
-        body: "Qualify leads, research prospects, and support your sales pipeline.",
+      alwaysOn: {
+        title: "Always On",
+        body: "Your AI workforce never clocks out — leads get answered and follow-ups go out at 2am just like they do at 2pm.",
       },
-      support: {
-        title: "Customer Support",
-        body: "Handle repetitive customer conversations and support requests.",
+      fastSetup: {
+        title: "Live in Days",
+        body: "No lengthy IT project. Your dedicated VLOUXE site goes live with every agent already built in and ready to work.",
       },
-      marketing: {
-        title: "Marketing",
-        body: "Research, plan, create, and distribute marketing content.",
+      integrates: {
+        title: "Works With What You Have",
+        body: "Connect your existing CRM, spreadsheet, or contact channels — without switching tools your team already knows.",
       },
-      operations: {
-        title: "Operations",
-        body: "Automate repetitive operations and administrative tasks.",
+      bilingual: {
+        title: "Speaks Your Customer's Language",
+        body: "Every agent detects English or Spanish automatically and responds in kind — no separate setup for each market.",
       },
-      research: {
-        title: "Research",
-        body: "Turn information into useful insights faster.",
+      secure: {
+        title: "Your Data, Isolated and Private",
+        body: "Each business gets its own fully separate account — your leads, numbers, and connections are never shared or mixed with anyone else's.",
       },
-      analytics: {
-        title: "Analytics",
-        body: "Transform business data into actionable intelligence.",
+      scales: {
+        title: "Grows Without Growing Headcount",
+        body: "Turn on more agents the moment your business needs them — the workforce scales with you, without a single new hire.",
       },
     },
   },
   impact: {
     headline: "Outcomes, not features.",
     body: "VLOUXE is built around what actually changes inside a business once an AI workforce takes on the repetitive work.",
+    expandHint: "Tap to see why",
     outcomes: [
-      "More productivity.",
-      "Less repetitive work.",
-      "Faster response times.",
-      "Lower operational overhead.",
-      "More scalable businesses.",
+      {
+        title: "More productivity.",
+        body: "Repetitive research, replies, reports, and scheduling stop taking up your team's day — Sales, Support, Research, and Executive Assistant handle them continuously, so your people spend their time on the decisions only they can make.",
+      },
+      {
+        title: "Less repetitive work.",
+        body: "Every incoming lead, question, and request gets classified, answered, or delegated the same way, every single time — without anyone on your team having to do it by hand.",
+      },
+      {
+        title: "Faster response times.",
+        body: "Leads get followed up within minutes, not days. Customers get answered the moment they write, at 3pm or 3am, because Support and Sales Agent never clock out.",
+      },
+      {
+        title: "Lower operational overhead.",
+        body: "One coordinated system replaces the manual admin work of scheduling, reporting, and task-tracking that used to need someone watching over it — so growth doesn't automatically mean growing headcount.",
+      },
+      {
+        title: "More scalable businesses.",
+        body: "Take on twice the leads or customers without needing to double your team — the AI workforce absorbs the added volume, and Analytics Agent keeps you seeing clearly as it grows.",
+      },
     ],
   },
   vision: {
@@ -285,15 +330,24 @@ const en: Dictionary = {
   },
   cta: {
     headline: "Ready to build your AI workforce?",
-    body: "Tell us what your business does. We'll show you where AI can work for you.",
+    body: "Chat with our Sales Agent right now — tell it what your business does and where AI can work for you.",
     button: "Start Building",
-    nameLabel: "Name",
-    emailLabel: "Email",
-    messageLabel: "What does your business do?",
-    messagePlaceholder: "e.g. We run a small dental clinic and lose hours a week on scheduling and follow-ups.",
-    submitting: "Sending…",
-    success: "Thanks — we got it. We'll follow up soon.",
-    error: "Something went wrong. Email us at hello@vlouxe.com instead.",
+  },
+  chat: {
+    salesTitle: "Sales Agent",
+    supportTitle: "Support Agent",
+    needHelp: "Need help?",
+    needHelpBody: "Chat with our Support Agent right here — no forms, no waiting.",
+    needHelpButton: "Chat with Support",
+    placeholder: "Type your message…",
+    send: "Send",
+    typing: "Typing…",
+    error: "Something went wrong. Please try again in a moment.",
+    close: "Close chat",
+    salesGreeting:
+      "Hi! I'm VLOUXE's Sales Agent. Tell me a bit about your business and what's eating up your team's time — I'll show you where an AI workforce fits.",
+    supportGreeting: "Hi! I'm VLOUXE's Support Agent. Ask me anything about how VLOUXE works.",
+    switchToSales: "Talk to Sales instead",
   },
   footer: {
     tagline: "AI workforce for modern businesses.",
@@ -345,6 +399,7 @@ const es: Dictionary = {
     secondaryCta: "Explora los Agentes de IA",
   },
   problem: {
+    eyebrow: "El Problema",
     headline: "Deja de construir tu compañía alrededor de trabajo repetitivo.",
     body: "Las organizaciones modernas siguen invirtiendo miles de horas al año en tareas que se repiten de la misma forma cada vez.",
     items: {
@@ -378,55 +433,72 @@ const es: Dictionary = {
     headline: "Conoce tu nueva fuerza laboral.",
     subheadline:
       "VLOUXE diseña agentes de IA especializados para cada función de la empresa y los conecta en un solo sistema coordinado.",
+    expandHint: "Toca para ver cómo funciona",
     agents: {
       sales: {
         name: "Agente de Ventas",
         blurb: "Califica prospectos y los avanza a través de tu embudo de ventas.",
+        pitch:
+          "Cada nuevo prospecto se califica y recibe seguimiento apenas llega — sin oportunidades perdidas, sin carga manual de datos. El Agente de Ventas entiende qué necesita cada prospecto, lo avanza por tu embudo y sigue contactándolo hasta que esté listo para comprar.",
       },
       marketing: {
         name: "Agente de Marketing",
         blurb: "Planifica y redacta campañas en distintos canales.",
+        pitch:
+          "Dale tu producto y tu audiencia, y el Agente de Marketing investiga ángulos, redacta campañas para distintos canales y mantiene todo consistente con la voz de tu marca — para que el marketing nunca dependa del tiempo de una sola persona.",
       },
       support: {
         name: "Agente de Soporte al Cliente",
         blurb: "Resuelve solicitudes comunes las 24 horas.",
+        pitch:
+          "Responde preguntas de clientes al instante, de día o de noche, usando la información real de tu negocio — y sabe exactamente cuándo pasarle la conversación al Agente de Ventas en vez de adivinar un precio.",
       },
       operations: {
         name: "Agente de Operaciones",
         blurb: "Mantiene en funcionamiento los sistemas y procesos internos.",
+        pitch:
+          "Convierte cada solicitud entrante en una tarea con seguimiento, la asigna a la persona correcta y no la suelta hasta que realmente se resuelve — para que nada se pierda en silencio.",
       },
       research: {
         name: "Agente de Investigación",
         blurb: "Recopila y sintetiza información bajo demanda.",
+        pitch:
+          "Pregúntale lo que sea sobre un prospecto, un mercado o un competidor, y el Agente de Investigación reúne la información real y te entrega un resumen claro — en minutos, no en horas de búsqueda.",
       },
       executive: {
         name: "Asistente Ejecutivo",
         blurb: "Se encarga de agendas, seguimientos y tareas administrativas.",
+        pitch:
+          "Administra tu calendario y agenda reuniones reales dentro de tus horarios disponibles, de forma automática — sin ida y vuelta de correos para encontrar un horario que funcione.",
       },
       analytics: {
         name: "Agente de Analítica",
         blurb: "Convierte datos de la organización en reportes claros.",
+        pitch:
+          "Lee tus prospectos, ingresos y gastos, y los convierte en reportes claros y recomendaciones reales — para que siempre sepas qué está funcionando antes de que se vuelva un problema.",
       },
       content: {
         name: "Agente de Contenido",
         blurb: "Escribe y organiza contenido a gran escala.",
+        pitch:
+          "Redacta y organiza el contenido que tu negocio necesita, de forma consistente y fiel a tu marca, a un volumen que ninguna sola persona podría sostener.",
       },
     },
   },
   howItWorks: {
     headline: "Cómo VLOUXE construye tu fuerza laboral.",
     steps: {
-      identify: {
-        title: "Identificar",
-        body: "Identificamos el trabajo repetitivo y de alto valor dentro de la compañía.",
+      purchase: {
+        title: "Obtén el Pack",
+        body: "Recibe todos los agentes de IA de VLOUXE en un solo pack completo — no necesitas decidir cuáles necesitas primero.",
       },
-      deploy: {
-        title: "Implementar",
-        body: "Creamos e implementamos agentes de IA especializados en torno a ese trabajo.",
+      access: {
+        title: "Tu Sitio Queda Listo",
+        body: "Configuramos tu sitio VLOUXE dedicado, con todos los agentes del pack ya integrados y listos para trabajar.",
       },
       scale: {
-        title: "Escalar",
-        body: "La fuerza laboral de IA asume más funciones de la operación a medida que esta crece.",
+        title: "Escala Cuando Quieras",
+        body: "Activa más agentes cuando tu negocio los necesite — todo ya está incluido.",
       },
     },
   },
@@ -445,43 +517,59 @@ const es: Dictionary = {
     },
   },
   useCases: {
-    headline: "Diseñado para el trabajo que mueve tu compañía.",
+    headline: "Por qué las empresas eligen VLOUXE.",
     items: {
-      sales: {
-        title: "Ventas",
-        body: "Califica prospectos, investiga clientes potenciales y da soporte a tu embudo de ventas.",
+      alwaysOn: {
+        title: "Siempre Activo",
+        body: "Tu fuerza laboral de IA nunca se toma un descanso — los prospectos reciben respuesta y seguimiento a las 2am igual que a las 2pm.",
       },
-      support: {
-        title: "Soporte al Cliente",
-        body: "Gestiona conversaciones repetitivas y solicitudes de soporte.",
+      fastSetup: {
+        title: "Listo en Días",
+        body: "Sin proyectos largos de IT. Tu sitio VLOUXE dedicado queda listo con todos los agentes ya integrados y funcionando.",
       },
-      marketing: {
-        title: "Marketing",
-        body: "Investiga, planifica, crea y distribuye contenido de marketing.",
+      integrates: {
+        title: "Funciona con lo que Ya Usas",
+        body: "Conecta tu CRM, hoja de cálculo o canales de contacto existentes — sin cambiar las herramientas que tu equipo ya conoce.",
       },
-      operations: {
-        title: "Operaciones",
-        body: "Automatiza operaciones repetitivas y tareas administrativas.",
+      bilingual: {
+        title: "Habla el Idioma de tu Cliente",
+        body: "Cada agente detecta automáticamente español o inglés y responde en ese idioma — sin configurar nada extra por mercado.",
       },
-      research: {
-        title: "Investigación",
-        body: "Convierte información en datos útiles más rápido.",
+      secure: {
+        title: "Tus Datos, Aislados y Privados",
+        body: "Cada empresa tiene su propia cuenta completamente separada — tus prospectos, tus números y tus conexiones nunca se comparten ni se mezclan con los de nadie más.",
       },
-      analytics: {
-        title: "Analítica",
-        body: "Transforma los datos de la operación en inteligencia accionable.",
+      scales: {
+        title: "Crece sin Crecer tu Plantilla",
+        body: "Activa más agentes en el momento en que tu negocio los necesite — la fuerza laboral escala con vos, sin contratar a nadie nuevo.",
       },
     },
   },
   impact: {
     headline: "Resultados, no funciones.",
     body: "VLOUXE está diseñado en torno a lo que realmente cambia dentro de una organización cuando una fuerza laboral de IA asume el trabajo repetitivo.",
+    expandHint: "Toca para ver por qué",
     outcomes: [
-      "Más productividad.",
-      "Menos trabajo repetitivo.",
-      "Tiempos de respuesta más rápidos.",
-      "Menor costo operativo.",
-      "Empresas más escalables.",
+      {
+        title: "Más productividad.",
+        body: "La investigación, las respuestas, los reportes y la agenda repetitivos dejan de ocupar el día de tu equipo — Ventas, Soporte, Investigación y el Asistente Ejecutivo se encargan de eso de forma continua, para que tu gente use su tiempo en las decisiones que solo ellos pueden tomar.",
+      },
+      {
+        title: "Menos trabajo repetitivo.",
+        body: "Cada prospecto, pregunta y solicitud que llega se clasifica, se responde o se delega de la misma forma, todas las veces — sin que nadie de tu equipo tenga que hacerlo a mano.",
+      },
+      {
+        title: "Tiempos de respuesta más rápidos.",
+        body: "Los prospectos reciben seguimiento en minutos, no en días. Los clientes reciben respuesta en el momento en que escriben, sean las 3pm o las 3am, porque Soporte y el Agente de Ventas nunca se desconectan.",
+      },
+      {
+        title: "Menor costo operativo.",
+        body: "Un solo sistema coordinado reemplaza el trabajo administrativo manual de agendar, reportar y dar seguimiento a tareas que antes necesitaba a alguien vigilándolo — así que crecer ya no significa automáticamente contratar más gente.",
+      },
+      {
+        title: "Empresas más escalables.",
+        body: "Atendé el doble de prospectos o clientes sin necesidad de duplicar tu equipo — la fuerza laboral de IA absorbe el volumen extra, y el Agente de Analítica te mantiene con visión clara mientras creces.",
+      },
     ],
   },
   vision: {
@@ -490,15 +578,24 @@ const es: Dictionary = {
   },
   cta: {
     headline: "¿Listo para construir tu fuerza laboral de IA?",
-    body: "Cuéntanos a qué se dedica tu negocio. Te mostraremos dónde la IA puede trabajar para ti.",
+    body: "Chatea ahora mismo con nuestro Agente de Ventas — contale a qué se dedica tu negocio y te muestra dónde encaja la IA.",
     button: "Empezar a Construir",
-    nameLabel: "Nombre",
-    emailLabel: "Correo",
-    messageLabel: "¿A qué se dedica tu negocio?",
-    messagePlaceholder: "ej: tenemos una clínica dental pequeña y perdemos horas a la semana agendando y haciendo seguimiento.",
-    submitting: "Enviando…",
-    success: "Listo — lo recibimos. Te contactaremos pronto.",
-    error: "Algo salió mal. Escríbenos a hello@vlouxe.com.",
+  },
+  chat: {
+    salesTitle: "Agente de Ventas",
+    supportTitle: "Agente de Soporte",
+    needHelp: "¿Necesitas ayuda?",
+    needHelpBody: "Chatea con nuestro Agente de Soporte, acá mismo — sin formularios, sin esperas.",
+    needHelpButton: "Chatear con Soporte",
+    placeholder: "Escribe tu mensaje…",
+    send: "Enviar",
+    typing: "Escribiendo…",
+    error: "Algo salió mal. Intenta de nuevo en un momento.",
+    close: "Cerrar chat",
+    salesGreeting:
+      "¡Hola! Soy el Agente de Ventas de VLOUXE. Contame un poco de tu negocio y qué le está quitando tiempo a tu equipo — te muestro dónde encaja una fuerza laboral de IA.",
+    supportGreeting: "¡Hola! Soy el Agente de Soporte de VLOUXE. Preguntame lo que quieras sobre cómo funciona VLOUXE.",
+    switchToSales: "Hablar con Ventas en cambio",
   },
   footer: {
     tagline: "Fuerza laboral de IA para empresas modernas.",

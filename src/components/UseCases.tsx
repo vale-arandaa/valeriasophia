@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  Handshake,
-  Headset,
-  Megaphone,
-  Gear,
-  MagnifyingGlass,
-  ChartLineUp,
+  Timer,
+  Rocket,
+  PlugsConnected,
+  Translate,
+  ShieldCheck,
+  TrendUp,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Icon } from "@phosphor-icons/react";
 import Reveal from "./Reveal";
@@ -14,12 +14,12 @@ import { useLanguage } from "./LanguageProvider";
 import type { UseCaseId } from "@/lib/translations";
 
 const USE_CASE_ORDER: { id: UseCaseId; IconEl: Icon }[] = [
-  { id: "sales", IconEl: Handshake },
-  { id: "support", IconEl: Headset },
-  { id: "marketing", IconEl: Megaphone },
-  { id: "operations", IconEl: Gear },
-  { id: "research", IconEl: MagnifyingGlass },
-  { id: "analytics", IconEl: ChartLineUp },
+  { id: "alwaysOn", IconEl: Timer },
+  { id: "fastSetup", IconEl: Rocket },
+  { id: "integrates", IconEl: PlugsConnected },
+  { id: "bilingual", IconEl: Translate },
+  { id: "secure", IconEl: ShieldCheck },
+  { id: "scales", IconEl: TrendUp },
 ];
 
 export default function UseCases() {

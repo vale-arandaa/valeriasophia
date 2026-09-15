@@ -126,6 +126,16 @@ body {
   animation: float-slow 7s ease-in-out infinite;
 }
 
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
 /* Tiny-amplitude drift for the constellation items. Duration and delay are
    set per item via inline style so each one desyncs from its neighbors;
    this rule only supplies the keyframe, timing curve, and repeat. */
@@ -198,7 +208,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse-soft,
   .animate-float-slow,
-  .animate-beam-sweep {
+  .animate-beam-sweep,
+  .animate-spin-slow {
     animation: none;
   }
 }

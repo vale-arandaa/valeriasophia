@@ -11,7 +11,10 @@ export default function Footer() {
     <footer className="relative border-t border-border bg-background">
       <div className="container-vlouxe flex flex-col gap-10 py-16 sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-xs">
-          <Wordmark size="nav" />
+          <div className="flex items-center gap-2.5">
+            <img src="/logo-mark.png" alt="" width={28} height={28} className="h-7 w-7" />
+            <Wordmark size="nav" />
+          </div>
           <p className="mt-4 text-sm text-muted">{t.footer.tagline}</p>
         </div>
 

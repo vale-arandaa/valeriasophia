@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   Buildings,
-  Sparkle,
   Handshake,
   Megaphone,
   Headset,
@@ -108,6 +107,15 @@ export default function WorkforceDiagram() {
           fill="none"
           aria-hidden="true"
         >
+          <defs>
+            <linearGradient id="branchGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#b7bdff" />
+              <stop offset="100%" stopColor="rgba(110,123,255,0.35)" />
+            </linearGradient>
+            <filter id="branchGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="4" />
+            </filter>
+          </defs>
           <motion.path
             d={`M${VIEW_W / 2},92 L${VIEW_W / 2},202`}
             stroke="rgba(244,245,249,0.22)"
@@ -120,21 +128,34 @@ export default function WorkforceDiagram() {
           {FUNCTION_NODES.map((node, i) => {
             const controlX = VIEW_W / 2 + (node.x - VIEW_W / 2) * 0.45;
             const d = `M${VIEW_W / 2},296 Q${controlX},420 ${node.x},528`;
+            const transition = {
+              duration: 0.8,
+              delay: 0.25 + i * 0.08,
+              ease: "easeInOut" as const,
+            };
             return (
-              <motion.path
-                key={node.id}
-                d={d}
-                stroke="rgba(110,123,255,0.45)"
-                strokeWidth={1.5}
-                initial={reduce ? undefined : { pathLength: 0 }}
-                whileInView={reduce ? undefined : { pathLength: 1 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.25 + i * 0.08,
-                  ease: "easeInOut",
-                }}
-              />
+              <g key={node.id}>
+                {/* soft glow beneath the crisp line, for depth */}
+                <motion.path
+                  d={d}
+                  stroke="rgba(110,123,255,0.5)"
+                  strokeWidth={4}
+                  filter="url(#branchGlow)"
+                  initial={reduce ? undefined : { pathLength: 0 }}
+                  whileInView={reduce ? undefined : { pathLength: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={transition}
+                />
+                <motion.path
+                  d={d}
+                  stroke="url(#branchGrad)"
+                  strokeWidth={1.5}
+                  initial={reduce ? undefined : { pathLength: 0 }}
+                  whileInView={reduce ? undefined : { pathLength: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={transition}
+                />
+              </g>
             );
           })}
         </svg>
@@ -159,7 +180,7 @@ export default function WorkforceDiagram() {
         >
           <div className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-accent/40 bg-[radial-gradient(circle,rgba(110,123,255,0.25)_0%,rgba(16,19,29,1)_72%)]">
             <div className="absolute inset-0 rounded-full bg-accent/20 blur-xl animate-pulse-soft" />
-            <Sparkle size={30} weight="fill" className="relative text-accent" />
+            <img src="/logo-mark.png" alt="" width={36} height={36} className="relative h-9 w-9" />
           </div>
           <p className="mt-3 text-sm font-semibold tracking-[0.1em] text-foreground">
             {t.workforce.hubLabel}
@@ -197,6 +218,15 @@ export default function WorkforceDiagram() {
           fill="none"
           aria-hidden="true"
         >
+          <defs>
+            <linearGradient id="branchGradMobile" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#b7bdff" />
+              <stop offset="100%" stopColor="rgba(110,123,255,0.35)" />
+            </linearGradient>
+            <filter id="branchGlowMobile" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="3" />
+            </filter>
+          </defs>
           {trunkPath && (
             <motion.path
               d={trunkPath}
@@ -208,25 +238,39 @@ export default function WorkforceDiagram() {
               transition={{ duration: 0.6, ease: "easeInOut" }}
             />
           )}
-          {branchPaths.map((p, i) => (
-            <motion.path
-              key={p.id}
-              d={p.d}
-              stroke="rgba(110,123,255,0.45)"
-              strokeWidth={1.5}
-              initial={reduce ? undefined : { pathLength: 0 }}
-              whileInView={reduce ? undefined : { pathLength: 1 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.25 + i * 0.08,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
+          {branchPaths.map((p, i) => {
+            const transition = {
+              duration: 0.8,
+              delay: 0.25 + i * 0.08,
+              ease: "easeInOut" as const,
+            };
+            return (
+              <g key={p.id}>
+                <motion.path
+                  d={p.d}
+                  stroke="rgba(110,123,255,0.5)"
+                  strokeWidth={3.5}
+                  filter="url(#branchGlowMobile)"
+                  initial={reduce ? undefined : { pathLength: 0 }}
+                  whileInView={reduce ? undefined : { pathLength: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={transition}
+                />
+                <motion.path
+                  d={p.d}
+                  stroke="url(#branchGradMobile)"
+                  strokeWidth={1.3}
+                  initial={reduce ? undefined : { pathLength: 0 }}
+                  whileInView={reduce ? undefined : { pathLength: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={transition}
+                />
+              </g>
+            );
+          })}
         </svg>
 
-        <div className="flex flex-col items-center">
+        <div className="relative flex flex-col items-center">
           <div
             ref={businessRef}
             className="flex h-14 w-14 items-center justify-center rounded-full border border-border-strong bg-surface-elevated"
@@ -238,20 +282,20 @@ export default function WorkforceDiagram() {
           </p>
         </div>
 
-        <div className="flex flex-col items-center">
+        <div className="relative flex flex-col items-center">
           <div
             ref={hubRef}
             className="relative flex h-20 w-20 items-center justify-center rounded-full border border-accent/40 bg-[radial-gradient(circle,rgba(110,123,255,0.25)_0%,rgba(16,19,29,1)_72%)]"
           >
             <div className="absolute inset-0 rounded-full bg-accent/20 blur-xl animate-pulse-soft" />
-            <Sparkle size={26} weight="fill" className="relative text-accent" />
+            <img src="/logo-mark.png" alt="" width={32} height={32} className="relative h-8 w-8" />
           </div>
           <p className="mt-2 text-sm font-semibold tracking-[0.1em] text-foreground">
             {t.workforce.hubLabel}
           </p>
         </div>
 
-        <div className="flex flex-wrap items-start justify-center gap-x-3 gap-y-6">
+        <div className="relative flex flex-wrap items-start justify-center gap-x-3 gap-y-6">
           {FUNCTION_NODES.map((node) => {
             const { IconEl } = node;
             return (

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Handshake,
   Megaphone,
@@ -9,6 +10,7 @@ import {
   Briefcase,
   ChartLineUp,
   PenNib,
+  CaretDown,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Icon } from "@phosphor-icons/react";
 import Reveal from "./Reveal";
@@ -28,6 +30,7 @@ const AGENT_ORDER: { id: AgentId; IconEl: Icon; featured?: boolean }[] = [
 
 export default function Solution() {
   const { t } = useLanguage();
+  const [expanded, setExpanded] = useState<AgentId | null>(null);
 
   return (
     <section
@@ -51,12 +54,16 @@ export default function Solution() {
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:[grid-auto-flow:dense]">
           {AGENT_ORDER.map(({ id, IconEl, featured }, i) => {
             const agent = t.solution.agents[id];
+            const isOpen = expanded === id;
             return (
               <Reveal key={id} delay={0.04 * i} className="h-full">
-                <div
-                  className={`group relative flex h-full min-h-[168px] flex-col justify-between overflow-hidden rounded-[20px] border border-border p-6 transition-colors hover:border-border-strong ${
-                    featured ? "lg:col-span-2" : ""
-                  }`}
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setExpanded((cur) => (cur === id ? null : id))}
+                  className={`group relative flex h-full min-h-[168px] w-full flex-col justify-between overflow-hidden rounded-[20px] border p-6 text-left transition-colors ${
+                    isOpen ? "border-border-strong" : "border-border hover:border-border-strong"
+                  } ${featured ? "lg:col-span-2" : ""}`}
                   style={
                     featured
                       ? {
@@ -66,18 +73,39 @@ export default function Solution() {
                       : { background: "var(--surface-elevated)" }
                   }
                 >
-                  <IconEl
-                    size={26}
-                    weight="light"
-                    className="text-accent transition-transform group-hover:-translate-y-0.5"
-                  />
+                  <div className="flex items-start justify-between">
+                    <IconEl
+                      size={26}
+                      weight="light"
+                      className="text-accent transition-transform group-hover:-translate-y-0.5"
+                    />
+                    <CaretDown
+                      size={14}
+                      weight="bold"
+                      className={`mt-1 text-muted-dim transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </div>
                   <div>
                     <h3 className="text-base font-medium text-foreground">
                       {agent.name}
                     </h3>
                     <p className="mt-1.5 text-sm text-muted">{agent.blurb}</p>
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                        isOpen ? "grid-rows-[1fr] mt-3" : "grid-rows-[0fr]"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="text-sm text-muted">{agent.pitch}</p>
+                      </div>
+                    </div>
+                    {!isOpen && (
+                      <p className="mt-2 text-[11px] uppercase tracking-[0.08em] text-muted-dim opacity-0 transition-opacity group-hover:opacity-100">
+                        {t.solution.expandHint}
+                      </p>
+                    )}
                   </div>
-                </div>
+                </button>
               </Reveal>
             );
           })}

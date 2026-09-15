@@ -5,8 +5,8 @@ import { useLanguage } from "./LanguageProvider";
 import type { StepId } from "@/lib/translations";
 
 const STEP_ORDER: { id: StepId; number: string }[] = [
-  { id: "identify", number: "01" },
-  { id: "deploy", number: "02" },
+  { id: "purchase", number: "01" },
+  { id: "access", number: "02" },
   { id: "scale", number: "03" },
 ];
 
