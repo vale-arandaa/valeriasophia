@@ -84,7 +84,6 @@ export interface Dictionary {
   impact: {
     headline: string;
     body: string;
-    expandHint: string;
     outcomes: { title: string; body: string }[];
   };
   vision: {
@@ -372,7 +371,6 @@ const en: Dictionary = {
   impact: {
     headline: "Outcomes, not features.",
     body: "VLOUXE is built around what actually changes inside a business once an AI workforce takes on the repetitive work.",
-    expandHint: "Tap to see why",
     outcomes: [
       {
         title: "More productivity.",
@@ -698,7 +696,6 @@ const es: Dictionary = {
   impact: {
     headline: "Resultados, no funciones.",
     body: "VLOUXE está diseñado en torno a lo que realmente cambia dentro de una organización cuando una fuerza laboral de IA asume el trabajo repetitivo.",
-    expandHint: "Toca para ver por qué",
     outcomes: [
       {
         title: "Más productividad.",

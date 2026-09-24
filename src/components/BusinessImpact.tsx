@@ -46,11 +46,6 @@ export default function BusinessImpact() {
                       }`}
                     />
                   </div>
-                  {!isOpen && (
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.08em] text-muted-dim">
-                      {t.impact.expandHint}
-                    </p>
-                  )}
                   <div
                     className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                       isOpen ? "grid-rows-[1fr] mt-3" : "grid-rows-[0fr]"
