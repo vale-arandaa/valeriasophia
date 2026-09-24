@@ -284,9 +284,9 @@ const en: Dictionary = {
       },
       research: {
         name: "Research Agent",
-        blurb: "Tracks market and social media trends on its own.",
+        blurb: "Studies your market and your competition.",
         pitch:
-          "Every day, Research Agent studies what's trending in your market and on social media and turns it into clear, actionable insights — feeding your content and your decisions without anyone having to ask.",
+          "Every day, Research Agent studies your market and your competitors on its own, and tells you exactly how to stay ahead of them — the edge to push and the customer pain your competition isn't solving.",
       },
       executive: {
         name: "Executive Assistant",
@@ -302,9 +302,9 @@ const en: Dictionary = {
       },
       content: {
         name: "Content Agent",
-        blurb: "Creates trend-driven content that sells.",
+        blurb: "Creates content that hits your customers' pain.",
         pitch:
-          "Every day it turns what's trending on social media into content ideas for your business, using the persuasion techniques of today's top sellers — hooks that stop the scroll and messages that make people want to buy.",
+          "Every day it creates content that speaks straight to your customers' real pain and shows them how your business solves it — using the persuasion techniques of today's top sellers, with hooks that stop the scroll.",
       },
     },
   },
@@ -609,9 +609,9 @@ const es: Dictionary = {
       },
       research: {
         name: "Agente de Investigación",
-        blurb: "Sigue por su cuenta las tendencias del mercado y las redes.",
+        blurb: "Estudia tu mercado y a tu competencia.",
         pitch:
-          "Cada día, el Agente de Investigación estudia qué está en tendencia en tu mercado y en redes sociales y lo convierte en ideas claras y accionables — alimentando tu contenido y tus decisiones sin que nadie tenga que pedírselo.",
+          "Cada día, el Agente de Investigación estudia por su cuenta tu mercado y a tu competencia, y te dice exactamente cómo ponerte por encima — la ventaja que debes empujar y el dolor del cliente que tu competencia no está resolviendo.",
       },
       executive: {
         name: "Asistente Ejecutivo",
@@ -627,9 +627,9 @@ const es: Dictionary = {
       },
       content: {
         name: "Agente de Contenido",
-        blurb: "Crea contenido que vende, basado en tendencias.",
+        blurb: "Crea contenido que da en el dolor de tus clientes.",
         pitch:
-          "Cada día convierte lo que está en tendencia en redes sociales en ideas de contenido para tu negocio, usando las técnicas de persuasión de los vendedores más exitosos de hoy — ganchos que frenan el scroll y mensajes que dan ganas de comprar.",
+          "Cada día crea contenido que le habla directo al dolor real de tus clientes y les muestra cómo tu negocio lo soluciona — con las técnicas de persuasión de los vendedores más exitosos de hoy y ganchos que frenan el scroll.",
       },
     },
   },
