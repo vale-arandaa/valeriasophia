@@ -246,23 +246,13 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Panel de detalle de un agente (Solution.tsx): aparece deslizándose
-   suavemente debajo de la fila de la tarjeta abierta. */
-@keyframes agent-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.99);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.agent-panel-in {
-  animation: agent-panel-in 0.6s cubic-bezier(0.32, 0.72, 0, 1) both;
+/* Tarjeta de agente que se da vuelta (Solution.tsx). Con "reducir
+   movimiento" activado no gira: cambia de cara al instante. */
+.agent-flip {
+  transition: transform 0.9s cubic-bezier(0.32, 0.72, 0, 1);
 }
 @media (prefers-reduced-motion: reduce) {
-  .agent-panel-in {
-    animation: none;
+  .agent-flip {
+    transition: none;
   }
 }
