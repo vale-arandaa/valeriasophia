@@ -102,7 +102,7 @@ export default function Solution() {
                         style={{ background: "radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,0.065), transparent 65%)" }}
                       />
                       <span className="relative flex items-start justify-between">
-                        <IconEl size={22} weight="light" className="text-[#a9aee0] transition-colors duration-500 group-hover/card:text-[#e4e6ff]" />
+                        <IconEl size={22} weight="light" className="text-accent" />
                         <Plus size={14} weight="light" className="text-muted-dim transition-colors group-hover/card:text-foreground" />
                       </span>
                       <span className="relative block">
