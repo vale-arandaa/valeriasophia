@@ -74,6 +74,11 @@ export default function Solution() {
                   type="button"
                   aria-expanded={isOpen}
                   onClick={() => setExpanded((cur) => (cur === id ? null : id))}
+                  onPointerMove={(e) => {
+                    const r = e.currentTarget.getBoundingClientRect();
+                    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+                    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+                  }}
                   className="group/card relative block h-full w-full rounded-[20px] text-left [perspective:1400px] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
                 >
                   <span
@@ -85,16 +90,24 @@ export default function Solution() {
                         halos ni resplandores, solo superficie grafito, ícono
                         discreto, nombre y descripción bien legibles. */}
                     <span
-                      className="relative flex flex-col justify-between gap-7 overflow-hidden rounded-[20px] p-6 [grid-area:1/1] transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] [backface-visibility:hidden] group-hover/card:bg-[#15161c]"
+                      className="relative flex flex-col justify-between gap-7 overflow-hidden rounded-[20px] p-6 [grid-area:1/1] [backface-visibility:hidden]"
                       style={{ background: CARD_FRONT_BG, boxShadow: CARD_SHADOW }}
                     >
+                      {/* Luz suave que sigue al cursor — invisible hasta que
+                          pasas el mouse, como una luz sobre una superficie
+                          premium. No agrega adornos fijos al diseño. */}
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                        style={{ background: "radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,0.065), transparent 65%)" }}
+                      />
                       <span className="relative flex items-start justify-between">
-                        <IconEl size={22} weight="light" className="text-[#a9aee0]" />
+                        <IconEl size={22} weight="light" className="text-[#a9aee0] transition-colors duration-500 group-hover/card:text-[#e4e6ff]" />
                         <Plus size={14} weight="light" className="text-muted-dim transition-colors group-hover/card:text-foreground" />
                       </span>
                       <span className="relative block">
-                        <span className="block text-lg font-normal tracking-[-0.015em] text-foreground">{agent.name}</span>
-                        <span className="mt-2 block text-[15px] leading-relaxed text-[#b4b8c8]">{agent.blurb}</span>
+                        <span className="block text-[19px] font-normal tracking-[-0.02em] text-foreground">{agent.name}</span>
+                        <span className="mt-2 block text-[15px] leading-relaxed text-[#b4b8c8] transition-colors duration-500 group-hover/card:text-[#dcdee8]">{agent.blurb}</span>
                       </span>
                     </span>
 
