@@ -47,7 +47,7 @@ const GRAIN =
 // Reflejo de luz del borde que sigue al mouse (ver onPointerMove abajo) —
 // sin mouse encima queda arriba al centro y casi invisible.
 const BORDER_SPOTLIGHT =
-  "radial-gradient(220px circle at var(--mx, 50%) var(--my, -40%), rgba(214,204,255,0.75), transparent 70%)";
+  "radial-gradient(220px circle at var(--mx, 50%) var(--my, -40%), rgba(214,204,255,0.4), transparent 70%)";
 
 // Cuántas columnas tiene la grilla ahora mismo (1 / 2 / 4, igual que las
 // clases grid-cols de abajo) — hace falta para saber dónde termina la fila
@@ -132,7 +132,7 @@ export default function Solution() {
                     style={{
                       background: "linear-gradient(135deg, rgba(110,123,255,0.16) 0%, rgba(10,12,20,0.96) 65%)",
                       boxShadow: isOpen
-                        ? "0 24px 60px -24px rgba(110,123,255,0.55), inset 0 1px 1px rgba(255,255,255,0.1)"
+                        ? "0 20px 50px -30px rgba(110,123,255,0.45), inset 0 1px 1px rgba(255,255,255,0.08)"
                         : "0 18px 40px -28px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.06)",
                     }}
                   >
@@ -156,22 +156,9 @@ export default function Solution() {
                       className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
                       style={{
                         background:
-                          "radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(147,112,255,0.11), transparent 62%)",
+                          "radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(147,112,255,0.07), transparent 62%)",
                       }}
                     />
-                    {/* Destello diagonal que cruza la tarjeta al pasar el mouse. */}
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -translate-x-full skew-x-[-18deg] opacity-0 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:group-hover/card:translate-x-[420%] group-hover/card:opacity-100"
-                      style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)" }}
-                    />
-                    {/* Resplandor ambiental en la esquina inferior. */}
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -bottom-20 -right-16 h-44 w-44 rounded-full blur-3xl transition-opacity duration-700"
-                      style={{ background: "rgba(110,123,255,0.35)", opacity: isOpen ? 0.55 : 0.14 }}
-                    />
-
                     <div className="relative flex items-start justify-between">
                       {/* Ícono con doble anillo: uno exterior muy fino en
                           tono champagne y el círculo de vidrio adentro. */}
@@ -182,10 +169,10 @@ export default function Solution() {
                           aria-hidden="true"
                           className="pointer-events-none absolute -z-10 rounded-full blur-md transition-all duration-500"
                           style={{
-                            width: isOpen ? 80 : 44,
-                            height: isOpen ? 80 : 44,
+                            width: isOpen ? 56 : 44,
+                            height: isOpen ? 56 : 44,
                             background: ICON_GLOW,
-                            opacity: isOpen ? 0.85 : 0.3,
+                            opacity: isOpen ? 0.45 : 0.22,
                           }}
                         />
                         <span
@@ -234,60 +221,30 @@ export default function Solution() {
               {i === panelAfter && expanded && (() => {
                 const open = AGENT_ORDER[openIndex];
                 const openAgent = t.solution.agents[open.id];
-                const OpenIcon = open.IconEl;
                 const tipLeft = `${(((openIndex % cols) + 0.5) / cols) * 100}%`;
                 return (
                   <div key={`panel-${open.id}`} className="agent-panel-in relative col-span-full">
-                    {/* Punta que conecta el panel con la tarjeta abierta. */}
+                    {/* Panel sobrio: borde fino, fondo plano, solo texto. La
+                        punta señala la tarjeta abierta. */}
                     <span
                       aria-hidden="true"
-                      className="absolute -top-[6px] z-10 h-3 w-3 -translate-x-1/2 rotate-45 border-l border-t"
-                      style={{ left: tipLeft, borderColor: "rgba(185,166,255,0.55)", background: "#15172a" }}
+                      className="absolute -top-[5px] z-10 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t"
+                      style={{ left: tipLeft, borderColor: "rgba(244,245,249,0.14)", background: "#0e1019" }}
                     />
                     <div
-                      className="rounded-[22px] p-px"
-                      style={{ background: "linear-gradient(120deg, rgba(147,112,255,0.55), rgba(110,123,255,0.14) 45%, rgba(217,199,163,0.16) 100%)" }}
+                      className="relative grid gap-4 rounded-[20px] border px-8 py-9 sm:px-12 md:grid-cols-[minmax(0,1fr)_minmax(0,2.2fr)] md:gap-16"
+                      style={{ borderColor: "rgba(244,245,249,0.14)", background: "#0e1019" }}
                     >
-                      <div
-                        className="relative grid gap-8 overflow-hidden rounded-[21px] p-8 sm:p-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)] md:gap-14"
-                        style={{
-                          background: "linear-gradient(120deg, #15172a 0%, rgba(10,12,20,0.98) 60%)",
-                          boxShadow: "0 30px 80px -40px rgba(110,123,255,0.6), inset 0 1px 1px rgba(255,255,255,0.08)",
-                        }}
+                      <p className="text-[15px] font-normal tracking-[-0.01em] text-foreground">{openAgent.name}</p>
+                      <p className="max-w-2xl pr-8 text-[15px] font-light leading-[1.85] text-muted">{openAgent.pitch}</p>
+                      <button
+                        type="button"
+                        aria-label="Cerrar"
+                        onClick={() => setExpanded(null)}
+                        className="absolute right-5 top-5 flex h-7 w-7 items-center justify-center rounded-full text-muted-dim transition-colors hover:text-foreground"
                       >
-                        <span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay" style={{ backgroundImage: GRAIN }} />
-                        <span
-                          aria-hidden="true"
-                          className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full blur-3xl"
-                          style={{ background: "rgba(147,112,255,0.22)" }}
-                        />
-                        <div className="relative">
-                          <span className="relative isolate inline-flex h-16 w-16 items-center justify-center rounded-full border" style={{ borderColor: "rgba(217,199,163,0.4)" }}>
-                            <span aria-hidden="true" className="pointer-events-none absolute -z-10 h-24 w-24 rounded-full blur-md" style={{ background: ICON_GLOW, opacity: 0.7 }} />
-                            <span
-                              className="flex h-12 w-12 items-center justify-center rounded-full border"
-                              style={{ borderColor: "rgba(185,166,255,0.6)", background: "linear-gradient(160deg, rgba(147,112,255,0.32), rgba(110,123,255,0.08))" }}
-                            >
-                              <OpenIcon size={22} weight="light" color="#e7e3ff" />
-                            </span>
-                          </span>
-                          <h3 className="mt-6 text-2xl font-light tracking-[-0.02em] text-foreground">{openAgent.name}</h3>
-                          <p className="mt-2 text-sm font-light leading-relaxed text-muted">{openAgent.blurb}</p>
-                        </div>
-                        <div className="relative flex flex-col justify-center md:border-l md:pl-14" style={{ borderColor: "rgba(244,245,249,0.08)" }}>
-                          <span aria-hidden="true" className="mb-5 block h-px w-12" style={{ background: "rgba(217,199,163,0.55)" }} />
-                          <p className="text-base font-light leading-[1.8] text-foreground/85 sm:text-[17px]">{openAgent.pitch}</p>
-                        </div>
-                        <button
-                          type="button"
-                          aria-label="Cerrar"
-                          onClick={() => setExpanded(null)}
-                          className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full border transition-colors hover:border-[rgba(217,199,163,0.5)]"
-                          style={{ borderColor: "rgba(244,245,249,0.12)" }}
-                        >
-                          <Plus size={13} weight="thin" color="#e9dcc0" style={{ transform: "rotate(45deg)" }} />
-                        </button>
-                      </div>
+                        <Plus size={14} weight="thin" style={{ transform: "rotate(45deg)" }} />
+                      </button>
                     </div>
                   </div>
                 );
