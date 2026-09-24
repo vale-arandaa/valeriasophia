@@ -223,8 +223,8 @@ const en: Dictionary = {
   },
   problem: {
     eyebrow: "The Solution",
-    headline: "Stop building your business around repetitive work.",
-    body: "Modern businesses still spend thousands of hours a year on work that follows the same pattern every time.",
+    headline: "Let AI handle the repetitive work.",
+    body: "VLOUXE takes over the tasks that repeat every single day — so your team gets its time back for the work that actually grows your business.",
     items: {
       responses: {
         title: "Automated Responses",
@@ -548,8 +548,8 @@ const es: Dictionary = {
   },
   problem: {
     eyebrow: "La Solución",
-    headline: "Deja de construir tu compañía alrededor de trabajo repetitivo.",
-    body: "Las organizaciones modernas siguen invirtiendo miles de horas al año en tareas que se repiten de la misma forma cada vez.",
+    headline: "Deja que la IA se encargue del trabajo repetitivo.",
+    body: "VLOUXE asume las tareas que se repiten todos los días, para que tu equipo recupere su tiempo y lo dedique al trabajo que de verdad hace crecer tu negocio.",
     items: {
       responses: {
         title: "Respuestas Automáticas",

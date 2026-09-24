@@ -68,7 +68,7 @@ export default function Solution() {
             detalle en el reverso — la grilla nunca cambia de tamaño ni de
             forma (antes la tarjeta abierta estiraba toda su fila y dejaba
             huecos vacíos en las demás). */}
-        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {AGENT_ORDER.map(({ id, IconEl }, i) => {
             const agent = t.solution.agents[id];
             const isOpen = expanded === id;
@@ -78,10 +78,10 @@ export default function Solution() {
                   type="button"
                   aria-expanded={isOpen}
                   onClick={() => setExpanded((cur) => (cur === id ? null : id))}
-                  className="group/card relative block h-full min-h-[288px] w-full text-left [perspective:1400px]"
+                  className="group/card relative block h-full w-full text-left [perspective:1400px]"
                 >
                   <span
-                    className="agent-flip relative block h-full min-h-[288px] w-full [transform-style:preserve-3d]"
+                    className="agent-flip relative grid h-full w-full [transform-style:preserve-3d]"
                     style={{ transform: isOpen ? "rotateY(180deg)" : "none" }}
                   >
                     {/* FRENTE — mismo lenguaje que el resto de las tarjetas
@@ -89,7 +89,7 @@ export default function Solution() {
                         en color de acento, título y texto. Sin líneas de
                         contorno: el lujo viene de la luz y la sombra. */}
                     <span
-                      className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[20px] p-7 transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] [backface-visibility:hidden] motion-safe:group-hover/card:-translate-y-1 group-hover/card:shadow-[0_30px_60px_-30px_rgba(110,123,255,0.45)]"
+                      className="relative flex flex-col justify-between gap-7 overflow-hidden rounded-[20px] p-6 [grid-area:1/1] transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] [backface-visibility:hidden] motion-safe:group-hover/card:-translate-y-1 group-hover/card:shadow-[0_30px_60px_-30px_rgba(110,123,255,0.45)]"
                       style={{ background: CARD_FRONT_BG, boxShadow: CARD_SHADOW }}
                     >
                       <span
@@ -116,7 +116,7 @@ export default function Solution() {
 
                     {/* REVERSO */}
                     <span
-                      className="absolute inset-0 flex flex-col overflow-hidden rounded-[20px] p-7 [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                      className="relative flex flex-col overflow-hidden rounded-[20px] px-5 py-5 [backface-visibility:hidden] [grid-area:1/1] [transform:rotateY(180deg)]"
                       style={{ background: CARD_BACK_BG, boxShadow: CARD_SHADOW }}
                     >
                       <span
@@ -128,7 +128,7 @@ export default function Solution() {
                         <span className="text-sm font-medium tracking-tight text-foreground">{agent.name}</span>
                         <Plus size={14} weight="light" className="rotate-45 text-muted" />
                       </span>
-                      <span className="relative mt-5 block text-[13.5px] leading-[1.7] text-muted">{agent.pitch}</span>
+                      <span className="relative mt-2.5 block text-[12.5px] leading-[1.55] text-muted">{agent.pitch}</span>
                     </span>
                   </span>
                 </button>
