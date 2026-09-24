@@ -38,8 +38,8 @@ const AGENT_ORDER: { id: AgentId; IconEl: Icon }[] = [
 const ICON_GLOW = "radial-gradient(circle, rgba(180,190,255,0.95) 0%, rgba(110,123,255,0.4) 45%, transparent 76%)";
 
 const CARD_FRONT_BG = "linear-gradient(135deg, rgba(110,123,255,0.16) 0%, rgba(10,12,20,0.96) 65%)";
-const CARD_BACK_BG = "linear-gradient(160deg, rgba(110,123,255,0.1) 0%, rgba(12,14,24,0.98) 55%)";
-const HAIRLINE = "linear-gradient(90deg, rgba(217,199,163,0.3), rgba(244,245,249,0.06) 60%, transparent)";
+const CARD_BACK_BG = "linear-gradient(160deg, rgba(110,123,255,0.12) 0%, var(--surface-elevated) 60%)";
+const CARD_SHADOW = "0 24px 50px -32px rgba(0,0,0,0.9)";
 
 export default function Solution() {
   const { t } = useLanguage();
@@ -84,81 +84,51 @@ export default function Solution() {
                     className="agent-flip relative block h-full min-h-[288px] w-full [transform-style:preserve-3d]"
                     style={{ transform: isOpen ? "rotateY(180deg)" : "none" }}
                   >
-                    {/* FRENTE */}
+                    {/* FRENTE — mismo lenguaje que el resto de las tarjetas
+                        del sitio (UseCases): fondo de superficie, ícono suelto
+                        en color de acento, título y texto. Sin líneas de
+                        contorno: el lujo viene de la luz y la sombra. */}
                     <span
-                      className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[22px] border p-7 transition-[border-color,transform] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] [backface-visibility:hidden] group-hover/card:border-[rgba(244,245,249,0.2)] motion-safe:group-hover/card:-translate-y-1"
-                      style={{
-                        background: CARD_FRONT_BG,
-                        borderColor: "rgba(244,245,249,0.1)",
-                        boxShadow: "0 18px 40px -28px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.06)",
-                      }}
+                      className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[20px] p-7 transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] [backface-visibility:hidden] motion-safe:group-hover/card:-translate-y-1 group-hover/card:shadow-[0_30px_60px_-30px_rgba(110,123,255,0.45)]"
+                      style={{ background: CARD_FRONT_BG, boxShadow: CARD_SHADOW }}
                     >
                       <span
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-8 top-0 h-px"
-                        style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)" }}
+                        className="pointer-events-none absolute -left-16 -top-16 h-48 w-48 rounded-full blur-3xl transition-opacity duration-700 group-hover/card:opacity-100"
+                        style={{ background: "rgba(110,123,255,0.22)", opacity: 0.6 }}
                       />
                       <span className="relative flex items-start justify-between">
-                        <span
-                          className="relative isolate inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border"
-                          style={{ borderColor: "rgba(217,199,163,0.16)" }}
-                        >
+                        <span className="relative isolate inline-flex">
                           <span
                             aria-hidden="true"
-                            className="pointer-events-none absolute -z-10 h-11 w-11 rounded-full blur-md transition-opacity duration-500 group-hover/card:opacity-40"
-                            style={{ background: ICON_GLOW, opacity: 0.22 }}
+                            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full blur-lg transition-opacity duration-500 group-hover/card:opacity-60"
+                            style={{ background: ICON_GLOW, opacity: 0.3 }}
                           />
-                          <span
-                            className="flex h-11 w-11 items-center justify-center rounded-full border"
-                            style={{
-                              borderColor: "var(--border-strong)",
-                              background: "linear-gradient(160deg, rgba(244,245,249,0.08), rgba(244,245,249,0.02))",
-                            }}
-                          >
-                            <IconEl size={20} weight="light" color="var(--accent)" />
-                          </span>
+                          <IconEl size={26} weight="light" className="text-accent" />
                         </span>
-                        <span
-                          className="mt-1 flex h-7 w-7 items-center justify-center rounded-full border"
-                          style={{ borderColor: "rgba(244,245,249,0.1)" }}
-                        >
-                          <Plus size={12} weight="thin" color="var(--muted)" />
-                        </span>
+                        <Plus size={14} weight="light" className="text-muted-dim transition-colors group-hover/card:text-foreground" />
                       </span>
-                      <span className="relative mt-10 block">
-                        <span aria-hidden="true" className="mb-5 block h-px w-full" style={{ background: HAIRLINE }} />
-                        <span className="block text-[17px] font-normal tracking-[-0.015em] text-foreground">
-                          {agent.name}
-                        </span>
-                        <span className="mt-2 block text-[13.5px] font-light leading-relaxed text-muted">
-                          {agent.blurb}
-                        </span>
+                      <span className="relative block">
+                        <span className="block text-lg font-medium tracking-tight text-foreground">{agent.name}</span>
+                        <span className="mt-2 block text-sm text-muted">{agent.blurb}</span>
                       </span>
                     </span>
 
                     {/* REVERSO */}
                     <span
-                      className="absolute inset-0 flex flex-col overflow-hidden rounded-[22px] border p-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
-                      style={{
-                        background: CARD_BACK_BG,
-                        borderColor: "rgba(217,199,163,0.22)",
-                        boxShadow: "0 20px 50px -30px rgba(110,123,255,0.45), inset 0 1px 1px rgba(255,255,255,0.06)",
-                      }}
+                      className="absolute inset-0 flex flex-col overflow-hidden rounded-[20px] p-7 [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                      style={{ background: CARD_BACK_BG, boxShadow: CARD_SHADOW }}
                     >
-                      <span className="flex items-center justify-between">
-                        <span className="flex items-center gap-2.5">
-                          <IconEl size={16} weight="light" color="#cfc8ff" />
-                          <span className="text-[13px] font-normal tracking-[-0.005em] text-foreground">{agent.name}</span>
-                        </span>
-                        <span
-                          className="flex h-7 w-7 items-center justify-center rounded-full border"
-                          style={{ borderColor: "rgba(217,199,163,0.35)" }}
-                        >
-                          <Plus size={12} weight="thin" color="#e9dcc0" style={{ transform: "rotate(45deg)" }} />
-                        </span>
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -bottom-20 -right-16 h-52 w-52 rounded-full blur-3xl"
+                        style={{ background: "rgba(110,123,255,0.18)" }}
+                      />
+                      <span className="relative flex items-center justify-between">
+                        <span className="text-sm font-medium tracking-tight text-foreground">{agent.name}</span>
+                        <Plus size={14} weight="light" className="rotate-45 text-muted" />
                       </span>
-                      <span aria-hidden="true" className="my-4 block h-px w-full" style={{ background: HAIRLINE }} />
-                      <span className="block text-[13px] font-light leading-[1.7] text-foreground/80">{agent.pitch}</span>
+                      <span className="relative mt-5 block text-[13.5px] leading-[1.7] text-muted">{agent.pitch}</span>
                     </span>
                   </span>
                 </button>
