@@ -10,7 +10,7 @@ import {
   Briefcase,
   ChartLineUp,
   PenNib,
-  CaretDown,
+  Plus,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Icon } from "@phosphor-icons/react";
 import Reveal from "./Reveal";
@@ -40,6 +40,9 @@ const AGENT_ORDER: { id: AgentId; IconEl: Icon }[] = [
 // sientan parte del mismo lenguaje visual "futurista" del resto del sitio,
 // en vez de un grid de tarjetas planas aparte.
 const ICON_GLOW = "radial-gradient(circle, rgba(180,190,255,0.95) 0%, rgba(110,123,255,0.4) 45%, transparent 76%)";
+
+const GRAIN =
+  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
 // Reflejo de luz del borde que sigue al mouse (ver onPointerMove abajo) —
 // sin mouse encima queda arriba al centro y casi invisible.
@@ -111,26 +114,33 @@ export default function Solution() {
                       className="pointer-events-none absolute inset-x-8 top-0 h-px"
                       style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)" }}
                     />
+                    {/* Grano muy sutil, como papel o metal cepillado — le quita
+                        el aspecto "plástico" al degradado. */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay"
+                      style={{ backgroundImage: GRAIN }}
+                    />
                     {/* Luz interior que sigue al mouse. */}
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
                       style={{
                         background:
-                          "radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(147,112,255,0.16), transparent 60%)",
+                          "radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(147,112,255,0.11), transparent 62%)",
                       }}
                     />
                     {/* Destello diagonal que cruza la tarjeta al pasar el mouse. */}
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -translate-x-full skew-x-[-18deg] opacity-0 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:group-hover/card:translate-x-[420%] group-hover/card:opacity-100"
-                      style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)" }}
+                      style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)" }}
                     />
                     {/* Resplandor ambiental en la esquina inferior. */}
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute -bottom-20 -right-16 h-44 w-44 rounded-full blur-3xl transition-opacity duration-700"
-                      style={{ background: "rgba(110,123,255,0.35)", opacity: isOpen ? 0.7 : 0.25 }}
+                      style={{ background: "rgba(110,123,255,0.35)", opacity: isOpen ? 0.55 : 0.14 }}
                     />
 
                     <div className="relative flex items-start justify-between">
@@ -166,37 +176,37 @@ export default function Solution() {
                           />
                         </span>
                       </span>
-                      <div className="flex items-center gap-3 pt-1">
-                        <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.24em]" style={{ color: "rgba(217,199,163,0.75)" }}>
-                          <span aria-hidden="true" className="h-px w-5" style={{ background: "rgba(217,199,163,0.4)" }} />
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <CaretDown
-                          size={13}
-                          weight="bold"
-                          className={`text-muted-dim transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-                        />
-                      </div>
+                      {/* Un "+" finísimo en vez de una flecha: gira a "×" al abrir. */}
+                      <span
+                        className="mt-1 flex h-7 w-7 items-center justify-center rounded-full border transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                        style={{
+                          borderColor: isOpen ? "rgba(217,199,163,0.45)" : "rgba(244,245,249,0.1)",
+                          transform: isOpen ? "rotate(45deg)" : "none",
+                        }}
+                      >
+                        <Plus size={12} weight="thin" color={isOpen ? "#e9dcc0" : "var(--muted)"} />
+                      </span>
                     </div>
-                    <div className="relative mt-8">
-                      <h3 className="text-[17px] font-medium tracking-[-0.01em] text-foreground">
+                    <div className="relative mt-10">
+                      {/* Filete fino que separa el ícono del texto. */}
+                      <span
+                        aria-hidden="true"
+                        className="mb-5 block h-px w-full"
+                        style={{ background: "linear-gradient(90deg, rgba(217,199,163,0.28), rgba(244,245,249,0.06) 60%, transparent)" }}
+                      />
+                      <h3 className="text-[17px] font-normal tracking-[-0.015em] text-foreground">
                         {agent.name}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted">{agent.blurb}</p>
+                      <p className="mt-2 text-[13.5px] font-light leading-relaxed text-muted">{agent.blurb}</p>
                       <div
                         className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                           isOpen ? "grid-rows-[1fr] mt-3" : "grid-rows-[0fr]"
                         }`}
                       >
                         <div className="overflow-hidden">
-                          <p className="text-sm leading-relaxed text-muted">{agent.pitch}</p>
+                          <p className="text-[13.5px] font-light leading-relaxed text-muted">{agent.pitch}</p>
                         </div>
                       </div>
-                      {!isOpen && (
-                        <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-muted-dim opacity-0 transition-opacity group-hover/card:opacity-100">
-                          {t.solution.expandHint}
-                        </p>
-                      )}
                     </div>
                   </button>
                 </div>
