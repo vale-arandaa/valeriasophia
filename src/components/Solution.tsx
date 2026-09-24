@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   Handshake,
   Megaphone,
@@ -49,9 +49,33 @@ const GRAIN =
 const BORDER_SPOTLIGHT =
   "radial-gradient(220px circle at var(--mx, 50%) var(--my, -40%), rgba(214,204,255,0.75), transparent 70%)";
 
+// Cuántas columnas tiene la grilla ahora mismo (1 / 2 / 4, igual que las
+// clases grid-cols de abajo) — hace falta para saber dónde termina la fila
+// de la tarjeta abierta y meter el panel de detalle justo debajo de ella.
+function useGridColumns() {
+  const [cols, setCols] = useState(4);
+  useEffect(() => {
+    const lg = window.matchMedia("(min-width: 1024px)");
+    const sm = window.matchMedia("(min-width: 640px)");
+    const update = () => setCols(lg.matches ? 4 : sm.matches ? 2 : 1);
+    update();
+    lg.addEventListener("change", update);
+    sm.addEventListener("change", update);
+    return () => {
+      lg.removeEventListener("change", update);
+      sm.removeEventListener("change", update);
+    };
+  }, []);
+  return cols;
+}
+
 export default function Solution() {
   const { t } = useLanguage();
   const [expanded, setExpanded] = useState<AgentId | null>(null);
+  const cols = useGridColumns();
+  const openIndex = AGENT_ORDER.findIndex((a) => a.id === expanded);
+  // Última tarjeta de la fila donde está la abierta: el panel va después de ella.
+  const panelAfter = openIndex === -1 ? -1 : Math.min(Math.floor(openIndex / cols) * cols + cols - 1, AGENT_ORDER.length - 1);
 
   return (
     <section
@@ -72,12 +96,17 @@ export default function Solution() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Las tarjetas NUNCA cambian de tamaño: al abrir una, su detalle
+            aparece en un panel a lo ancho, justo debajo de su fila (con una
+            punta que señala la tarjeta). Antes la tarjeta abierta crecía y
+            estiraba toda la fila, dejando las demás con un hueco vacío. */}
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {AGENT_ORDER.map(({ id, IconEl }, i) => {
             const agent = t.solution.agents[id];
             const isOpen = expanded === id;
             return (
-              <Reveal key={id} delay={0.04 * i} className="h-full">
+              <Fragment key={id}>
+              <Reveal delay={0.04 * i} className="h-full">
                 {/* Marco exterior: borde-gradiente de 1px (el "doble marco"
                     de lujo). Además del degradado fijo, lleva un reflejo de
                     luz que sigue al mouse (--mx/--my), así el borde se
@@ -99,7 +128,7 @@ export default function Solution() {
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setExpanded((cur) => (cur === id ? null : id))}
-                    className="relative flex h-full min-h-[196px] w-full flex-col justify-between overflow-hidden rounded-[21px] p-7 text-left backdrop-blur-xl transition-[box-shadow,transform] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:group-hover/card:-translate-y-1"
+                    className="relative flex h-full min-h-[236px] w-full flex-col justify-between overflow-hidden rounded-[21px] p-7 text-left backdrop-blur-xl transition-[box-shadow,transform] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:group-hover/card:-translate-y-1"
                     style={{
                       background: "linear-gradient(135deg, rgba(110,123,255,0.16) 0%, rgba(10,12,20,0.96) 65%)",
                       boxShadow: isOpen
@@ -198,19 +227,72 @@ export default function Solution() {
                         {agent.name}
                       </h3>
                       <p className="mt-2 text-[13.5px] font-light leading-relaxed text-muted">{agent.blurb}</p>
-                      <div
-                        className={`grid transition-[grid-template-rows] duration-300 ease-out ${
-                          isOpen ? "grid-rows-[1fr] mt-3" : "grid-rows-[0fr]"
-                        }`}
-                      >
-                        <div className="overflow-hidden">
-                          <p className="text-[13.5px] font-light leading-relaxed text-muted">{agent.pitch}</p>
-                        </div>
-                      </div>
                     </div>
                   </button>
                 </div>
               </Reveal>
+              {i === panelAfter && expanded && (() => {
+                const open = AGENT_ORDER[openIndex];
+                const openAgent = t.solution.agents[open.id];
+                const OpenIcon = open.IconEl;
+                const tipLeft = `${(((openIndex % cols) + 0.5) / cols) * 100}%`;
+                return (
+                  <div key={`panel-${open.id}`} className="agent-panel-in relative col-span-full">
+                    {/* Punta que conecta el panel con la tarjeta abierta. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute -top-[6px] z-10 h-3 w-3 -translate-x-1/2 rotate-45 border-l border-t"
+                      style={{ left: tipLeft, borderColor: "rgba(185,166,255,0.55)", background: "#15172a" }}
+                    />
+                    <div
+                      className="rounded-[22px] p-px"
+                      style={{ background: "linear-gradient(120deg, rgba(147,112,255,0.55), rgba(110,123,255,0.14) 45%, rgba(217,199,163,0.16) 100%)" }}
+                    >
+                      <div
+                        className="relative grid gap-8 overflow-hidden rounded-[21px] p-8 sm:p-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)] md:gap-14"
+                        style={{
+                          background: "linear-gradient(120deg, #15172a 0%, rgba(10,12,20,0.98) 60%)",
+                          boxShadow: "0 30px 80px -40px rgba(110,123,255,0.6), inset 0 1px 1px rgba(255,255,255,0.08)",
+                        }}
+                      >
+                        <span aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay" style={{ backgroundImage: GRAIN }} />
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full blur-3xl"
+                          style={{ background: "rgba(147,112,255,0.22)" }}
+                        />
+                        <div className="relative">
+                          <span className="relative isolate inline-flex h-16 w-16 items-center justify-center rounded-full border" style={{ borderColor: "rgba(217,199,163,0.4)" }}>
+                            <span aria-hidden="true" className="pointer-events-none absolute -z-10 h-24 w-24 rounded-full blur-md" style={{ background: ICON_GLOW, opacity: 0.7 }} />
+                            <span
+                              className="flex h-12 w-12 items-center justify-center rounded-full border"
+                              style={{ borderColor: "rgba(185,166,255,0.6)", background: "linear-gradient(160deg, rgba(147,112,255,0.32), rgba(110,123,255,0.08))" }}
+                            >
+                              <OpenIcon size={22} weight="light" color="#e7e3ff" />
+                            </span>
+                          </span>
+                          <h3 className="mt-6 text-2xl font-light tracking-[-0.02em] text-foreground">{openAgent.name}</h3>
+                          <p className="mt-2 text-sm font-light leading-relaxed text-muted">{openAgent.blurb}</p>
+                        </div>
+                        <div className="relative flex flex-col justify-center md:border-l md:pl-14" style={{ borderColor: "rgba(244,245,249,0.08)" }}>
+                          <span aria-hidden="true" className="mb-5 block h-px w-12" style={{ background: "rgba(217,199,163,0.55)" }} />
+                          <p className="text-base font-light leading-[1.8] text-foreground/85 sm:text-[17px]">{openAgent.pitch}</p>
+                        </div>
+                        <button
+                          type="button"
+                          aria-label="Cerrar"
+                          onClick={() => setExpanded(null)}
+                          className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full border transition-colors hover:border-[rgba(217,199,163,0.5)]"
+                          style={{ borderColor: "rgba(244,245,249,0.12)" }}
+                        >
+                          <Plus size={13} weight="thin" color="#e9dcc0" style={{ transform: "rotate(45deg)" }} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+              </Fragment>
             );
           })}
         </div>
