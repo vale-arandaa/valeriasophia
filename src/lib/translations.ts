@@ -222,7 +222,7 @@ const en: Dictionary = {
     secondaryCta: "Explore AI Agents",
   },
   problem: {
-    eyebrow: "The Problem",
+    eyebrow: "The Solution",
     headline: "Stop building your business around repetitive work.",
     body: "Modern businesses still spend thousands of hours a year on work that follows the same pattern every time.",
     items: {
@@ -547,7 +547,7 @@ const es: Dictionary = {
     secondaryCta: "Explora los Agentes de IA",
   },
   problem: {
-    eyebrow: "El Problema",
+    eyebrow: "La Solución",
     headline: "Deja de construir tu compañía alrededor de trabajo repetitivo.",
     body: "Las organizaciones modernas siguen invirtiendo miles de horas al año en tareas que se repiten de la misma forma cada vez.",
     items: {
