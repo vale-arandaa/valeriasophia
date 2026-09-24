@@ -39,7 +39,13 @@ export default function Footer() {
           <p>
             &copy; {new Date().getFullYear()} VLOUXE. {t.footer.rights}
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-6">
+            <Link href="/schedule" className="transition-colors hover:text-foreground">
+              {t.footer.scheduleLabel}
+            </Link>
+            <Link href="/support" className="transition-colors hover:text-foreground">
+              {t.footer.supportLabel}
+            </Link>
             <Link href="/privacy" className="transition-colors hover:text-foreground">
               {t.footer.privacyLabel}
             </Link>

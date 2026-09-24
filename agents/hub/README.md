@@ -71,27 +71,33 @@ gh repo create vlouxe --private --source=. --push
 3. Wait for DNS to propagate (usually minutes), then visit
    `https://agents.vlouxe.com` and log in with `HUB_USERNAME` / `HUB_PASSWORD`.
 
-## Real leads + a fully automatic Automation Agent
+## Real leads + making each agent run on its own
 
 The site's contact form (`FinalCTA.tsx` on the main vlouxe.com site) posts to
 `POST /api/leads` on this app, which writes each submission straight into
 the Automation Agent's `workspace/automatizacion/data/`. No manual
 copy-pasting needed — whatever a visitor submits is what the agent sees.
 
-To make it run on its own every morning (not just when someone opens the
-panel and clicks a button):
+By default an agent only runs when someone opens the panel and clicks
+"Ejecutar". To make an agent run **on its own, on a schedule**, add a Render
+Cron Job for it — one per agent, since each has a different rhythm that
+makes sense (leads should be checked daily, a business review makes more
+sense weekly):
 
 1. In Render, **New** → **Cron Job** → connect the same GitHub repo.
-2. Root directory: `agents/hub`. Build command: `npm install`. Command:
-   `npm run cron:automatizacion`.
-3. Schedule: `0 13 * * *` (13:00 UTC — adjust for your timezone).
-4. Environment variables: `HUB_USERNAME`, `HUB_PASSWORD` (same values as the
-   web service), and `HUB_BASE_URL=https://agents.vlouxe.com`.
+2. Root directory: `agents/hub`. Build command: `npm install`.
+3. Command and schedule, per agent:
+   - Automatización (daily): `npm run cron:automatizacion`, schedule `0 13 * * *`
+   - Optimización (weekly, Mondays): `npm run cron:analytics`, schedule `0 13 * * 1`
+4. Environment variables (same for both): `HUB_USERNAME`, `HUB_PASSWORD`
+   (same values as the web service), and `HUB_BASE_URL=https://agents.vlouxe.com`.
 
-Each run logs in, asks the Automation Agent to work through whatever's in
-`workspace/automatizacion/data/`, and the report lands in
-`workspace/automatizacion/reports/` — visible next time you open the panel,
-with zero manual steps.
+Each run logs in, asks that agent to work through whatever's in its own
+`workspace/<agent-id>/data/`, and the report lands in
+`workspace/<agent-id>/reports/` — visible next time you open the panel, with
+zero manual steps. To add a schedule for a future third agent, add a
+`cron:<id>` script to `package.json` (see `cron:analytics` for the pattern —
+it's the same `cron-run.ts` script, just a different `AGENT_ID`).
 
 ## Adding or editing an agent
 

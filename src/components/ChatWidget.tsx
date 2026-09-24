@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   ChatCircleDots,
   X,
   PaperPlaneTilt,
-  Handshake,
+  UserCircle,
   Headset,
 } from "@phosphor-icons/react/dist/ssr";
 import { useLanguage } from "./LanguageProvider";
@@ -26,7 +27,9 @@ export function openChat(agent: ChatAgent) {
 }
 
 export default function ChatWidget() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [agent, setAgent] = useState<ChatAgent>("support");
   const [threads, setThreads] = useState<Record<ChatAgent, ChatMessage[]>>({
@@ -65,6 +68,49 @@ export default function ChatWidget() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [threads, sending, open]);
 
+  // Cambiar el interruptor EN/ES reinicia la charla entera en el nuevo
+  // idioma (no solo la bienvenida) — traducir mensajes ya escritos/generados
+  // no es algo que se pueda hacer bien, así que en vez de mezclar dos
+  // idiomas en el mismo hilo, arranca de cero, ya en el idioma correcto.
+  const isFirstLocaleRef = useRef(true);
+  useEffect(() => {
+    if (isFirstLocaleRef.current) {
+      isFirstLocaleRef.current = false;
+      return;
+    }
+    setError(false);
+    setThreads({
+      sales: [{ role: "assistant", content: t.chat.salesGreeting }],
+      support: [{ role: "assistant", content: t.chat.supportGreeting }],
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
+
+  // Al llegar a /comprar o /schedule (por el redirect de más abajo, o por un
+  // link directo) el chat se abre solo en Ventas y saluda de nuevo
+  // confirmando dónde están — pedido de Valeria: que el acompañamiento se
+  // sienta continuo, no que el visitante quede solo apenas cambia de
+  // página. Un Set (no un solo boolean) porque ahora hay dos páginas de
+  // llegada posibles en la misma sesión de chat.
+  const announcedPagesRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    const arrivalMessage =
+      pathname === "/comprar"
+        ? t.chat.checkoutArrivedMessage
+        : pathname === "/schedule"
+          ? t.chat.scheduleArrivedMessage
+          : null;
+    if (!arrivalMessage || announcedPagesRef.current.has(pathname)) return;
+    announcedPagesRef.current.add(pathname);
+    setAgent("sales");
+    setOpen(true);
+    setThreads((cur) => ({
+      ...cur,
+      sales: [...cur.sales, { role: "assistant", content: arrivalMessage }],
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   async function sendMessage(text: string, targetAgent: ChatAgent) {
     const userMessage: ChatMessage = { role: "user", content: text };
     const history = [...threads[targetAgent], userMessage];
@@ -75,7 +121,7 @@ export default function ChatWidget() {
       const res = await fetch(`${CHAT_API_BASE}/chat/${targetAgent}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, locale }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error("chat error");
@@ -83,6 +129,15 @@ export default function ChatWidget() {
         ...cur,
         [targetAgent]: [...cur[targetAgent], { role: "assistant", content: data.reply }],
       }));
+      // El backend decide el redirect (a /comprar o /schedule) con detección
+      // de intención determinística (no depende de que el modelo mencione
+      // el link en su respuesta) — la navegación es del lado del cliente
+      // (no window.location) para que este mismo widget siga montado y
+      // abierto en la página destino, en vez de perderse en una recarga
+      // completa, así el acompañamiento se siente continuo.
+      if (targetAgent === "sales" && data.redirect && pathname !== data.redirect) {
+        router.push(data.redirect);
+      }
     } catch {
       setError(true);
     } finally {
@@ -99,7 +154,7 @@ export default function ChatWidget() {
   }
 
   const title = agent === "sales" ? t.chat.salesTitle : t.chat.supportTitle;
-  const AgentIcon = agent === "sales" ? Handshake : Headset;
+  const AgentIcon = agent === "sales" ? UserCircle : Headset;
 
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3 sm:bottom-8 sm:right-8">
@@ -126,22 +181,25 @@ export default function ChatWidget() {
             {threads[agent].map((m, i) => (
               <div
                 key={i}
-                className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                className={`animate-message-in max-w-[85%] px-4 py-3 text-sm leading-relaxed ${
                   m.role === "user"
-                    ? "ml-auto bg-accent text-white"
-                    : "mr-auto bg-surface text-foreground"
+                    ? "ml-auto rounded-[20px] rounded-br-[6px] bg-gradient-to-br from-[#8890ff] to-[#4d57c9] text-white shadow-[0_6px_20px_-6px_rgba(110,123,255,0.55)]"
+                    : "mr-auto rounded-[20px] rounded-bl-[6px] border border-white/[0.08] bg-white/[0.045] text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_20px_-10px_rgba(0,0,0,0.5)] backdrop-blur-xl"
                 }`}
               >
                 {m.content}
               </div>
             ))}
             {sending && (
-              <div className="mr-auto max-w-[85%] rounded-2xl bg-surface px-4 py-2.5 text-sm text-muted-dim">
-                {t.chat.typing}
+              <div className="animate-message-in mr-auto flex max-w-[85%] items-center gap-1.5 rounded-[20px] rounded-bl-[6px] border border-white/[0.08] bg-white/[0.045] px-4 py-3.5 text-sm text-muted-dim shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl">
+                <span className="sr-only">{t.chat.typing}</span>
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-dim [animation-delay:-0.3s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-dim [animation-delay:-0.15s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-dim" />
               </div>
             )}
             {error && (
-              <div className="mr-auto max-w-[85%] rounded-2xl bg-surface px-4 py-2.5 text-sm text-red-400">
+              <div className="animate-message-in mr-auto max-w-[85%] rounded-[20px] rounded-bl-[6px] border border-red-400/20 bg-red-400/[0.06] px-4 py-3 text-sm text-red-400 backdrop-blur-xl">
                 {t.chat.error}
               </div>
             )}

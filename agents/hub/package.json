@@ -6,7 +6,8 @@
   "scripts": {
     "web": "tsx src/server.ts",
     "start": "tsx src/server.ts",
-    "cron:automatizacion": "tsx src/cron-automatizacion.ts"
+    "cron:automatizacion": "AGENT_ID=automatizacion tsx src/cron-run.ts",
+    "cron:analytics": "AGENT_ID=analytics tsx src/cron-run.ts"
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "^0.3.258",

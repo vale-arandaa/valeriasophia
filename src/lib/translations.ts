@@ -110,6 +110,8 @@ export interface Dictionary {
     salesGreeting: string;
     supportGreeting: string;
     switchToSales: string;
+    checkoutArrivedMessage: string;
+    scheduleArrivedMessage: string;
   };
   footer: {
     tagline: string;
@@ -117,11 +119,81 @@ export interface Dictionary {
     rights: string;
     privacyLabel: string;
     termsLabel: string;
+    supportLabel: string;
+    scheduleLabel: string;
   };
   legal: {
     backLink: string;
     privacy: { title: string; body1: string; body2Prefix: string };
     terms: { title: string; body1: string; body2Prefix: string };
+  };
+  buy: {
+    eyebrow: string;
+    headline: string;
+    body: string;
+    setupLabel: string;
+    maintenanceLabel: string;
+    perMonth: string;
+    button: string;
+    secureNote: string;
+    errorMessage: string;
+    notConfiguredMessage: string;
+  };
+  support: {
+    eyebrow: string;
+    headline: string;
+    body: string;
+    nameLabel: string;
+    emailLabel: string;
+    businessLabel: string;
+    issueTypeLabel: string;
+    issueTypeOptions: { value: string; label: string }[];
+    messageLabel: string;
+    messagePlaceholder: string;
+    submitButton: string;
+    submittingButton: string;
+    successTitle: string;
+    successBody: string;
+    errorMessage: string;
+    preferChat: string;
+    preferChatButton: string;
+  };
+  schedule: {
+    eyebrow: string;
+    headline: string;
+    body: string;
+    loading: string;
+    noSlots: string;
+    pickedLabel: string;
+    nameLabel: string;
+    emailLabel: string;
+    notesLabel: string;
+    notesPlaceholder: string;
+    confirmButton: string;
+    confirmingButton: string;
+    successTitle: string;
+    successBody: string;
+    errorMessage: string;
+    changeSlot: string;
+    preferCall: string;
+    preferCallButton: string;
+  };
+  call: {
+    eyebrow: string;
+    headline: string;
+    body: string;
+    nameLabel: string;
+    countryCodeLabel: string;
+    phoneLabel: string;
+    notesLabel: string;
+    notesPlaceholder: string;
+    submitButton: string;
+    submittingButton: string;
+    successTitle: string;
+    successBody: string;
+    errorMessage: string;
+    preferSchedule: string;
+    preferScheduleButton: string;
   };
 }
 
@@ -249,8 +321,8 @@ const en: Dictionary = {
         body: "We set up your dedicated VLOUXE site, with every agent from the pack already built in and ready to work.",
       },
       scale: {
-        title: "Scale as You Grow",
-        body: "Turn on more of your agents whenever your business needs them — everything is already included.",
+        title: "Your Workforce Gets to Work",
+        body: "Every agent in the pack works together from day one — no extra modules to turn on, nothing to add later.",
       },
     },
   },
@@ -293,7 +365,7 @@ const en: Dictionary = {
       },
       scales: {
         title: "Grows Without Growing Headcount",
-        body: "Turn on more agents the moment your business needs them — the workforce scales with you, without a single new hire.",
+        body: "Your AI workforce takes on more work as your business grows — the same team of agents handles the extra volume, without a single new hire.",
       },
     },
   },
@@ -334,7 +406,7 @@ const en: Dictionary = {
     button: "Start Building",
   },
   chat: {
-    salesTitle: "Sales Agent",
+    salesTitle: "Valeria",
     supportTitle: "Support Agent",
     needHelp: "Need help?",
     needHelpBody: "Chat with our Support Agent right here — no forms, no waiting.",
@@ -345,9 +417,13 @@ const en: Dictionary = {
     error: "Something went wrong. Please try again in a moment.",
     close: "Close chat",
     salesGreeting:
-      "Hi! I'm VLOUXE's Sales Agent. Tell me a bit about your business and what's eating up your team's time — I'll show you where an AI workforce fits.",
+      "Hi, I'm Valeria, the founder of VLOUXE. Tell me a bit about your business and what's eating up your team's time — I'll show you where an AI workforce fits.",
     supportGreeting: "Hi! I'm VLOUXE's Support Agent. Ask me anything about how VLOUXE works.",
     switchToSales: "Talk to Sales instead",
+    checkoutArrivedMessage:
+      "We're on the payment page now. I'll be right here with you through the whole process — just ask if you need anything.",
+    scheduleArrivedMessage:
+      "Here you can pick any open time that works for you. I'm still right here if you have questions.",
   },
   footer: {
     tagline: "AI workforce for modern businesses.",
@@ -355,6 +431,8 @@ const en: Dictionary = {
     rights: "All rights reserved.",
     privacyLabel: "Privacy",
     termsLabel: "Terms",
+    supportLabel: "Get Help",
+    scheduleLabel: "Book a Meeting",
   },
   legal: {
     backLink: "Back to VLOUXE",
@@ -370,6 +448,78 @@ const en: Dictionary = {
         "This page is a placeholder. VLOUXE's full terms of service, covering use of our AI agents, products, and platform, will be published here before launch.",
       body2Prefix: "For questions in the meantime, contact us at",
     },
+  },
+  buy: {
+    eyebrow: "Get Started",
+    headline: "Your AI workforce, ready to work.",
+    body: "The 8 VLOUXE agents — Sales, Support, Marketing, Content, Research, Executive Assistant, Operations, and Analytics — coordinated in one system, with your own private platform.",
+    setupLabel: "Implementation (one-time)",
+    maintenanceLabel: "Monthly maintenance",
+    perMonth: "/mo",
+    button: "Subscribe Now",
+    secureNote: "Secure payment processed by Stripe. After paying, you'll get an email to activate your account.",
+    errorMessage: "Something went wrong starting checkout. Please try again in a moment.",
+    notConfiguredMessage: "Payment setup is being finalized — please check back shortly, or reach out and we'll help you directly.",
+  },
+  support: {
+    eyebrow: "Get Help",
+    headline: "Having a problem? Let us know.",
+    body: "Tell us what's going on and we'll get back to you as soon as possible. If you'd rather talk it through live, our chat is available too.",
+    nameLabel: "Name",
+    emailLabel: "Email",
+    businessLabel: "Business name",
+    issueTypeLabel: "What's this about?",
+    issueTypeOptions: [
+      { value: "tecnico", label: "Technical issue" },
+      { value: "facturacion", label: "Billing" },
+      { value: "otro", label: "Something else" },
+    ],
+    messageLabel: "Describe the problem",
+    messagePlaceholder: "What happened, and what did you expect instead?",
+    submitButton: "Send request",
+    submittingButton: "Sending…",
+    successTitle: "Got it — thank you.",
+    successBody: "We've received your request and will get back to you at the email you provided.",
+    errorMessage: "Something went wrong sending this. Please try again in a moment.",
+    preferChat: "Prefer to talk it through right now?",
+    preferChatButton: "Open live chat instead",
+  },
+  schedule: {
+    eyebrow: "Book a Meeting",
+    headline: "Pick a time that works for you.",
+    body: "Real open slots, straight from our calendar — no back-and-forth emails.",
+    loading: "Loading available times…",
+    noSlots: "No open slots right now — try requesting a call instead.",
+    pickedLabel: "Selected time",
+    nameLabel: "Name",
+    emailLabel: "Email",
+    notesLabel: "Anything we should know?",
+    notesPlaceholder: "What would you like to talk about?",
+    confirmButton: "Confirm meeting",
+    confirmingButton: "Confirming…",
+    successTitle: "You're booked.",
+    successBody: "We've sent the details to your email. See you then.",
+    errorMessage: "Something went wrong booking this. Please try again.",
+    changeSlot: "Choose a different time",
+    preferCall: "Prefer we call you instead?",
+    preferCallButton: "Request a call",
+  },
+  call: {
+    eyebrow: "Request a Call",
+    headline: "We'll call you.",
+    body: "Leave your number and a quick note — we'll reach out to schedule a time that works.",
+    nameLabel: "Name",
+    countryCodeLabel: "Country code",
+    phoneLabel: "Phone number",
+    notesLabel: "Brief note",
+    notesPlaceholder: "What would you like to talk about?",
+    submitButton: "Request a call",
+    submittingButton: "Sending…",
+    successTitle: "Got it — thank you.",
+    successBody: "We'll call you soon at the number you provided.",
+    errorMessage: "Something went wrong sending this. Please try again.",
+    preferSchedule: "Prefer to pick an exact time yourself?",
+    preferScheduleButton: "Book a meeting instead",
   },
 };
 
@@ -497,8 +647,8 @@ const es: Dictionary = {
         body: "Configuramos tu sitio VLOUXE dedicado, con todos los agentes del pack ya integrados y listos para trabajar.",
       },
       scale: {
-        title: "Escala Cuando Quieras",
-        body: "Activa más agentes cuando tu negocio los necesite — todo ya está incluido.",
+        title: "Tu Fuerza Laboral Empieza a Trabajar",
+        body: "Todos los agentes del pack trabajan juntos desde el primer día — sin módulos extra que activar ni nada que sumar después.",
       },
     },
   },
@@ -541,7 +691,7 @@ const es: Dictionary = {
       },
       scales: {
         title: "Crece sin Crecer tu Plantilla",
-        body: "Activa más agentes en el momento en que tu negocio los necesite — la fuerza laboral escala con vos, sin contratar a nadie nuevo.",
+        body: "Tu fuerza laboral de IA absorbe más trabajo a medida que tu negocio crece — el mismo equipo de agentes asume el volumen extra, sin contratar a nadie nuevo.",
       },
     },
   },
@@ -578,11 +728,11 @@ const es: Dictionary = {
   },
   cta: {
     headline: "¿Listo para construir tu fuerza laboral de IA?",
-    body: "Chatea ahora mismo con nuestro Agente de Ventas — contale a qué se dedica tu negocio y te muestra dónde encaja la IA.",
+    body: "Chatea ahora mismo con nuestro Agente de Ventas — cuéntale a qué se dedica tu negocio y te muestra dónde encaja la IA.",
     button: "Empezar a Construir",
   },
   chat: {
-    salesTitle: "Agente de Ventas",
+    salesTitle: "Valeria",
     supportTitle: "Agente de Soporte",
     needHelp: "¿Necesitas ayuda?",
     needHelpBody: "Chatea con nuestro Agente de Soporte, acá mismo — sin formularios, sin esperas.",
@@ -593,9 +743,13 @@ const es: Dictionary = {
     error: "Algo salió mal. Intenta de nuevo en un momento.",
     close: "Cerrar chat",
     salesGreeting:
-      "¡Hola! Soy el Agente de Ventas de VLOUXE. Contame un poco de tu negocio y qué le está quitando tiempo a tu equipo — te muestro dónde encaja una fuerza laboral de IA.",
-    supportGreeting: "¡Hola! Soy el Agente de Soporte de VLOUXE. Preguntame lo que quieras sobre cómo funciona VLOUXE.",
+      "¡Hola! Soy Valeria, la fundadora de VLOUXE. Cuéntame un poco de tu negocio y qué le está quitando tiempo a tu equipo — te muestro dónde encaja una fuerza laboral de IA.",
+    supportGreeting: "¡Hola! Soy el Agente de Soporte de VLOUXE. Pregúntame lo que quieras sobre cómo funciona VLOUXE.",
     switchToSales: "Hablar con Ventas en cambio",
+    checkoutArrivedMessage:
+      "Ya estamos en la página de pago. Te voy a acompañar en todo este proceso — cualquier duda, aquí estoy.",
+    scheduleArrivedMessage:
+      "Aquí puedes elegir cualquier horario disponible que te acomode. Sigo aquí por si tienes alguna duda.",
   },
   footer: {
     tagline: "Fuerza laboral de IA para empresas modernas.",
@@ -603,6 +757,8 @@ const es: Dictionary = {
     rights: "Todos los derechos reservados.",
     privacyLabel: "Privacidad",
     termsLabel: "Términos",
+    supportLabel: "Ayuda",
+    scheduleLabel: "Agendar Reunión",
   },
   legal: {
     backLink: "Volver a VLOUXE",
@@ -618,6 +774,78 @@ const es: Dictionary = {
         "Esta página es un marcador temporal. Los términos de servicio completos de VLOUXE, que cubrirán el uso de nuestros agentes de IA, productos y plataforma, se publicarán aquí antes del lanzamiento.",
       body2Prefix: "Si tienes preguntas mientras tanto, escríbenos a",
     },
+  },
+  buy: {
+    eyebrow: "Empezar",
+    headline: "Tu fuerza laboral de IA, lista para trabajar.",
+    body: "Los 8 agentes de VLOUXE — Ventas, Soporte, Marketing, Contenido, Investigación, Asistente Ejecutivo, Operaciones y Analítica — coordinados en un solo sistema, con tu propia plataforma privada.",
+    setupLabel: "Implementación (pago único)",
+    maintenanceLabel: "Mantención mensual",
+    perMonth: "/mes",
+    button: "Suscribirme Ahora",
+    secureNote: "Pago seguro procesado por Stripe. Después de pagar, te llega un email para activar tu cuenta.",
+    errorMessage: "Algo salió mal al iniciar el pago. Intenta de nuevo en un momento.",
+    notConfiguredMessage: "Estamos terminando de habilitar los pagos — vuelve a intentarlo en breve, o escríbenos y te ayudamos directamente.",
+  },
+  support: {
+    eyebrow: "Obtener Ayuda",
+    headline: "¿Tienes un problema? Cuéntanos.",
+    body: "Cuéntanos qué está pasando y te responderemos lo antes posible. Si prefieres resolverlo en vivo, nuestro chat también está disponible.",
+    nameLabel: "Nombre",
+    emailLabel: "Email",
+    businessLabel: "Nombre de tu negocio",
+    issueTypeLabel: "¿De qué se trata?",
+    issueTypeOptions: [
+      { value: "tecnico", label: "Problema técnico" },
+      { value: "facturacion", label: "Facturación" },
+      { value: "otro", label: "Otra cosa" },
+    ],
+    messageLabel: "Describe el problema",
+    messagePlaceholder: "¿Qué pasó, y qué esperabas que pasara en su lugar?",
+    submitButton: "Enviar solicitud",
+    submittingButton: "Enviando…",
+    successTitle: "Recibido — gracias.",
+    successBody: "Recibimos tu solicitud y te responderemos al email que nos diste.",
+    errorMessage: "Algo salió mal al enviar esto. Intenta de nuevo en un momento.",
+    preferChat: "¿Prefieres resolverlo ahora mismo?",
+    preferChatButton: "Abrir el chat en vivo",
+  },
+  schedule: {
+    eyebrow: "Agenda una Reunión",
+    headline: "Elige un horario que te acomode.",
+    body: "Horarios reales y disponibles, directo de nuestro calendario — sin ida y vuelta de emails.",
+    loading: "Cargando horarios disponibles…",
+    noSlots: "No hay horarios disponibles en este momento — prueba solicitar una llamada.",
+    pickedLabel: "Horario elegido",
+    nameLabel: "Nombre",
+    emailLabel: "Email",
+    notesLabel: "¿Algo que debamos saber?",
+    notesPlaceholder: "¿De qué te gustaría hablar?",
+    confirmButton: "Confirmar reunión",
+    confirmingButton: "Confirmando…",
+    successTitle: "Listo, quedaste agendado.",
+    successBody: "Te mandamos los detalles a tu email. Nos vemos entonces.",
+    errorMessage: "Algo salió mal al agendar. Intenta de nuevo.",
+    changeSlot: "Elegir otro horario",
+    preferCall: "¿Prefieres que te llamemos nosotros?",
+    preferCallButton: "Solicitar una llamada",
+  },
+  call: {
+    eyebrow: "Solicitar una Llamada",
+    headline: "Te llamamos nosotros.",
+    body: "Déjanos tu número y una nota breve — te contactamos para coordinar un horario que te acomode.",
+    nameLabel: "Nombre",
+    countryCodeLabel: "Código de país",
+    phoneLabel: "Número de teléfono",
+    notesLabel: "Nota breve",
+    notesPlaceholder: "¿De qué te gustaría hablar?",
+    submitButton: "Solicitar llamada",
+    submittingButton: "Enviando…",
+    successTitle: "Recibido — gracias.",
+    successBody: "Te llamaremos pronto al número que nos diste.",
+    errorMessage: "Algo salió mal al enviar esto. Intenta de nuevo.",
+    preferSchedule: "¿Prefieres elegir el horario exacto tú mismo?",
+    preferScheduleButton: "Agendar una reunión en su lugar",
   },
 };
 

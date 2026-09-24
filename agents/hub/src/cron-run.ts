@@ -1,9 +1,11 @@
 const BASE_URL = process.env.HUB_BASE_URL || "https://agents.vlouxe.com";
 const HUB_USERNAME = process.env.HUB_USERNAME || "";
 const HUB_PASSWORD = process.env.HUB_PASSWORD || "";
+const AGENT_ID = process.env.AGENT_ID || "";
 
 async function main() {
   if (!HUB_PASSWORD) throw new Error("HUB_PASSWORD not set");
+  if (!AGENT_ID) throw new Error("AGENT_ID not set");
 
   const loginRes = await fetch(`${BASE_URL}/login`, {
     method: "POST",
@@ -15,7 +17,7 @@ async function main() {
   if (!setCookie) throw new Error(`login failed (status ${loginRes.status}), no session cookie returned`);
   const cookie = setCookie.split(";")[0];
 
-  const res = await fetch(`${BASE_URL}/api/agents/automatizacion/analyze`, {
+  const res = await fetch(`${BASE_URL}/api/agents/${AGENT_ID}/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Cookie: cookie },
     body: JSON.stringify({ question: "" }),
@@ -25,6 +27,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("[cron-automatizacion] failed:", err);
+  console.error(`[cron-run:${AGENT_ID}] failed:`, err);
   process.exit(1);
 });

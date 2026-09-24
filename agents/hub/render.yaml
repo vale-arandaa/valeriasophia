@@ -31,3 +31,19 @@ services:
         value: vlouxe
       - key: HUB_PASSWORD
         sync: false
+
+  - type: cron
+    name: vlouxe-optimization-cron
+    runtime: node
+    plan: free
+    rootDir: agents/hub
+    buildCommand: npm install
+    schedule: "0 13 * * 1"
+    startCommand: npm run cron:analytics
+    envVars:
+      - key: HUB_BASE_URL
+        value: https://agents.vlouxe.com
+      - key: HUB_USERNAME
+        value: vlouxe
+      - key: HUB_PASSWORD
+        sync: false
