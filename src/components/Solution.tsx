@@ -78,7 +78,7 @@ export default function Solution() {
                   type="button"
                   aria-expanded={isOpen}
                   onClick={() => setExpanded((cur) => (cur === id ? null : id))}
-                  className="group/card relative block h-full w-full text-left [perspective:1400px]"
+                  className="group/card relative block h-full w-full rounded-[20px] text-left [perspective:1400px] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
                 >
                   <span
                     className="agent-flip relative grid h-full w-full [transform-style:preserve-3d]"

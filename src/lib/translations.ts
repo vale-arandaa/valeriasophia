@@ -268,7 +268,7 @@ const en: Dictionary = {
         name: "Marketing Agent",
         blurb: "Plans and drafts campaigns across channels.",
         pitch:
-          "Give it your product and audience, and Marketing Agent researches angles, drafts campaigns across channels, and keeps everything consistent with your brand voice — so marketing output never bottlenecks on one person's time.",
+          "Takes each day's content idea and turns it into a ready-to-publish post in your brand's voice — and publishes it on your connected Facebook Page — so marketing keeps running without depending on one person's time.",
       },
       support: {
         name: "Customer Support Agent",
@@ -284,9 +284,9 @@ const en: Dictionary = {
       },
       research: {
         name: "Research Agent",
-        blurb: "Gathers and synthesizes information on demand.",
+        blurb: "Tracks market and social media trends on its own.",
         pitch:
-          "Ask it anything about a prospect, a market, or a competitor, and Research Agent gathers the real information and hands you a clear summary — in minutes, not hours of digging.",
+          "Every day, Research Agent studies what's trending in your market and on social media and turns it into clear, actionable insights — feeding your content and your decisions without anyone having to ask.",
       },
       executive: {
         name: "Executive Assistant",
@@ -302,9 +302,9 @@ const en: Dictionary = {
       },
       content: {
         name: "Content Agent",
-        blurb: "Writes and organizes content at scale.",
+        blurb: "Creates trend-driven content that sells.",
         pitch:
-          "Drafts and organizes the content your business needs, consistently and on-brand, at a volume no single person could keep up with alone.",
+          "Every day it turns what's trending on social media into content ideas for your business, using the persuasion techniques of today's top sellers — hooks that stop the scroll and messages that make people want to buy.",
       },
     },
   },
@@ -593,7 +593,7 @@ const es: Dictionary = {
         name: "Agente de Marketing",
         blurb: "Planifica y redacta campañas en distintos canales.",
         pitch:
-          "Dale tu producto y tu audiencia, y el Agente de Marketing investiga ángulos, redacta campañas para distintos canales y mantiene todo consistente con la voz de tu marca — para que el marketing nunca dependa del tiempo de una sola persona.",
+          "Toma la idea de contenido de cada día y la convierte en una publicación lista, con la voz de tu marca — y la publica en tu Página de Facebook conectada — para que el marketing nunca dependa del tiempo de una sola persona.",
       },
       support: {
         name: "Agente de Soporte al Cliente",
@@ -609,9 +609,9 @@ const es: Dictionary = {
       },
       research: {
         name: "Agente de Investigación",
-        blurb: "Recopila y sintetiza información bajo demanda.",
+        blurb: "Sigue por su cuenta las tendencias del mercado y las redes.",
         pitch:
-          "Pregúntale lo que sea sobre un prospecto, un mercado o un competidor, y el Agente de Investigación reúne la información real y te entrega un resumen claro — en minutos, no en horas de búsqueda.",
+          "Cada día, el Agente de Investigación estudia qué está en tendencia en tu mercado y en redes sociales y lo convierte en ideas claras y accionables — alimentando tu contenido y tus decisiones sin que nadie tenga que pedírselo.",
       },
       executive: {
         name: "Asistente Ejecutivo",
@@ -627,9 +627,9 @@ const es: Dictionary = {
       },
       content: {
         name: "Agente de Contenido",
-        blurb: "Escribe y organiza contenido a gran escala.",
+        blurb: "Crea contenido que vende, basado en tendencias.",
         pitch:
-          "Redacta y organiza el contenido que tu negocio necesita, de forma consistente y fiel a tu marca, a un volumen que ninguna sola persona podría sostener.",
+          "Cada día convierte lo que está en tendencia en redes sociales en ideas de contenido para tu negocio, usando las técnicas de persuasión de los vendedores más exitosos de hoy — ganchos que frenan el scroll y mensajes que dan ganas de comprar.",
       },
     },
   },
