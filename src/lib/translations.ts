@@ -401,7 +401,7 @@ const en: Dictionary = {
     ],
   },
   vision: {
-    headline: "AI doesn't replace your people. It frees them.",
+    headline: "AI doesn't replace your people. It empowers them.",
     body: "VLOUXE gives your team an AI workforce built to serve your business and work for you. By taking on the work that drains your team's time and energy, your people can focus on creativity, live calls, critical decisions, and escalated issues.",
   },
   cta: {
@@ -732,7 +732,7 @@ const es: Dictionary = {
     ],
   },
   vision: {
-    headline: "La IA no reemplaza a tu equipo. Lo libera.",
+    headline: "La IA no reemplaza a tu equipo. Lo empodera.",
     body: "VLOUXE le da a tu equipo una fuerza laboral de IA diseñada para trabajar al servicio de tu negocio. Al asumir el trabajo que consume el tiempo y la energía de tu equipo, tu gente puede concentrarse en la creatividad, las llamadas en vivo, las decisiones críticas y los casos escalados.",
   },
   cta: {
