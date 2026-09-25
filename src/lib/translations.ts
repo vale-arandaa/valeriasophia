@@ -176,6 +176,11 @@ export interface Dictionary {
     changeSlot: string;
     preferCall: string;
     preferCallButton: string;
+    pickDay: string;
+    timesTitle: string;
+    timezoneNote: string;
+    prevMonth: string;
+    nextMonth: string;
   };
   call: {
     eyebrow: string;
@@ -501,6 +506,11 @@ const en: Dictionary = {
     changeSlot: "Choose a different time",
     preferCall: "Prefer we call you instead?",
     preferCallButton: "Request a call",
+    pickDay: "Pick a day",
+    timesTitle: "Available times",
+    timezoneNote: "Times shown in your time zone",
+    prevMonth: "Previous month",
+    nextMonth: "Next month",
   },
   call: {
     eyebrow: "Request a Call",
@@ -826,6 +836,11 @@ const es: Dictionary = {
     changeSlot: "Elegir otro horario",
     preferCall: "¿Prefieres que te llamemos nosotros?",
     preferCallButton: "Solicitar una llamada",
+    pickDay: "Elige un día",
+    timesTitle: "Horarios disponibles",
+    timezoneNote: "Horas en tu zona horaria",
+    prevMonth: "Mes anterior",
+    nextMonth: "Mes siguiente",
   },
   call: {
     eyebrow: "Solicitar una Llamada",

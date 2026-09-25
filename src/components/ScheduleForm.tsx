@@ -26,28 +26,51 @@ export default function ScheduleForm() {
       .catch(() => setSlots([]));
   }, []);
 
-  const grouped = useMemo(() => {
-    if (!slots) return [];
-    const dateFmt = new Intl.DateTimeFormat(locale === "es" ? "es-ES" : "en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      timeZone: "UTC",
-    });
-    const map = new Map<string, string[]>();
-    for (const iso of slots) {
-      const day = dateFmt.format(new Date(iso));
-      if (!map.has(day)) map.set(day, []);
-      map.get(day)!.push(iso);
-    }
-    return Array.from(map.entries());
-  }, [slots, locale]);
+  const lang = locale === "es" ? "es-ES" : "en-US";
 
-  const timeFmt = new Intl.DateTimeFormat(locale === "es" ? "es-ES" : "en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "UTC",
-  });
+  // Primero un calendario con los días que tienen horarios libres; al tocar
+  // un día aparecen sus horas (pedido de Valeria, 25/9/2026). Todo se muestra
+  // en la zona horaria de quien visita — los horarios son instantes reales.
+  const slotsByDay = useMemo(() => {
+    const map = new Map<string, string[]>();
+    for (const iso of slots || []) {
+      const d = new Date(iso);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(iso);
+    }
+    return map;
+  }, [slots]);
+  const firstDay = useMemo(() => Array.from(slotsByDay.keys()).sort()[0] ?? null, [slotsByDay]);
+  const lastDay = useMemo(() => Array.from(slotsByDay.keys()).sort().at(-1) ?? null, [slotsByDay]);
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [viewMonth, setViewMonth] = useState<{ y: number; m: number } | null>(null);
+  const activeDay = selectedDay ?? firstDay;
+  const month = viewMonth ?? (firstDay ? { y: +firstDay.slice(0, 4), m: +firstDay.slice(5, 7) - 1 } : null);
+
+  const timeFmt = new Intl.DateTimeFormat(lang, { hour: "numeric", minute: "2-digit" });
+  const timeZoneName = useMemo(() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g, " ");
+    } catch {
+      return "";
+    }
+  }, []);
+
+  const monthKey = (y: number, m: number) => `${y}-${String(m + 1).padStart(2, "0")}`;
+  const canPrev = !!(month && firstDay && monthKey(month.y, month.m) > firstDay.slice(0, 7));
+  const canNext = !!(month && lastDay && monthKey(month.y, month.m) < lastDay.slice(0, 7));
+  const shiftMonth = (delta: number) => {
+    if (!month) return;
+    const d = new Date(month.y, month.m + delta, 1);
+    setViewMonth({ y: d.getFullYear(), m: d.getMonth() });
+  };
+  const weekdayLabels = useMemo(() => {
+    const base = new Date(2024, 0, 1); // lunes
+    return Array.from({ length: 7 }, (_, i) =>
+      new Intl.DateTimeFormat(lang, { weekday: "short" }).format(new Date(base.getFullYear(), 0, 1 + i)).replace(".", "")
+    );
+  }, [lang]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -90,7 +113,7 @@ export default function ScheduleForm() {
           </div>
 
           <Reveal delay={0.15}>
-            <div className="mx-auto mt-12 max-w-lg rounded-[20px] border border-border bg-surface-elevated p-7">
+            <div className={`mx-auto mt-12 rounded-[24px] bg-surface-elevated p-7 shadow-[0_30px_70px_-40px_rgba(0,0,0,0.9)] sm:p-9 ${!picked && status !== "sent" ? "max-w-3xl" : "max-w-lg"}`}>
               {status === "sent" ? (
                 <div className="py-6 text-center">
                   <h2 className="text-lg font-semibold text-foreground">{t.schedule.successTitle}</h2>
@@ -99,27 +122,77 @@ export default function ScheduleForm() {
               ) : !picked ? (
                 slots === null ? (
                   <p className="py-8 text-center text-sm text-muted">{t.schedule.loading}</p>
-                ) : grouped.length === 0 ? (
+                ) : !month || slotsByDay.size === 0 ? (
                   <p className="py-8 text-center text-sm text-muted">{t.schedule.noSlots}</p>
                 ) : (
-                  <div className="max-h-[420px] space-y-5 overflow-y-auto pr-1">
-                    {grouped.map(([day, isos]) => (
-                      <div key={day}>
-                        <p className="mb-2 text-xs font-medium uppercase tracking-[0.06em] text-muted-dim">{day}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {isos.map((iso) => (
-                            <button
-                              key={iso}
-                              type="button"
-                              onClick={() => setPicked(iso)}
-                              className="rounded-full border border-border px-3.5 py-1.5 text-sm text-foreground transition-colors hover:border-accent hover:bg-accent-dim"
-                            >
-                              {timeFmt.format(new Date(iso))}
-                            </button>
-                          ))}
+                  <div className="grid gap-8 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+                    <div>
+                      <div className="mb-5 flex items-center justify-between">
+                        <p className="text-[22px] font-light capitalize tracking-[-0.02em] text-foreground">
+                          {new Intl.DateTimeFormat(lang, { month: "long", year: "numeric" }).format(new Date(month.y, month.m, 1))}
+                        </p>
+                        <div className="flex gap-1">
+                          <button type="button" aria-label={t.schedule.prevMonth} disabled={!canPrev} onClick={() => shiftMonth(-1)} className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-muted transition-colors hover:bg-white/5 hover:text-foreground disabled:opacity-25 disabled:hover:bg-transparent">‹</button>
+                          <button type="button" aria-label={t.schedule.nextMonth} disabled={!canNext} onClick={() => shiftMonth(1)} className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-muted transition-colors hover:bg-white/5 hover:text-foreground disabled:opacity-25 disabled:hover:bg-transparent">›</button>
                         </div>
                       </div>
-                    ))}
+                      <div className="grid grid-cols-7 text-center">
+                        {weekdayLabels.map((w) => (
+                          <span key={w} className="pb-3 text-[10px] uppercase tracking-[0.16em] text-muted-dim">{w}</span>
+                        ))}
+                        {Array.from({ length: (new Date(month.y, month.m, 1).getDay() + 6) % 7 }, (_, i) => <span key={`e${i}`} />)}
+                        {Array.from({ length: new Date(month.y, month.m + 1, 0).getDate() }, (_, i) => {
+                          const d = i + 1;
+                          const key = `${monthKey(month.y, month.m)}-${String(d).padStart(2, "0")}`;
+                          const available = slotsByDay.has(key);
+                          const isActive = key === activeDay;
+                          return (
+                            <div key={key} className="flex h-12 items-center justify-center">
+                              <button
+                                type="button"
+                                disabled={!available}
+                                onClick={() => setSelectedDay(key)}
+                                className={`relative flex h-10 w-10 items-center justify-center rounded-full text-[15px] tabular-nums transition-all duration-300 ${
+                                  isActive
+                                    ? "bg-accent font-medium text-white shadow-[0_10px_26px_-8px_rgba(110,123,255,0.75)]"
+                                    : available
+                                      ? "font-medium text-foreground hover:bg-white/[0.07]"
+                                      : "cursor-default font-light text-muted-dim/40"
+                                }`}
+                              >
+                                {d}
+                                {available && !isActive && <span className="absolute bottom-1 h-1 w-1 rounded-full bg-accent" />}
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <p className="mt-4 text-[11px] text-muted-dim">
+                        {t.schedule.timezoneNote}{timeZoneName ? ` · ${timeZoneName}` : ""}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-muted-dim">{t.schedule.timesTitle}</p>
+                      <p className="mt-1.5 text-[17px] font-light capitalize text-foreground">
+                        {activeDay
+                          ? new Intl.DateTimeFormat(lang, { weekday: "long", day: "numeric", month: "long" }).format(
+                              new Date(+activeDay.slice(0, 4), +activeDay.slice(5, 7) - 1, +activeDay.slice(8, 10))
+                            )
+                          : t.schedule.pickDay}
+                      </p>
+                      <div key={activeDay ?? "none"} className="mt-5 grid max-h-[340px] grid-cols-2 gap-2 overflow-y-auto pr-1 [scrollbar-width:thin]">
+                        {(activeDay ? slotsByDay.get(activeDay) ?? [] : []).map((iso) => (
+                          <button
+                            key={iso}
+                            type="button"
+                            onClick={() => setPicked(iso)}
+                            className="h-11 rounded-full bg-white/[0.04] text-sm tabular-nums text-foreground transition-colors duration-200 hover:bg-accent hover:text-white"
+                          >
+                            {timeFmt.format(new Date(iso))}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 )
               ) : (
@@ -134,7 +207,6 @@ export default function ScheduleForm() {
                           day: "numeric",
                           hour: "numeric",
                           minute: "2-digit",
-                          timeZone: "UTC",
                         }).format(new Date(picked))}
                       </p>
                     </div>
