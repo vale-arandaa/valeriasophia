@@ -310,7 +310,7 @@ const en: Dictionary = {
         name: "Content Agent",
         blurb: "Creates content that hits your customers' pain.",
         pitch:
-          "Every day it creates content that speaks straight to your customers' real pain and shows them how your business solves it — using the persuasion techniques of today's top sellers, with hooks that stop the scroll.",
+          "Every day it creates Reels scripts and content that speak straight to your customers' real pain and show them how your business solves it — using the persuasion techniques of today's top sellers, with hooks that stop the scroll in the first 3 seconds.",
       },
     },
   },
@@ -641,7 +641,7 @@ const es: Dictionary = {
         name: "Agente de Contenido",
         blurb: "Crea contenido que da en el dolor de tus clientes.",
         pitch:
-          "Cada día crea contenido que le habla directo al dolor real de tus clientes y les muestra cómo tu negocio lo soluciona — con las técnicas de persuasión de los vendedores más exitosos de hoy y ganchos que frenan el scroll.",
+          "Cada día crea guiones de Reels y contenido que le hablan directo al dolor real de tus clientes y les muestran cómo tu negocio lo soluciona — con las técnicas de persuasión de los vendedores más exitosos de hoy y ganchos que frenan el scroll en los primeros 3 segundos.",
       },
     },
   },
