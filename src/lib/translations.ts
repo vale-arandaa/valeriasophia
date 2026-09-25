@@ -177,6 +177,7 @@ export interface Dictionary {
     preferCall: string;
     preferCallButton: string;
     pickDay: string;
+    noSlotsMonth: string;
     timesTitle: string;
     timezoneNote: string;
     prevMonth: string;
@@ -507,6 +508,7 @@ const en: Dictionary = {
     preferCall: "Prefer we call you instead?",
     preferCallButton: "Request a call",
     pickDay: "Pick a day",
+    noSlotsMonth: "No open times this month — try the next one.",
     timesTitle: "Available times",
     timezoneNote: "Times shown in your time zone",
     prevMonth: "Previous month",
@@ -837,6 +839,7 @@ const es: Dictionary = {
     preferCall: "¿Prefieres que te llamemos nosotros?",
     preferCallButton: "Solicitar una llamada",
     pickDay: "Elige un día",
+    noSlotsMonth: "No hay horarios disponibles este mes — prueba el siguiente.",
     timesTitle: "Horarios disponibles",
     timezoneNote: "Horas en tu zona horaria",
     prevMonth: "Mes anterior",

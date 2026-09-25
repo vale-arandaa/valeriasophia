@@ -12,19 +12,37 @@ const CHAT_API_BASE =
 
 export default function ScheduleForm() {
   const { t, locale } = useLanguage();
-  const [slots, setSlots] = useState<string[] | null>(null);
+  // Horarios cargados mes por mes (clave "AAAA-MM"), para poder navegar a
+  // cualquier mes y año sin traer todo de una vez.
+  const [monthSlots, setMonthSlots] = useState<Record<string, string[]>>({});
   const [picked, setPicked] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
+  const now = new Date();
+  const [month, setMonth] = useState<{ y: number; m: number }>({ y: now.getFullYear(), m: now.getMonth() });
+  const monthKey = (y: number, m: number) => `${y}-${String(m + 1).padStart(2, "0")}`;
+  const currentKey = monthKey(month.y, month.m);
+  const MAX_MONTHS_AHEAD = 36;
+  const slots = monthSlots[currentKey] ?? null;
+
   useEffect(() => {
-    fetch(`${CHAT_API_BASE}/api/appointments/availability`)
+    if (monthSlots[currentKey]) return;
+    let cancelled = false;
+    fetch(`${CHAT_API_BASE}/api/appointments/availability?month=${currentKey}`)
       .then((res) => res.json())
-      .then((data) => setSlots(data.ok ? data.slots : []))
-      .catch(() => setSlots([]));
-  }, []);
+      .then((data) => {
+        if (!cancelled) setMonthSlots((cur) => ({ ...cur, [currentKey]: data.ok ? data.slots : [] }));
+      })
+      .catch(() => {
+        if (!cancelled) setMonthSlots((cur) => ({ ...cur, [currentKey]: [] }));
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [currentKey, monthSlots]);
 
   const lang = locale === "es" ? "es-ES" : "en-US";
 
@@ -36,17 +54,16 @@ export default function ScheduleForm() {
     for (const iso of slots || []) {
       const d = new Date(iso);
       const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      if (!key.startsWith(currentKey)) continue; // solo los días del mes que se está mirando
       if (!map.has(key)) map.set(key, []);
       map.get(key)!.push(iso);
     }
     return map;
-  }, [slots]);
+  }, [slots, currentKey]);
   const firstDay = useMemo(() => Array.from(slotsByDay.keys()).sort()[0] ?? null, [slotsByDay]);
-  const lastDay = useMemo(() => Array.from(slotsByDay.keys()).sort().at(-1) ?? null, [slotsByDay]);
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
-  const [viewMonth, setViewMonth] = useState<{ y: number; m: number } | null>(null);
-  const activeDay = selectedDay ?? firstDay;
-  const month = viewMonth ?? (firstDay ? { y: +firstDay.slice(0, 4), m: +firstDay.slice(5, 7) - 1 } : null);
+  // Si el día elegido no es de este mes, se muestra el primero disponible del mes.
+  const activeDay = selectedDay && selectedDay.startsWith(currentKey) && slotsByDay.has(selectedDay) ? selectedDay : firstDay;
 
   const timeFmt = new Intl.DateTimeFormat(lang, { hour: "numeric", minute: "2-digit" });
   const timeZoneName = useMemo(() => {
@@ -57,14 +74,21 @@ export default function ScheduleForm() {
     }
   }, []);
 
-  const monthKey = (y: number, m: number) => `${y}-${String(m + 1).padStart(2, "0")}`;
-  const canPrev = !!(month && firstDay && monthKey(month.y, month.m) > firstDay.slice(0, 7));
-  const canNext = !!(month && lastDay && monthKey(month.y, month.m) < lastDay.slice(0, 7));
-  const shiftMonth = (delta: number) => {
-    if (!month) return;
-    const d = new Date(month.y, month.m + delta, 1);
-    setViewMonth({ y: d.getFullYear(), m: d.getMonth() });
+  const nowKey = monthKey(now.getFullYear(), now.getMonth());
+  const maxDate = new Date(now.getFullYear(), now.getMonth() + MAX_MONTHS_AHEAD, 1);
+  const maxKey = monthKey(maxDate.getFullYear(), maxDate.getMonth());
+  const canPrev = currentKey > nowKey;
+  const canNext = currentKey < maxKey;
+  const goTo = (y: number, m: number) => {
+    const d = new Date(y, m, 1);
+    let key = monthKey(d.getFullYear(), d.getMonth());
+    if (key < nowKey) key = nowKey;
+    if (key > maxKey) key = maxKey;
+    setMonth({ y: +key.slice(0, 4), m: +key.slice(5, 7) - 1 });
+    setSelectedDay(null);
   };
+  const shiftMonth = (delta: number) => goTo(month.y, month.m + delta);
+  const yearOptions = Array.from({ length: maxDate.getFullYear() - now.getFullYear() + 1 }, (_, i) => now.getFullYear() + i);
   const weekdayLabels = useMemo(() => {
     const base = new Date(2024, 0, 1); // lunes
     return Array.from({ length: 7 }, (_, i) =>
@@ -120,17 +144,25 @@ export default function ScheduleForm() {
                   <p className="mt-2 text-sm text-muted">{t.schedule.successBody}</p>
                 </div>
               ) : !picked ? (
-                slots === null ? (
-                  <p className="py-8 text-center text-sm text-muted">{t.schedule.loading}</p>
-                ) : !month || slotsByDay.size === 0 ? (
-                  <p className="py-8 text-center text-sm text-muted">{t.schedule.noSlots}</p>
-                ) : (
+                (
                   <div className="grid gap-8 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
                     <div>
                       <div className="mb-5 flex items-center justify-between">
-                        <p className="text-[22px] font-light capitalize tracking-[-0.02em] text-foreground">
-                          {new Intl.DateTimeFormat(lang, { month: "long", year: "numeric" }).format(new Date(month.y, month.m, 1))}
-                        </p>
+                        <div className="flex items-baseline gap-2">
+                          <p className="text-[22px] font-light capitalize tracking-[-0.02em] text-foreground">
+                            {new Intl.DateTimeFormat(lang, { month: "long" }).format(new Date(month.y, month.m, 1))}
+                          </p>
+                          <select
+                            aria-label="Year"
+                            value={month.y}
+                            onChange={(e) => goTo(+e.target.value, month.m)}
+                            className="cursor-pointer appearance-none rounded-full bg-transparent px-1 text-[22px] font-light tracking-[-0.02em] text-muted outline-none transition-colors hover:text-foreground"
+                          >
+                            {yearOptions.map((y) => (
+                              <option key={y} value={y} className="bg-surface-elevated text-base text-foreground">{y}</option>
+                            ))}
+                          </select>
+                        </div>
                         <div className="flex gap-1">
                           <button type="button" aria-label={t.schedule.prevMonth} disabled={!canPrev} onClick={() => shiftMonth(-1)} className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-muted transition-colors hover:bg-white/5 hover:text-foreground disabled:opacity-25 disabled:hover:bg-transparent">‹</button>
                           <button type="button" aria-label={t.schedule.nextMonth} disabled={!canNext} onClick={() => shiftMonth(1)} className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-muted transition-colors hover:bg-white/5 hover:text-foreground disabled:opacity-25 disabled:hover:bg-transparent">›</button>
@@ -178,8 +210,10 @@ export default function ScheduleForm() {
                           ? new Intl.DateTimeFormat(lang, { weekday: "long", day: "numeric", month: "long" }).format(
                               new Date(+activeDay.slice(0, 4), +activeDay.slice(5, 7) - 1, +activeDay.slice(8, 10))
                             )
-                          : t.schedule.pickDay}
+                          : "—"}
                       </p>
+                      {slots === null && <p className="mt-5 text-sm text-muted">{t.schedule.loading}</p>}
+                      {slots !== null && !activeDay && <p className="mt-5 text-sm text-muted">{t.schedule.noSlotsMonth}</p>}
                       <div key={activeDay ?? "none"} className="mt-5 grid max-h-[340px] grid-cols-2 gap-2 overflow-y-auto pr-1 [scrollbar-width:thin]">
                         {(activeDay ? slotsByDay.get(activeDay) ?? [] : []).map((iso) => (
                           <button
