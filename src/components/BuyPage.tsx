@@ -10,7 +10,7 @@ import { useLanguage } from "./LanguageProvider";
 // (src/index.js del proyecto "vlouxe agents") — el precio real que cobra
 // Stripe sale de ahí, esto es solo lo que se muestra en la página.
 const SETUP_FEE_USD = 2997;
-const MONTHLY_MAINTENANCE_USD = 97;
+const MONTHLY_MAINTENANCE_USD = 297;
 
 const CHECKOUT_API_BASE =
   process.env.NEXT_PUBLIC_AGENTS_API_URL || "https://agents.vlouxe.com";
