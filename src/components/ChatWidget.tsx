@@ -135,7 +135,7 @@ export default function ChatWidget() {
       // (no window.location) para que este mismo widget siga montado y
       // abierto en la página destino, en vez de perderse en una recarga
       // completa, así el acompañamiento se siente continuo.
-      if (targetAgent === "sales" && data.redirect && pathname !== data.redirect) {
+      if (data.redirect && pathname !== data.redirect) {
         router.push(data.redirect);
       }
     } catch {
