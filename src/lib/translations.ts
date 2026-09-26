@@ -40,6 +40,7 @@ export interface Dictionary {
   nav: {
     links: { href: string; label: string }[];
     cta: string;
+    login: string;
     openMenu: string;
     closeMenu: string;
     primaryLabel: string;
@@ -212,6 +213,7 @@ const en: Dictionary = {
       { href: "#contact", label: "Contact" },
     ],
     cta: "Build Your AI Workforce",
+    login: "Log in",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     primaryLabel: "Primary",
@@ -543,6 +545,7 @@ const es: Dictionary = {
       { href: "#contact", label: "Contacto" },
     ],
     cta: "Crea tu Fuerza Laboral de IA",
+    login: "Iniciar sesión",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
     primaryLabel: "Principal",

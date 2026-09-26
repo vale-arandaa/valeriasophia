@@ -39,6 +39,14 @@ export default function Nav() {
 
         <div className="hidden items-center gap-4 lg:flex">
           <LanguageSwitcher />
+          {/* Acceso de clientes: app.vlouxe.com es el portal donde viven los
+              agentes que compró cada empresa (usuario y contraseña). */}
+          <a
+            href="https://app.vlouxe.com/login"
+            className="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            {t.nav.login}
+          </a>
           <a
             href="#contact"
             className="inline-flex h-10 items-center rounded-full bg-accent px-5 text-sm font-medium text-white transition-transform hover:-translate-y-px hover:bg-[#7c88ff] active:translate-y-0 active:scale-[0.98]"
@@ -77,6 +85,12 @@ export default function Nav() {
                 {link.label}
               </a>
             ))}
+            <a
+              href="https://app.vlouxe.com/login"
+              className="rounded-lg px-2 py-3 text-base text-muted transition-colors hover:bg-surface hover:text-foreground"
+            >
+              {t.nav.login}
+            </a>
             <a
               href="#contact"
               onClick={() => setOpen(false)}
