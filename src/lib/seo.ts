@@ -4,13 +4,37 @@ import type { Locale } from "@/lib/translations";
 // El sitio es una sola página en dos idiomas: el inglés vive en "/" y el
 // español en "/es" (misma página, con el interruptor en ES), así Google
 // puede indexar las dos versiones por separado.
+// Las guías tienen la dirección en el idioma de cada versión, así la palabra
+// clave también está en la URL ("/es/agentes-de-ia-para-empresas").
+const ES_SLUGS: Record<string, string> = {
+  "/ai-agents-for-business": "/agentes-de-ia-para-empresas",
+  "/whatsapp-ai-agent": "/agente-de-ia-para-whatsapp",
+  "/ai-sales-agent": "/agente-de-ventas-con-ia",
+  "/ai-customer-service-agent": "/agente-de-ia-atencion-al-cliente",
+};
+const EN_SLUGS: Record<string, string> = Object.fromEntries(Object.entries(ES_SLUGS).map(([en, es]) => [es, en]));
+
 export function toLocalePath(path: string, locale: Locale): string {
-  const bare = path.replace(/^\/es(?=\/|$)/, "") || "/";
+  const isEs = /^\/es(\/|$)/.test(path);
+  let bare = path.replace(/^\/es(?=\/|$)/, "") || "/";
+  if (isEs && EN_SLUGS[bare]) bare = EN_SLUGS[bare];
   if (locale === "en") return bare;
-  return bare === "/" ? "/es" : "/es" + bare;
+  const es = ES_SLUGS[bare] || bare;
+  return es === "/" ? "/es" : "/es" + es;
 }
 
-export type PageKey = "home" | "comprar" | "schedule" | "call" | "support" | "privacy" | "terms";
+export type PageKey =
+  | "home"
+  | "comprar"
+  | "schedule"
+  | "call"
+  | "support"
+  | "privacy"
+  | "terms"
+  | "guide-pillar"
+  | "guide-whatsapp"
+  | "guide-sales"
+  | "guide-support";
 
 type PageSeo = { path: string; en: { title: string; description: string }; es: { title: string; description: string } };
 
@@ -84,6 +108,58 @@ export const SEO: Record<PageKey, PageSeo> = {
     path: "/privacy",
     en: { title: "Privacy Policy", description: "How VLOUXE collects, uses, and protects your information." },
     es: { title: "Política de privacidad", description: "Cómo VLOUXE recopila, usa y protege tu información." },
+  },
+  "guide-pillar": {
+    path: "/ai-agents-for-business",
+    en: {
+      title: "AI Agents for Business: A Practical Guide",
+      description:
+        "What AI agents do for a business, the 8 agents that work as a team (sales, support, marketing and more) and how to start without technical knowledge.",
+    },
+    es: {
+      title: "Agentes de IA para empresas: guía práctica",
+      description:
+        "Qué hacen los agentes de IA por una empresa, los 8 agentes que trabajan en equipo (ventas, soporte, marketing y más) y cómo empezar sin saber de tecnología.",
+    },
+  },
+  "guide-whatsapp": {
+    path: "/whatsapp-ai-agent",
+    en: {
+      title: "WhatsApp AI Agent for Your Business",
+      description:
+        "An AI agent that answers every WhatsApp message instantly as your business, in your customer's language, and saves each contact as a lead.",
+    },
+    es: {
+      title: "Agente de IA para WhatsApp de tu negocio",
+      description:
+        "Un agente de IA que responde cada mensaje de WhatsApp al instante como tu negocio, en el idioma del cliente, y guarda cada contacto como prospecto.",
+    },
+  },
+  "guide-sales": {
+    path: "/ai-sales-agent",
+    en: {
+      title: "AI Sales Agent That Follows Up Every Lead",
+      description:
+        "An AI sales agent that qualifies each new lead, prepares the follow-up and books the meeting, with all your leads organized by stage.",
+    },
+    es: {
+      title: "Agente de ventas con IA para cada prospecto",
+      description:
+        "Un agente de ventas con IA que califica a cada prospecto nuevo, prepara el seguimiento y agenda la reunión, con tus prospectos ordenados por etapa.",
+    },
+  },
+  "guide-support": {
+    path: "/ai-customer-service-agent",
+    en: {
+      title: "AI Customer Service Agent, Available 24/7",
+      description:
+        "An AI customer service agent that answers questions instantly with your real business information, day and night, on your website and WhatsApp.",
+    },
+    es: {
+      title: "Agente de IA para atención al cliente 24/7",
+      description:
+        "Un agente de IA de atención al cliente que responde al instante con la información real de tu negocio, de día y de noche, en tu web y en WhatsApp.",
+    },
   },
   terms: {
     path: "/terms",

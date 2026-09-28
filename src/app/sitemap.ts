@@ -9,6 +9,10 @@ const PRIORITY: Record<PageKey, { priority: number; changeFrequency: "weekly" | 
   support: { priority: 0.4, changeFrequency: "monthly" },
   privacy: { priority: 0.3, changeFrequency: "yearly" },
   terms: { priority: 0.3, changeFrequency: "yearly" },
+  "guide-pillar": { priority: 0.9, changeFrequency: "monthly" },
+  "guide-whatsapp": { priority: 0.8, changeFrequency: "monthly" },
+  "guide-sales": { priority: 0.8, changeFrequency: "monthly" },
+  "guide-support": { priority: 0.8, changeFrequency: "monthly" },
 };
 
 // Cada página aparece en inglés y en español, y cada una le dice a Google

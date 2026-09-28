@@ -3,9 +3,10 @@
 import Link from "next/link";
 import Wordmark from "./Wordmark";
 import { useLanguage } from "./LanguageProvider";
+import { GUIDES, GUIDE_PATHS, type GuideKey } from "@/lib/guides";
 
 export default function Footer() {
-  const { t, localePath } = useLanguage();
+  const { t, locale, localePath } = useLanguage();
 
   return (
     <footer className="relative border-t border-border bg-background">
@@ -18,20 +19,33 @@ export default function Footer() {
           <p className="mt-4 text-sm text-muted">{t.footer.tagline}</p>
         </div>
 
-        <nav
-          className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted"
-          aria-label={t.footer.navLabel}
-        >
-          {t.nav.links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <div className="flex flex-col gap-8 sm:items-end">
+          <nav
+            className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted"
+            aria-label={t.footer.navLabel}
+          >
+            {t.nav.links.map((link) => (
+              <a
+                key={link.href}
+                href={localePath("/") + link.href}
+                className="transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          {/* Guías: enlaces internos hacia las páginas pensadas para Google. */}
+          <nav
+            className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-dim sm:justify-end"
+            aria-label={locale === "es" ? "Guías" : "Guides"}
+          >
+            {(Object.keys(GUIDES) as GuideKey[]).map((k) => (
+              <Link key={k} href={localePath(GUIDE_PATHS[k])} className="transition-colors hover:text-foreground">
+                {GUIDES[k][locale].navLabel}
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
 
       <div className="border-t border-border">
