@@ -27,7 +27,7 @@ export function openChat(agent: ChatAgent) {
 }
 
 export default function ChatWidget() {
-  const { t, locale } = useLanguage();
+  const { t, locale, localePath } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -110,15 +110,17 @@ export default function ChatWidget() {
     conversationIdRef.current = id;
     return id;
   }
+  // La misma página en español vive en /es/…: se compara sin el prefijo.
+  const barePath = pathname.replace(/^\/es(?=\/|$)/, "") || "/";
   useEffect(() => {
     const arrivalMessage =
-      pathname === "/comprar"
+      barePath === "/comprar"
         ? t.chat.checkoutArrivedMessage
-        : pathname === "/schedule"
+        : barePath === "/schedule"
           ? t.chat.scheduleArrivedMessage
           : null;
-    if (!arrivalMessage || announcedPagesRef.current.has(pathname)) return;
-    announcedPagesRef.current.add(pathname);
+    if (!arrivalMessage || announcedPagesRef.current.has(barePath)) return;
+    announcedPagesRef.current.add(barePath);
     setAgent("sales");
     setOpen(true);
     setThreads((cur) => ({
@@ -152,8 +154,8 @@ export default function ChatWidget() {
       // (no window.location) para que este mismo widget siga montado y
       // abierto en la página destino, en vez de perderse en una recarga
       // completa, así el acompañamiento se siente continuo.
-      if (data.redirect && pathname !== data.redirect) {
-        router.push(data.redirect);
+      if (data.redirect && barePath !== data.redirect) {
+        router.push(localePath(data.redirect));
       }
     } catch {
       setError(true);

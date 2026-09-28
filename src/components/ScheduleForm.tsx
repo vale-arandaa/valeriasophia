@@ -11,7 +11,7 @@ const CHAT_API_BASE =
   process.env.NEXT_PUBLIC_AGENTS_API_URL || "https://agents.vlouxe.com";
 
 export default function ScheduleForm() {
-  const { t, locale } = useLanguage();
+  const { t, locale, localePath } = useLanguage();
   // Horarios cargados mes por mes (clave "AAAA-MM"), para poder navegar a
   // cualquier mes y año sin traer todo de una vez.
   const [monthSlots, setMonthSlots] = useState<Record<string, string[]>>({});
@@ -304,7 +304,7 @@ export default function ScheduleForm() {
               <div className="mx-auto mt-6 max-w-lg text-center">
                 <p className="text-sm text-muted">
                   {t.schedule.preferCall}{" "}
-                  <Link href="/call" className="text-accent underline-offset-4 hover:underline">
+                  <Link href={localePath("/call")} className="text-accent underline-offset-4 hover:underline">
                     {t.schedule.preferCallButton}
                   </Link>
                 </p>

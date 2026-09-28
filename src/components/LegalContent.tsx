@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useLanguage } from "./LanguageProvider";
 
 export default function LegalContent({ page }: { page: "privacy" | "terms" }) {
-  const { t } = useLanguage();
+  const { t, localePath } = useLanguage();
   const content = t.legal[page];
 
   return (
     <div className="container-vlouxe max-w-2xl">
       <Link
-        href="/"
+        href={localePath("/")}
         className="text-sm text-muted transition-colors hover:text-foreground"
       >
         {t.legal.backLink}

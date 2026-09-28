@@ -1,16 +1,25 @@
 import type { MetadataRoute } from "next";
+import { SEO, toLocalePath, type PageKey } from "@/lib/seo";
 
+const PRIORITY: Record<PageKey, { priority: number; changeFrequency: "weekly" | "monthly" | "yearly" }> = {
+  home: { priority: 1, changeFrequency: "weekly" },
+  comprar: { priority: 0.9, changeFrequency: "monthly" },
+  schedule: { priority: 0.7, changeFrequency: "monthly" },
+  call: { priority: 0.6, changeFrequency: "monthly" },
+  support: { priority: 0.4, changeFrequency: "monthly" },
+  privacy: { priority: 0.3, changeFrequency: "yearly" },
+  terms: { priority: 0.3, changeFrequency: "yearly" },
+};
+
+// Cada página aparece en inglés y en español, y cada una le dice a Google
+// cuál es su versión en el otro idioma.
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://vlouxe.com";
   const now = new Date();
-
-  return [
-    { url: base, lastModified: now, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/comprar`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${base}/schedule`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${base}/call`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${base}/support`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
-    { url: `${base}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${base}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-  ];
+  return (Object.keys(SEO) as PageKey[]).flatMap((key) => {
+    const en = base + (toLocalePath(SEO[key].path, "en") === "/" ? "" : toLocalePath(SEO[key].path, "en"));
+    const es = base + toLocalePath(SEO[key].path, "es");
+    const languages = { en, es, "x-default": en };
+    return [en, es].map((url) => ({ url, lastModified: now, ...PRIORITY[key], alternates: { languages } }));
+  });
 }

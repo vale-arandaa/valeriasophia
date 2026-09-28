@@ -5,7 +5,7 @@ import Wordmark from "./Wordmark";
 import { useLanguage } from "./LanguageProvider";
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, localePath } = useLanguage();
 
   return (
     <footer className="relative border-t border-border bg-background">
@@ -40,16 +40,16 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} VLOUXE. {t.footer.rights}
           </p>
           <div className="flex flex-wrap gap-6">
-            <Link href="/schedule" className="transition-colors hover:text-foreground">
+            <Link href={localePath("/schedule")} className="transition-colors hover:text-foreground">
               {t.footer.scheduleLabel}
             </Link>
-            <Link href="/support" className="transition-colors hover:text-foreground">
+            <Link href={localePath("/support")} className="transition-colors hover:text-foreground">
               {t.footer.supportLabel}
             </Link>
-            <Link href="/privacy" className="transition-colors hover:text-foreground">
+            <Link href={localePath("/privacy")} className="transition-colors hover:text-foreground">
               {t.footer.privacyLabel}
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-foreground">
+            <Link href={localePath("/terms")} className="transition-colors hover:text-foreground">
               {t.footer.termsLabel}
             </Link>
           </div>

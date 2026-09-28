@@ -1,8 +1,8 @@
 import ScheduleForm from "@/components/ScheduleForm";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata = pageMetadata("schedule", "en");
+export const metadata = pageMetadata("schedule", "es");
 
-export default function SchedulePage() {
+export default function SchedulePageEs() {
   return <ScheduleForm />;
 }

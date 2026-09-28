@@ -1,8 +1,8 @@
 import LegalPage from "@/components/LegalPage";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata = pageMetadata("terms", "en");
+export const metadata = pageMetadata("terms", "es");
 
-export default function TermsPage() {
+export default function TermsPageEs() {
   return <LegalPage page="terms" />;
 }

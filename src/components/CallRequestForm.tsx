@@ -29,7 +29,7 @@ const COUNTRY_CODES = [
 ];
 
 export default function CallRequestForm() {
-  const { t } = useLanguage();
+  const { t, localePath } = useLanguage();
   const [name, setName] = useState("");
   const [countryCode, setCountryCode] = useState(COUNTRY_CODES[0].code);
   const [phone, setPhone] = useState("");
@@ -153,7 +153,7 @@ export default function CallRequestForm() {
               <div className="mx-auto mt-6 max-w-lg text-center">
                 <p className="text-sm text-muted">
                   {t.call.preferSchedule}{" "}
-                  <Link href="/schedule" className="text-accent underline-offset-4 hover:underline">
+                  <Link href={localePath("/schedule")} className="text-accent underline-offset-4 hover:underline">
                     {t.call.preferScheduleButton}
                   </Link>
                 </p>

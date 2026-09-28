@@ -35,9 +35,6 @@ export const metadata: Metadata = {
     "agentes de inteligencia artificial para negocios",
     "VLOUXE",
   ],
-  alternates: {
-    canonical: "/",
-  },
   authors: [{ name: "VLOUXE" }],
   openGraph: {
     type: "website",
