@@ -18,7 +18,7 @@ export default function Nav() {
           className="flex items-center gap-2.5 text-foreground transition-opacity hover:opacity-80"
           aria-label="VLOUXE home"
         >
-          <img src="/logo-mark.png" alt="" width={28} height={28} className="h-7 w-7" />
+          <img src="/logo-mark.png" alt="VLOUXE logo" width={28} height={28} className="h-7 w-7" />
           <Wordmark size="nav" />
         </a>
 

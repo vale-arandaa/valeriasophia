@@ -182,7 +182,7 @@ export default function ChatWidget() {
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-dim">
                 <AgentIcon size={16} weight="light" className="text-accent" />
               </span>
-              <h3 className="text-sm font-medium text-foreground">{title}</h3>
+              <p className="text-sm font-medium text-foreground">{title}</p>
             </div>
             <button
               type="button"

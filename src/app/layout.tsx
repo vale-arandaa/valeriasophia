@@ -19,33 +19,41 @@ const siteUrl = "https://vlouxe.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "VLOUXE | AI Workforce for Modern Businesses",
+    default: "AI Agents for Business: Your 24/7 AI Workforce | VLOUXE",
     template: "%s | VLOUXE",
   },
   description:
-    "VLOUXE builds AI agents that work as a digital workforce, handling sales, marketing, support, and operations for growing businesses across the US and Latin America.",
+    "8 AI agents that answer leads, follow up, support customers and post content for your business 24/7. Your AI workforce, live in days.",
   keywords: [
-    "AI workforce",
     "AI agents for business",
-    "AI automation",
-    "business AI agents",
-    "AI operations",
+    "AI workforce",
+    "AI sales agent",
+    "AI customer support agent",
+    "AI marketing agent",
+    "business automation with AI",
+    "agentes de IA para empresas",
+    "agentes de inteligencia artificial para negocios",
     "VLOUXE",
   ],
+  alternates: {
+    canonical: "/",
+  },
   authors: [{ name: "VLOUXE" }],
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "VLOUXE | AI Workforce for Modern Businesses",
+    title: "AI Agents for Business: Your 24/7 AI Workforce | VLOUXE",
     description:
-      "VLOUXE gives businesses intelligent AI agents that handle real work, automate operations, and work together as a digital workforce.",
+      "8 AI agents that answer leads, follow up, support customers and post content for your business 24/7. Your AI workforce, live in days.",
     siteName: "VLOUXE",
+    locale: "en_US",
+    alternateLocale: ["es_419"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "VLOUXE | AI Workforce for Modern Businesses",
+    title: "AI Agents for Business: Your 24/7 AI Workforce | VLOUXE",
     description:
-      "VLOUXE gives businesses intelligent AI agents that handle real work, automate operations, and work together as a digital workforce.",
+      "8 AI agents that answer leads, follow up, support customers and post content for your business 24/7. Your AI workforce, live in days.",
   },
   robots: {
     index: true,
