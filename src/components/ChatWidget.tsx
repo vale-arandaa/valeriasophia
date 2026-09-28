@@ -93,6 +93,23 @@ export default function ChatWidget() {
   // página. Un Set (no un solo boolean) porque ahora hay dos páginas de
   // llegada posibles en la misma sesión de chat.
   const announcedPagesRef = useRef<Set<string>>(new Set());
+  // Id de esta conversación: el Registro del portal agrupa por cliente.
+  const conversationIdRef = useRef<string | null>(null);
+  function getConversationId() {
+    if (conversationIdRef.current) return conversationIdRef.current;
+    let id: string | null = null;
+    try {
+      id = sessionStorage.getItem("vx-cid");
+    } catch {}
+    if (!id) {
+      id = "c" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+      try {
+        sessionStorage.setItem("vx-cid", id);
+      } catch {}
+    }
+    conversationIdRef.current = id;
+    return id;
+  }
   useEffect(() => {
     const arrivalMessage =
       pathname === "/comprar"
@@ -121,7 +138,7 @@ export default function ChatWidget() {
       const res = await fetch(`${CHAT_API_BASE}/chat/${targetAgent}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history, locale }),
+        body: JSON.stringify({ messages: history, locale, conversationId: getConversationId() }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error("chat error");
