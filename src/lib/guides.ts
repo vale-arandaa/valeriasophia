@@ -5,7 +5,7 @@ import type { Locale } from "@/lib/translations";
 // salga en Google cuando buscan agentes de IA). Todo lo que dicen sale de lo
 // que VLOUXE hace de verdad: nada de cifras ni testimonios inventados.
 
-export type GuideKey = "agents" | "pillar" | "pymes" | "create" | "whatsapp" | "sales" | "support";
+export type GuideKey = "agents" | "pillar" | "create" | "whatsapp" | "sales" | "support";
 
 type GuideSection = {
   heading: string;
@@ -27,7 +27,6 @@ export type GuideContent = {
 export const GUIDE_PATHS: Record<GuideKey, string> = {
   agents: "/ai-agents",
   pillar: "/ai-agents-for-business",
-  pymes: "/ai-agents-for-small-business",
   create: "/how-to-create-an-ai-agent",
   whatsapp: "/whatsapp-ai-agent",
   sales: "/ai-sales-agent",
@@ -293,84 +292,6 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       ],
       ctaTitle: "Mira qué harían los agentes en tu negocio",
       ctaBody: "Cuéntale a nuestro Agente de Ventas qué hace tu negocio y dónde pierde más tiempo tu equipo.",
-    },
-  },
-  pymes: {
-    en: {
-      navLabel: "AI agents for small businesses",
-      eyebrow: "Small businesses",
-      h1: "AI agents for small businesses: do the work of a bigger team",
-      intro:
-        "In a small business the same two or three people answer messages, sell, post on social media and keep the numbers. AI agents take on the repetitive part of each of those jobs, so a small team can answer every customer and keep marketing running without hiring more people.",
-      sections: [
-        {
-          heading: "Where a small business loses the most time",
-          items: [
-            { title: "Messages that arrive while you're busy", body: "Customers who write while you're serving someone else and never get an answer." },
-            { title: "Follow-ups that never happen", body: "Leads who asked for a quote and were forgotten because nobody had time to write back." },
-            { title: "Social media that stops", body: "Weeks without posting because there's always something more urgent." },
-            { title: "Numbers nobody looks at", body: "Income and expenses in a spreadsheet that only get reviewed when there's a problem." },
-          ],
-        },
-        {
-          heading: "What AI agents do in a small business",
-          paragraphs: [
-            "The Customer Support and Sales agents answer on your website chat and WhatsApp as your business, day and night. The Sales Agent follows up with every lead and books meetings inside your hours. Marketing and Content keep your Facebook Page and your video ideas going. Analytics turns your income and expenses into a clear report. You see everything in one portal, organized by day and by customer.",
-          ],
-        },
-        {
-          heading: "Why it fits a small business",
-          items: [
-            { title: "No technical team needed", body: "You describe your business in plain words and connect each channel by choosing your tool and following a few steps." },
-            { title: "Ready in days", body: "All 8 agents come built in; you don't have to design or program anything." },
-            { title: "Your channels stay yours", body: "You connect them with your own account and VLOUXE never asks for your passwords." },
-          ],
-        },
-      ],
-      faqs: [
-        { q: "Is it worth it for a business with only a few employees?", a: "That's where it helps the most: the agents take on first replies, follow-ups and posting, which in a small team usually fall on the owner." },
-        { q: "What do I need to start?", a: "A description of your business, your website or WhatsApp Business, and optionally your customer spreadsheet." },
-      ],
-      ctaTitle: "A bigger team, without hiring",
-      ctaBody: "Tell our Sales Agent what your business does and what takes up most of your day.",
-    },
-    es: {
-      navLabel: "Agentes de IA para pymes",
-      eyebrow: "Pymes",
-      h1: "Agentes de IA para pymes: el trabajo de un equipo más grande",
-      intro:
-        "En una pyme, las mismas dos o tres personas responden mensajes, venden, publican en redes y llevan los números. Los agentes de IA se hacen cargo de la parte repetitiva de cada uno de esos trabajos, para que un equipo chico pueda responderle a cada cliente y mantener el marketing funcionando sin contratar a más gente.",
-      sections: [
-        {
-          heading: "Dónde pierde más tiempo una pyme",
-          items: [
-            { title: "Mensajes que llegan mientras atiendes", body: "Clientes que escriben mientras estás con otra persona y nunca reciben respuesta." },
-            { title: "Seguimientos que nunca se hacen", body: "Prospectos que pidieron una cotización y quedaron olvidados porque nadie tuvo tiempo de responder." },
-            { title: "Redes sociales que se detienen", body: "Semanas sin publicar porque siempre hay algo más urgente." },
-            { title: "Números que nadie mira", body: "Ingresos y gastos en una planilla que solo se revisa cuando hay un problema." },
-          ],
-        },
-        {
-          heading: "Qué hacen los agentes de IA en una pyme",
-          paragraphs: [
-            "Los agentes de Soporte y Ventas responden en el chat de tu web y en WhatsApp como tu negocio, de día y de noche. El Agente de Ventas le hace seguimiento a cada prospecto y agenda reuniones dentro de tus horarios. Marketing y Contenido mantienen activa tu Página de Facebook y tus ideas de video. Analítica convierte tus ingresos y gastos en un reporte claro. Ves todo en un solo portal, ordenado por día y por cliente.",
-          ],
-        },
-        {
-          heading: "Por qué le sirve a una pyme",
-          items: [
-            { title: "No necesitas un equipo técnico", body: "Describes tu negocio con palabras simples y conectas cada canal eligiendo tu herramienta y siguiendo unos pocos pasos." },
-            { title: "Listo en días", body: "Los 8 agentes vienen incluidos; no tienes que diseñar ni programar nada." },
-            { title: "Tus canales siguen siendo tuyos", body: "Los conectas con tu propia cuenta y VLOUXE nunca te pide tus contraseñas." },
-          ],
-        },
-      ],
-      faqs: [
-        { q: "¿Vale la pena para un negocio con pocos empleados?", a: "Es donde más ayuda: los agentes se hacen cargo de las primeras respuestas, los seguimientos y las publicaciones, que en un equipo chico suelen caer en el dueño." },
-        { q: "¿Qué necesito para empezar?", a: "Una descripción de tu negocio, tu página web o tu WhatsApp Business y, si quieres, tu planilla de clientes." },
-      ],
-      ctaTitle: "Un equipo más grande, sin contratar",
-      ctaBody: "Cuéntale a nuestro Agente de Ventas qué hace tu negocio y qué es lo que más tiempo te quita.",
     },
   },
   create: {

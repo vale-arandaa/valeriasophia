@@ -9,7 +9,6 @@ import type { Locale } from "@/lib/translations";
 const ES_SLUGS: Record<string, string> = {
   "/ai-agents": "/agentes-de-ia",
   "/ai-agents-for-business": "/agentes-de-ia-para-empresas",
-  "/ai-agents-for-small-business": "/agentes-de-ia-para-pymes",
   "/how-to-create-an-ai-agent": "/como-crear-un-agente-de-ia",
   "/whatsapp-ai-agent": "/agente-de-ia-para-whatsapp",
   "/ai-sales-agent": "/agente-de-ventas-con-ia",
@@ -36,7 +35,6 @@ export type PageKey =
   | "terms"
   | "guide-agents"
   | "guide-pillar"
-  | "guide-pymes"
   | "guide-create"
   | "guide-whatsapp"
   | "guide-sales"
@@ -139,19 +137,6 @@ export const SEO: Record<PageKey, PageSeo> = {
       title: "Agentes de IA para empresas: guía práctica",
       description:
         "Qué hacen los agentes de IA por una empresa, los 8 agentes que trabajan en equipo (ventas, soporte, marketing y más) y cómo empezar sin saber de tecnología.",
-    },
-  },
-  "guide-pymes": {
-    path: "/ai-agents-for-small-business",
-    en: {
-      title: "AI Agents for Small Businesses",
-      description:
-        "How AI agents help a small business answer every customer, follow up with every lead and keep marketing running without hiring more people.",
-    },
-    es: {
-      title: "Agentes de IA para pymes",
-      description:
-        "Cómo los agentes de IA ayudan a una pyme a responderle a cada cliente, hacer seguimiento a cada prospecto y mantener el marketing sin contratar más gente.",
     },
   },
   "guide-create": {
