@@ -5,7 +5,7 @@ import type { Locale } from "@/lib/translations";
 // salga en Google cuando buscan agentes de IA). Todo lo que dicen sale de lo
 // que VLOUXE hace de verdad: nada de cifras ni testimonios inventados.
 
-export type GuideKey = "agents" | "pillar" | "whatsapp" | "sales" | "support";
+export type GuideKey = "agents" | "pillar" | "pymes" | "create" | "whatsapp" | "sales" | "support";
 
 type GuideSection = {
   heading: string;
@@ -27,6 +27,8 @@ export type GuideContent = {
 export const GUIDE_PATHS: Record<GuideKey, string> = {
   agents: "/ai-agents",
   pillar: "/ai-agents-for-business",
+  pymes: "/ai-agents-for-small-business",
+  create: "/how-to-create-an-ai-agent",
   whatsapp: "/whatsapp-ai-agent",
   sales: "/ai-sales-agent",
   support: "/ai-customer-service-agent",
@@ -291,6 +293,154 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       ],
       ctaTitle: "Mira qué harían los agentes en tu negocio",
       ctaBody: "Cuéntale a nuestro Agente de Ventas qué hace tu negocio y dónde pierde más tiempo tu equipo.",
+    },
+  },
+  pymes: {
+    en: {
+      navLabel: "AI agents for small businesses",
+      eyebrow: "Small businesses",
+      h1: "AI agents for small businesses: do the work of a bigger team",
+      intro:
+        "In a small business the same two or three people answer messages, sell, post on social media and keep the numbers. AI agents take on the repetitive part of each of those jobs, so a small team can answer every customer and keep marketing running without hiring more people.",
+      sections: [
+        {
+          heading: "Where a small business loses the most time",
+          items: [
+            { title: "Messages that arrive while you're busy", body: "Customers who write while you're serving someone else and never get an answer." },
+            { title: "Follow-ups that never happen", body: "Leads who asked for a quote and were forgotten because nobody had time to write back." },
+            { title: "Social media that stops", body: "Weeks without posting because there's always something more urgent." },
+            { title: "Numbers nobody looks at", body: "Income and expenses in a spreadsheet that only get reviewed when there's a problem." },
+          ],
+        },
+        {
+          heading: "What AI agents do in a small business",
+          paragraphs: [
+            "The Customer Support and Sales agents answer on your website chat and WhatsApp as your business, day and night. The Sales Agent follows up with every lead and books meetings inside your hours. Marketing and Content keep your Facebook Page and your video ideas going. Analytics turns your income and expenses into a clear report. You see everything in one portal, organized by day and by customer.",
+          ],
+        },
+        {
+          heading: "Why it fits a small business",
+          items: [
+            { title: "No technical team needed", body: "You describe your business in plain words and connect each channel by choosing your tool and following a few steps." },
+            { title: "Ready in days", body: "All 8 agents come built in; you don't have to design or program anything." },
+            { title: "Your channels stay yours", body: "You connect them with your own account and VLOUXE never asks for your passwords." },
+          ],
+        },
+      ],
+      faqs: [
+        { q: "Is it worth it for a business with only a few employees?", a: "That's where it helps the most: the agents take on first replies, follow-ups and posting, which in a small team usually fall on the owner." },
+        { q: "What do I need to start?", a: "A description of your business, your website or WhatsApp Business, and optionally your customer spreadsheet." },
+      ],
+      ctaTitle: "A bigger team, without hiring",
+      ctaBody: "Tell our Sales Agent what your business does and what takes up most of your day.",
+    },
+    es: {
+      navLabel: "Agentes de IA para pymes",
+      eyebrow: "Pymes",
+      h1: "Agentes de IA para pymes: el trabajo de un equipo más grande",
+      intro:
+        "En una pyme, las mismas dos o tres personas responden mensajes, venden, publican en redes y llevan los números. Los agentes de IA se hacen cargo de la parte repetitiva de cada uno de esos trabajos, para que un equipo chico pueda responderle a cada cliente y mantener el marketing funcionando sin contratar a más gente.",
+      sections: [
+        {
+          heading: "Dónde pierde más tiempo una pyme",
+          items: [
+            { title: "Mensajes que llegan mientras atiendes", body: "Clientes que escriben mientras estás con otra persona y nunca reciben respuesta." },
+            { title: "Seguimientos que nunca se hacen", body: "Prospectos que pidieron una cotización y quedaron olvidados porque nadie tuvo tiempo de responder." },
+            { title: "Redes sociales que se detienen", body: "Semanas sin publicar porque siempre hay algo más urgente." },
+            { title: "Números que nadie mira", body: "Ingresos y gastos en una planilla que solo se revisa cuando hay un problema." },
+          ],
+        },
+        {
+          heading: "Qué hacen los agentes de IA en una pyme",
+          paragraphs: [
+            "Los agentes de Soporte y Ventas responden en el chat de tu web y en WhatsApp como tu negocio, de día y de noche. El Agente de Ventas le hace seguimiento a cada prospecto y agenda reuniones dentro de tus horarios. Marketing y Contenido mantienen activa tu Página de Facebook y tus ideas de video. Analítica convierte tus ingresos y gastos en un reporte claro. Ves todo en un solo portal, ordenado por día y por cliente.",
+          ],
+        },
+        {
+          heading: "Por qué le sirve a una pyme",
+          items: [
+            { title: "No necesitas un equipo técnico", body: "Describes tu negocio con palabras simples y conectas cada canal eligiendo tu herramienta y siguiendo unos pocos pasos." },
+            { title: "Listo en días", body: "Los 8 agentes vienen incluidos; no tienes que diseñar ni programar nada." },
+            { title: "Tus canales siguen siendo tuyos", body: "Los conectas con tu propia cuenta y VLOUXE nunca te pide tus contraseñas." },
+          ],
+        },
+      ],
+      faqs: [
+        { q: "¿Vale la pena para un negocio con pocos empleados?", a: "Es donde más ayuda: los agentes se hacen cargo de las primeras respuestas, los seguimientos y las publicaciones, que en un equipo chico suelen caer en el dueño." },
+        { q: "¿Qué necesito para empezar?", a: "Una descripción de tu negocio, tu página web o tu WhatsApp Business y, si quieres, tu planilla de clientes." },
+      ],
+      ctaTitle: "Un equipo más grande, sin contratar",
+      ctaBody: "Cuéntale a nuestro Agente de Ventas qué hace tu negocio y qué es lo que más tiempo te quita.",
+    },
+  },
+  create: {
+    en: {
+      navLabel: "How to create an AI agent",
+      eyebrow: "How-to",
+      h1: "How to create an AI agent for your business",
+      intro:
+        "Creating an AI agent is less about code and more about defining its job well. This guide covers the decisions every AI agent needs, whatever tool you use, and the three ways a business can get one: build it, commission it or use a ready-made team.",
+      sections: [
+        {
+          heading: "The 6 steps to create any AI agent",
+          items: [
+            { title: "1. Define one job", body: "\"Answer customers on WhatsApp\" works. \"Help with the business\" doesn't. An agent with a clear goal makes better decisions." },
+            { title: "2. Write down the information it needs", body: "Prices, hours, services, policies and the questions you get most, in plain words." },
+            { title: "3. Choose where it will work", body: "Your website chat, WhatsApp, your calendar or your CRM. Each channel has to be connected with the business's own account." },
+            { title: "4. Set its limits", body: "What it can decide alone and when it must hand the case to a person, for example discounts or complaints." },
+            { title: "5. Test it with real questions", body: "Write to it as a customer would, including the hard questions, and correct its information where it fails." },
+            { title: "6. Review what it does", body: "Read its conversations regularly. A good agent leaves a record of everything it does." },
+          ],
+        },
+        {
+          heading: "Three ways to get an AI agent",
+          items: [
+            { title: "Build it yourself", body: "With automation platforms or programming frameworks. Maximum control, but you need technical time to build, connect and maintain it." },
+            { title: "Commission it from an agency", body: "A custom project. It fits exactly what you ask for, but usually takes weeks or months and a large upfront investment." },
+            { title: "Use a ready-made team", body: "Like VLOUXE: 8 agents already built and coordinated. You only describe your business and connect your channels." },
+          ],
+        },
+      ],
+      faqs: [
+        { q: "Can I create an AI agent without knowing how to code?", a: "Yes. With a ready-made team like VLOUXE you don't program anything: you describe your business and connect your channels." },
+        { q: "How long does it take to create an AI agent?", a: "Building one from scratch can take weeks. With VLOUXE the agents are already built, so it takes days, mostly to write your business information and connect your channels." },
+      ],
+      ctaTitle: "Skip the build, keep the result",
+      ctaBody: "Ask our Sales Agent which of the 8 agents your business needs first.",
+    },
+    es: {
+      navLabel: "Cómo crear un agente de IA",
+      eyebrow: "Paso a paso",
+      h1: "Cómo crear un agente de IA para tu negocio",
+      intro:
+        "Crear un agente de IA tiene menos que ver con programar y más con definir bien su trabajo. Esta guía explica las decisiones que necesita cualquier agente de IA, uses la herramienta que uses, y las tres formas en que una empresa puede tener uno: construirlo, encargarlo o usar un equipo ya listo.",
+      sections: [
+        {
+          heading: "Los 6 pasos para crear cualquier agente de IA",
+          items: [
+            { title: "1. Define un solo trabajo", body: "\"Responder a los clientes en WhatsApp\" funciona. \"Ayudar con el negocio\" no. Un agente con un objetivo claro toma mejores decisiones." },
+            { title: "2. Escribe la información que necesita", body: "Precios, horarios, servicios, políticas y las preguntas que más te hacen, con palabras simples." },
+            { title: "3. Elige dónde va a trabajar", body: "El chat de tu web, WhatsApp, tu calendario o tu CRM. Cada canal se conecta con la cuenta del propio negocio." },
+            { title: "4. Define sus límites", body: "Qué puede decidir solo y cuándo tiene que pasarle el caso a una persona, por ejemplo descuentos o reclamos." },
+            { title: "5. Pruébalo con preguntas reales", body: "Escríbele como lo haría un cliente, incluidas las preguntas difíciles, y corrige su información donde falle." },
+            { title: "6. Revisa lo que hace", body: "Lee sus conversaciones con frecuencia. Un buen agente deja registro de todo lo que hace." },
+          ],
+        },
+        {
+          heading: "Tres formas de tener un agente de IA",
+          items: [
+            { title: "Construirlo tú", body: "Con plataformas de automatización o frameworks de programación. Control total, pero necesitas tiempo técnico para crearlo, conectarlo y mantenerlo." },
+            { title: "Encargarlo a una agencia", body: "Un proyecto a medida. Se ajusta exactamente a lo que pides, pero suele tomar semanas o meses y una inversión inicial alta." },
+            { title: "Usar un equipo ya listo", body: "Como VLOUXE: 8 agentes ya construidos y coordinados. Solo describes tu negocio y conectas tus canales." },
+          ],
+        },
+      ],
+      faqs: [
+        { q: "¿Puedo crear un agente de IA sin saber programar?", a: "Sí. Con un equipo ya listo como VLOUXE no programas nada: describes tu negocio y conectas tus canales." },
+        { q: "¿Cuánto tiempo toma crear un agente de IA?", a: "Construir uno desde cero puede tomar semanas. Con VLOUXE los agentes ya están hechos, así que toma días, sobre todo para escribir la información de tu negocio y conectar tus canales." },
+      ],
+      ctaTitle: "Sáltate la construcción, quédate con el resultado",
+      ctaBody: "Pregúntale a nuestro Agente de Ventas cuál de los 8 agentes necesita primero tu negocio.",
     },
   },
   whatsapp: {

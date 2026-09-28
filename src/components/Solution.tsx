@@ -13,6 +13,7 @@ import {
   Plus,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Icon } from "@phosphor-icons/react";
+import Link from "next/link";
 import Reveal from "./Reveal";
 import { useLanguage } from "./LanguageProvider";
 import type { AgentId } from "@/lib/translations";
@@ -38,7 +39,7 @@ const CARD_BACK_BG = "#13141a";
 const CARD_SHADOW = "0 30px 60px -36px rgba(0,0,0,0.95)";
 
 export default function Solution() {
-  const { t } = useLanguage();
+  const { t, locale, localePath } = useLanguage();
   const [expanded, setExpanded] = useState<AgentId | null>(null);
 
   return (
@@ -128,6 +129,12 @@ export default function Solution() {
             );
           })}
         </div>
+        {/* Enlace a la guía "agentes de IA": la página principal le pasa fuerza en Google. */}
+        <p className="mt-10 text-center text-sm text-muted">
+          <Link href={localePath("/ai-agents")} className="text-foreground underline-offset-4 transition-colors hover:text-accent hover:underline">
+            {locale === "es" ? "¿Qué es un agente de IA? Lee la guía completa" : "What is an AI agent? Read the complete guide"}
+          </Link>
+        </p>
       </div>
     </section>
   );

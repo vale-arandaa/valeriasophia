@@ -11,6 +11,8 @@ const PRIORITY: Record<PageKey, { priority: number; changeFrequency: "weekly" | 
   terms: { priority: 0.3, changeFrequency: "yearly" },
   "guide-agents": { priority: 0.95, changeFrequency: "monthly" },
   "guide-pillar": { priority: 0.9, changeFrequency: "monthly" },
+  "guide-pymes": { priority: 0.8, changeFrequency: "monthly" },
+  "guide-create": { priority: 0.8, changeFrequency: "monthly" },
   "guide-whatsapp": { priority: 0.8, changeFrequency: "monthly" },
   "guide-sales": { priority: 0.8, changeFrequency: "monthly" },
   "guide-support": { priority: 0.8, changeFrequency: "monthly" },

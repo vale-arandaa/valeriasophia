@@ -33,22 +33,14 @@ export default function GuidePage({ guide }: { guide: GuideKey }) {
       <main className="flex-1">
         <div className="container-vlouxe pb-24 pt-40">
           <article className="mx-auto max-w-3xl">
-            <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-accent-dim px-3.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-muted">
-                <span className="h-1 w-1 rounded-full bg-accent" />
-                {g.eyebrow}
-              </span>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h1 className="balance mt-6 text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl">
-                {g.h1}
-              </h1>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-6 text-lg leading-relaxed text-muted">
-                {g.intro}
-              </p>
-            </Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-accent-dim px-3.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-muted">
+              <span className="h-1 w-1 rounded-full bg-accent" />
+              {g.eyebrow}
+            </span>
+            <h1 className="balance mt-6 text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+              {g.h1}
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed text-muted">{g.intro}</p>
             <Reveal delay={0.15}>
               <div className="mt-9 flex flex-wrap gap-3">
                 <button
