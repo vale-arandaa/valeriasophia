@@ -5,7 +5,7 @@ import type { Locale } from "@/lib/translations";
 // salga en Google cuando buscan agentes de IA). Todo lo que dicen sale de lo
 // que VLOUXE hace de verdad: nada de cifras ni testimonios inventados.
 
-export type GuideKey = "pillar" | "whatsapp" | "sales" | "support";
+export type GuideKey = "agents" | "pillar" | "whatsapp" | "sales" | "support";
 
 type GuideSection = {
   heading: string;
@@ -25,6 +25,7 @@ export type GuideContent = {
 };
 
 export const GUIDE_PATHS: Record<GuideKey, string> = {
+  agents: "/ai-agents",
   pillar: "/ai-agents-for-business",
   whatsapp: "/whatsapp-ai-agent",
   sales: "/ai-sales-agent",
@@ -32,6 +33,158 @@ export const GUIDE_PATHS: Record<GuideKey, string> = {
 };
 
 export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
+  // La página para la búsqueda "agentes de IA" a secas (pedido de Valeria,
+  // 28/9/2026): la guía más completa, con el resto de guías colgando de ella.
+  agents: {
+    en: {
+      navLabel: "AI agents",
+      eyebrow: "Complete guide",
+      h1: "AI agents: what they are, how they work and real examples",
+      intro:
+        "AI agents are programs that receive a goal, not just a question, and carry out the steps to reach it on their own: they read information, decide what to do, use tools and act, again and again, without someone guiding each move. This guide explains what an AI agent is, how it differs from a chatbot or ChatGPT, the main types of AI agents and how businesses are using them today.",
+      sections: [
+        {
+          heading: "What is an AI agent?",
+          paragraphs: [
+            "An AI agent is software that uses an AI model to reach a goal with some autonomy. You give it a job, for example \"answer every new customer and book a meeting with the ones who are ready\", and it decides the steps: read the message, look up the right information, write the answer, update the lead and schedule the meeting.",
+            "Three things make it an agent and not just a program that talks: it has a goal, it has access to information and tools (a calendar, a CRM, WhatsApp), and it acts on its own inside the limits you set.",
+          ],
+        },
+        {
+          heading: "AI agent vs. chatbot vs. ChatGPT",
+          items: [
+            { title: "Chatbot", body: "Follows a fixed script or a decision tree. If the customer writes something the script doesn't cover, it gets stuck." },
+            { title: "ChatGPT and similar assistants", body: "Answer very well, but only when a person asks them something. They don't know your business unless you tell them each time, and they don't act on their own." },
+            { title: "AI agent", body: "Works on its own toward a goal, with your business information and your tools, and keeps working without anyone writing to it: it follows up, schedules, publishes and reports." },
+          ],
+        },
+        {
+          heading: "How an AI agent works",
+          items: [
+            { title: "1. A goal", body: "What the agent is responsible for, such as answering customers or following up with leads." },
+            { title: "2. Information", body: "What it needs to do it well: your prices, hours, services, tone and the history of each customer." },
+            { title: "3. Tools", body: "Where it acts: your website chat, WhatsApp, your calendar, your spreadsheet or CRM, your Facebook Page." },
+            { title: "4. Limits and review", body: "What it can and can't do on its own, and when it has to hand the case to a person." },
+          ],
+        },
+        {
+          heading: "Types of AI agents for a business",
+          paragraphs: ["The most useful way to classify them is by the job they do. These are the most common ones in a business:"],
+          items: [
+            { title: "Sales agents", body: "Qualify leads, follow up and book meetings." },
+            { title: "Customer service agents", body: "Answer questions instantly, day and night, and pass to a person what needs one." },
+            { title: "Marketing and content agents", body: "Create and publish posts and write video scripts based on your customers' real problems." },
+            { title: "Research agents", body: "Study your market, your competitors and their prices." },
+            { title: "Analytics agents", body: "Turn your income, expenses and leads into reports you can act on." },
+            { title: "Operations and assistant agents", body: "Organize tasks, review work and manage the calendar." },
+          ],
+        },
+        {
+          heading: "Examples of AI agents in real businesses",
+          paragraphs: [
+            "A dental clinic that gets messages at 11pm asking for prices: the customer service agent answers with the clinic's real prices and offers an appointment inside the dentist's available hours.",
+            "An accounting firm with a spreadsheet of 300 old contacts: the sales agent goes through them one by one, prepares a follow-up for each and marks who needs a call.",
+            "A bakery that never finds time to post: the marketing agent turns each day's idea into a post and publishes it on its Facebook Page.",
+          ],
+        },
+        {
+          heading: "What AI agents can't do (yet)",
+          paragraphs: [
+            "An agent is only as good as the information you give it: if your prices or hours aren't written down, it can't use them. It doesn't replace decisions that need judgment, like a discount or a complaint, so a good agent knows when to hand the case to a person. And each channel has to be connected by the business itself, with its own account.",
+          ],
+        },
+        {
+          heading: "AI agents with VLOUXE",
+          paragraphs: [
+            "VLOUXE gives a business a team of 8 AI agents that work together (sales, customer service, marketing, content, research, analytics, operations and executive assistant) with a private portal where you see everything they do, organized by day, agent and customer. They answer as your company, in your customer's language, and you connect each channel yourself without sharing passwords.",
+          ],
+        },
+      ],
+      faqs: [
+        { q: "What is an AI agent in simple words?", a: "A program that receives a job, not just a question, and does it on its own: it reads, decides and acts using your information and your tools, within the limits you set." },
+        { q: "Is an AI agent the same as ChatGPT?", a: "No. ChatGPT answers when someone asks it something. An AI agent works on its own toward a goal, with your business information, and keeps working without anyone writing to it." },
+        { q: "What are AI agents used for in a business?", a: "To answer customers, follow up with leads, book meetings, publish content, study the competition and turn your numbers into reports, among other repetitive tasks." },
+        { q: "Are AI agents safe?", a: "It depends on how they are set up. With VLOUXE each business connects its channels with its own account through official connections, and VLOUXE never asks for passwords." },
+        { q: "Do I need to know how to code to use AI agents?", a: "No. With VLOUXE you describe your business in plain words and connect each channel by following a few simple steps." },
+      ],
+      ctaTitle: "See AI agents working in your business",
+      ctaBody: "Tell our Sales Agent what your business does and it will show you where agents would help.",
+    },
+    es: {
+      navLabel: "Agentes de IA",
+      eyebrow: "Guía completa",
+      h1: "Agentes de IA: qué son, cómo funcionan y ejemplos reales",
+      intro:
+        "Los agentes de IA son programas que reciben un objetivo, no solo una pregunta, y hacen por su cuenta los pasos para cumplirlo: leen información, deciden qué hacer, usan herramientas y actúan, una y otra vez, sin que alguien los guíe en cada movimiento. Esta guía explica qué es un agente de IA, en qué se diferencia de un chatbot o de ChatGPT, cuáles son los principales tipos de agentes de IA y cómo los están usando hoy las empresas.",
+      sections: [
+        {
+          heading: "¿Qué es un agente de IA?",
+          paragraphs: [
+            "Un agente de IA es un programa que usa un modelo de inteligencia artificial para cumplir un objetivo con cierta autonomía. Le das un trabajo, por ejemplo \"responde a cada cliente nuevo y agenda una reunión con los que estén listos\", y él decide los pasos: lee el mensaje, busca la información correcta, escribe la respuesta, actualiza al prospecto y agenda la reunión.",
+            "Tres cosas lo convierten en agente y no en un programa que solo conversa: tiene un objetivo, tiene acceso a información y herramientas (un calendario, un CRM, WhatsApp) y actúa por su cuenta dentro de los límites que tú defines.",
+          ],
+        },
+        {
+          heading: "Agente de IA, chatbot y ChatGPT: la diferencia",
+          items: [
+            { title: "Chatbot", body: "Sigue un guion fijo o un árbol de opciones. Si el cliente escribe algo que el guion no contempla, se queda trabado." },
+            { title: "ChatGPT y asistentes parecidos", body: "Responden muy bien, pero solo cuando una persona les pregunta algo. No conocen tu negocio a menos que se lo cuentes cada vez, y no actúan por su cuenta." },
+            { title: "Agente de IA", body: "Trabaja solo hacia un objetivo, con la información y las herramientas de tu negocio, y sigue trabajando sin que nadie le escriba: hace seguimiento, agenda, publica y reporta." },
+          ],
+        },
+        {
+          heading: "Cómo funciona un agente de IA",
+          items: [
+            { title: "1. Un objetivo", body: "De qué se hace cargo el agente, como responder a los clientes o hacerle seguimiento a los prospectos." },
+            { title: "2. Información", body: "Lo que necesita para hacerlo bien: tus precios, horarios, servicios, tono y el historial de cada cliente." },
+            { title: "3. Herramientas", body: "Dónde actúa: el chat de tu web, WhatsApp, tu calendario, tu planilla o CRM, tu Página de Facebook." },
+            { title: "4. Límites y revisión", body: "Qué puede y qué no puede hacer solo, y cuándo tiene que pasarle el caso a una persona." },
+          ],
+        },
+        {
+          heading: "Tipos de agentes de IA para un negocio",
+          paragraphs: ["La forma más útil de clasificarlos es por el trabajo que hacen. Estos son los más comunes en una empresa:"],
+          items: [
+            { title: "Agentes de ventas", body: "Califican prospectos, hacen seguimiento y agendan reuniones." },
+            { title: "Agentes de atención al cliente", body: "Responden preguntas al instante, de día y de noche, y derivan a una persona lo que lo necesita." },
+            { title: "Agentes de marketing y contenido", body: "Crean y publican posts y escriben guiones de video a partir de los problemas reales de tus clientes." },
+            { title: "Agentes de investigación", body: "Estudian tu mercado, a tu competencia y sus precios." },
+            { title: "Agentes de analítica", body: "Convierten tus ingresos, gastos y prospectos en reportes con los que puedes decidir." },
+            { title: "Agentes de operaciones y asistentes", body: "Ordenan tareas, revisan el trabajo y administran la agenda." },
+          ],
+        },
+        {
+          heading: "Ejemplos de agentes de IA en negocios reales",
+          paragraphs: [
+            "Una clínica dental que recibe mensajes a las 11 de la noche preguntando precios: el agente de atención al cliente responde con los precios reales de la clínica y ofrece una hora dentro de los horarios disponibles del dentista.",
+            "Un estudio contable con una planilla de 300 contactos antiguos: el agente de ventas los revisa uno por uno, prepara un seguimiento para cada uno y marca a quién hay que llamar.",
+            "Una panadería que nunca encuentra tiempo para publicar: el agente de marketing convierte la idea de cada día en una publicación y la sube a su Página de Facebook.",
+          ],
+        },
+        {
+          heading: "Lo que los agentes de IA todavía no pueden hacer",
+          paragraphs: [
+            "Un agente es tan bueno como la información que le das: si tus precios u horarios no están escritos, no puede usarlos. No reemplaza las decisiones que necesitan criterio, como un descuento o un reclamo, por eso un buen agente sabe cuándo pasarle el caso a una persona. Y cada canal lo tiene que conectar el propio negocio, con su propia cuenta.",
+          ],
+        },
+        {
+          heading: "Agentes de IA con VLOUXE",
+          paragraphs: [
+            "VLOUXE le da a un negocio un equipo de 8 agentes de IA que trabajan juntos (ventas, atención al cliente, marketing, contenido, investigación, analítica, operaciones y asistente ejecutivo) con un portal privado donde ves todo lo que hacen, ordenado por día, agente y cliente. Responden como tu empresa, en el idioma de tu cliente, y cada canal lo conectas tú sin compartir contraseñas.",
+          ],
+        },
+      ],
+      faqs: [
+        { q: "¿Qué es un agente de IA en palabras simples?", a: "Un programa que recibe un trabajo, no solo una pregunta, y lo hace por su cuenta: lee, decide y actúa usando tu información y tus herramientas, dentro de los límites que tú defines." },
+        { q: "¿Un agente de IA es lo mismo que ChatGPT?", a: "No. ChatGPT responde cuando alguien le pregunta algo. Un agente de IA trabaja solo hacia un objetivo, con la información de tu negocio, y sigue trabajando sin que nadie le escriba." },
+        { q: "¿Para qué sirven los agentes de IA en una empresa?", a: "Para responder a los clientes, hacer seguimiento a los prospectos, agendar reuniones, publicar contenido, estudiar a la competencia y convertir tus números en reportes, entre otras tareas repetitivas." },
+        { q: "¿Los agentes de IA son seguros?", a: "Depende de cómo estén configurados. Con VLOUXE cada negocio conecta sus canales con su propia cuenta mediante conexiones oficiales, y VLOUXE nunca pide contraseñas." },
+        { q: "¿Necesito saber programar para usar agentes de IA?", a: "No. Con VLOUXE describes tu negocio con palabras simples y conectas cada canal siguiendo unos pocos pasos." },
+      ],
+      ctaTitle: "Mira agentes de IA trabajando en tu negocio",
+      ctaBody: "Cuéntale a nuestro Agente de Ventas qué hace tu negocio y te muestra dónde te ayudarían los agentes.",
+    },
+  },
   pillar: {
     en: {
       navLabel: "AI agents for business",

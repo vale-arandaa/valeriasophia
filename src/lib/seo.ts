@@ -7,6 +7,7 @@ import type { Locale } from "@/lib/translations";
 // Las guías tienen la dirección en el idioma de cada versión, así la palabra
 // clave también está en la URL ("/es/agentes-de-ia-para-empresas").
 const ES_SLUGS: Record<string, string> = {
+  "/ai-agents": "/agentes-de-ia",
   "/ai-agents-for-business": "/agentes-de-ia-para-empresas",
   "/whatsapp-ai-agent": "/agente-de-ia-para-whatsapp",
   "/ai-sales-agent": "/agente-de-ventas-con-ia",
@@ -31,6 +32,7 @@ export type PageKey =
   | "support"
   | "privacy"
   | "terms"
+  | "guide-agents"
   | "guide-pillar"
   | "guide-whatsapp"
   | "guide-sales"
@@ -108,6 +110,19 @@ export const SEO: Record<PageKey, PageSeo> = {
     path: "/privacy",
     en: { title: "Privacy Policy", description: "How VLOUXE collects, uses, and protects your information." },
     es: { title: "Política de privacidad", description: "Cómo VLOUXE recopila, usa y protege tu información." },
+  },
+  "guide-agents": {
+    path: "/ai-agents",
+    en: {
+      title: "AI Agents: What They Are, How They Work, Examples",
+      description:
+        "What AI agents are, how they differ from chatbots and ChatGPT, the main types of AI agents and real examples of how businesses use them today.",
+    },
+    es: {
+      title: "Agentes de IA: qué son, cómo funcionan y ejemplos",
+      description:
+        "Qué son los agentes de IA, en qué se diferencian de un chatbot y de ChatGPT, los tipos de agentes de IA y ejemplos reales de cómo los usan las empresas.",
+    },
   },
   "guide-pillar": {
     path: "/ai-agents-for-business",
