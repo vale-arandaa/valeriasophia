@@ -46,7 +46,7 @@ export default function Nav() {
               agentes atiendan solos (pedido de Valeria, 30/9/2026). */}
           <Link
             href={localePath("/schedule")}
-            className="text-sm text-muted transition-colors hover:text-foreground"
+            className="hidden whitespace-nowrap text-sm text-muted transition-colors hover:text-foreground xl:inline"
           >
             {t.footer.scheduleLabel}
           </Link>
