@@ -39,10 +39,9 @@ export default function FinalCTA() {
           </button>
         </Reveal>
         <Reveal delay={0.25}>
-          <p className="mt-6 text-sm text-muted">
-            {locale === "es" ? "¿Prefieres hablar con una persona? " : "Prefer to talk to a person? "}
-            <Link href={localePath("/schedule")} className="text-foreground underline-offset-4 transition-colors hover:text-accent hover:underline">
-              {t.footer.scheduleLabel}
+          <p className="mt-6 text-sm">
+            <Link href={localePath("/schedule")} className="text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline">
+              {locale === "es" ? "O agenda una reunión con nuestro equipo" : "Or book a meeting with our team"}
             </Link>
           </p>
         </Reveal>
