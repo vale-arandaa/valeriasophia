@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import CosmicField from "./CosmicField";
 import Reveal from "./Reveal";
@@ -7,7 +8,7 @@ import { useLanguage } from "./LanguageProvider";
 import { openChat } from "./ChatWidget";
 
 export default function FinalCTA() {
-  const { t } = useLanguage();
+  const { t, locale, localePath } = useLanguage();
 
   return (
     <section
@@ -36,6 +37,14 @@ export default function FinalCTA() {
             {t.cta.button}
             <ArrowRight size={16} weight="bold" />
           </button>
+        </Reveal>
+        <Reveal delay={0.25}>
+          <p className="mt-6 text-sm text-muted">
+            {locale === "es" ? "¿Prefieres hablar con una persona? " : "Prefer to talk to a person? "}
+            <Link href={localePath("/schedule")} className="text-foreground underline-offset-4 transition-colors hover:text-accent hover:underline">
+              {t.footer.scheduleLabel}
+            </Link>
+          </p>
         </Reveal>
       </div>
     </section>
