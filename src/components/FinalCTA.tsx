@@ -8,7 +8,7 @@ import { useLanguage } from "./LanguageProvider";
 import { openChat } from "./ChatWidget";
 
 export default function FinalCTA() {
-  const { t, locale, localePath } = useLanguage();
+  const { t, localePath } = useLanguage();
 
   return (
     <section
@@ -29,21 +29,23 @@ export default function FinalCTA() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <button
-            type="button"
-            onClick={() => openChat("sales")}
-            className="mx-auto mt-10 inline-flex h-12 items-center gap-2 rounded-full bg-accent px-8 text-sm font-medium text-white transition-transform hover:-translate-y-px hover:bg-[#7c88ff] active:translate-y-0 active:scale-[0.98]"
-          >
-            {t.cta.button}
-            <ArrowRight size={16} weight="bold" />
-          </button>
-        </Reveal>
-        <Reveal delay={0.25}>
-          <p className="mt-6 text-sm">
-            <Link href={localePath("/schedule")} className="text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline">
-              {locale === "es" ? "O agenda una reunión con nuestro equipo" : "Or book a meeting with our team"}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => openChat("sales")}
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-accent px-8 text-sm font-medium text-white transition-transform hover:-translate-y-px hover:bg-[#7c88ff] active:translate-y-0 active:scale-[0.98]"
+            >
+              {t.cta.button}
+              <ArrowRight size={16} weight="bold" />
+            </button>
+            {/* Secundario, mismo estilo que "Explore AI Agents" del inicio. */}
+            <Link
+              href={localePath("/schedule")}
+              className="inline-flex h-12 items-center rounded-full border border-border-strong px-7 text-sm font-medium text-foreground transition-colors hover:bg-surface active:scale-[0.98]"
+            >
+              {t.footer.scheduleLabel}
             </Link>
-          </p>
+          </div>
         </Reveal>
       </div>
     </section>
