@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { List, X } from "@phosphor-icons/react/dist/ssr";
 import Wordmark from "./Wordmark";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -9,7 +8,7 @@ import { useLanguage } from "./LanguageProvider";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  const { t, localePath } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
@@ -42,14 +41,6 @@ export default function Nav() {
           <LanguageSwitcher />
           {/* Acceso de clientes: app.vlouxe.com es el portal donde viven los
               agentes que compró cada empresa (usuario y contraseña). */}
-          {/* Agendar queda a la vista pero discreto: lo principal es que los
-              agentes atiendan solos (pedido de Valeria, 30/9/2026). */}
-          <Link
-            href={localePath("/schedule")}
-            className="hidden whitespace-nowrap text-sm text-muted transition-colors hover:text-foreground xl:inline"
-          >
-            {t.footer.scheduleLabel}
-          </Link>
           <a
             href="https://app.vlouxe.com/login"
             className="text-sm text-muted transition-colors hover:text-foreground"
@@ -94,13 +85,6 @@ export default function Nav() {
                 {link.label}
               </a>
             ))}
-            <Link
-              href={localePath("/schedule")}
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-2 py-3 text-base text-muted transition-colors hover:bg-surface hover:text-foreground"
-            >
-              {t.footer.scheduleLabel}
-            </Link>
             <a
               href="https://app.vlouxe.com/login"
               className="rounded-lg px-2 py-3 text-base text-muted transition-colors hover:bg-surface hover:text-foreground"
