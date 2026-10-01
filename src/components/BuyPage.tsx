@@ -8,7 +8,7 @@ import { useLanguage } from "./LanguageProvider";
 
 // Debe coincidir con SETUP_FEE_USD/MONTHLY_MAINTENANCE_USD en el Worker
 // (src/index.js del proyecto "vlouxe agents") — el precio real que cobra
-// Stripe sale de ahí, esto es solo lo que se muestra en la página.
+// Lemon Squeezy sale de ahí, esto es solo lo que se muestra en la página.
 const SETUP_FEE_USD = 2997;
 const MONTHLY_MAINTENANCE_USD = 297;
 
@@ -32,7 +32,7 @@ export default function BuyPage() {
       });
       const data = await res.json();
       if (!res.ok || !data.ok || !data.url) {
-        if (data.code === "stripe_not_configured") setNotConfigured(true);
+        if (data.code === "payments_not_configured" || data.code === "stripe_not_configured") setNotConfigured(true);
         else setError(true);
         setLoading(false);
         return;
