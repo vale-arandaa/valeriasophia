@@ -51,7 +51,7 @@ const jsonLd = {
           "Research Agent",
           "Analytics Agent",
           "Operations Agent",
-          "Executive Assistant Agent",
+          "Bookkeeper Agent",
         ].map((name) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name } })),
       },
     },

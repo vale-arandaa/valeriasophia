@@ -25,7 +25,6 @@ export default function GuidePage({ guide }: { guide: GuideKey }) {
     locale === "es"
       ? "Hablar con el Agente de Ventas"
       : "Talk to the Sales Agent";
-  const book = locale === "es" ? "Agendar una reunión" : "Book a meeting";
 
   return (
     <>
@@ -51,12 +50,6 @@ export default function GuidePage({ guide }: { guide: GuideKey }) {
                   {talk}
                   <ArrowRight size={16} weight="bold" />
                 </button>
-                <Link
-                  href={localePath("/schedule")}
-                  className="inline-flex h-12 items-center rounded-full border border-border-strong px-7 text-sm font-medium text-foreground transition-colors hover:bg-surface active:scale-[0.98]"
-                >
-                  {book}
-                </Link>
               </div>
             </Reveal>
 

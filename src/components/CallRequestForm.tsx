@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import Reveal from "./Reveal";
@@ -29,22 +28,37 @@ const COUNTRY_CODES = [
 ];
 
 export default function CallRequestForm() {
-  const { t, localePath } = useLanguage();
+  const { t } = useLanguage();
   const [name, setName] = useState("");
   const [countryCode, setCountryCode] = useState(COUNTRY_CODES[0].code);
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const [email, setEmail] = useState("");
+  const [business, setBusiness] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const today = new Date().toISOString().slice(0, 10);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || status === "sending") return;
+    if (!name.trim() || !phone.trim() || !notes.trim() || status === "sending") return;
     setStatus("sending");
     try {
       const res = await fetch(`${CHAT_API_BASE}/api/leads/call-request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, countryCode, phone, notes }),
+        body: JSON.stringify({
+          name,
+          countryCode,
+          phone,
+          notes,
+          email,
+          business,
+          date,
+          time,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error("call request error");
@@ -121,9 +135,30 @@ export default function CallRequestForm() {
                       />
                     </div>
                   </div>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div>
+                      <label className="mb-1.5 block text-xs text-muted">{t.call.emailLabel}</label>
+                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="h-11 w-full rounded-xl border border-border bg-transparent px-4 text-sm text-foreground outline-none placeholder:text-muted focus:border-accent [color-scheme:dark]" />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-xs text-muted">{t.call.businessLabel}</label>
+                      <input value={business} onChange={(e) => setBusiness(e.target.value)} className="h-11 w-full rounded-xl border border-border bg-transparent px-4 text-sm text-foreground outline-none placeholder:text-muted focus:border-accent [color-scheme:dark]" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="mb-1.5 block text-xs text-muted">{t.call.dateLabel} *</label>
+                      <input required type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="h-11 w-full rounded-xl border border-border bg-transparent px-4 text-sm text-foreground outline-none placeholder:text-muted focus:border-accent [color-scheme:dark]" />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-xs text-muted">{t.call.timeLabel} *</label>
+                      <input required type="time" value={time} onChange={(e) => setTime(e.target.value)} className="h-11 w-full rounded-xl border border-border bg-transparent px-4 text-sm text-foreground outline-none placeholder:text-muted focus:border-accent [color-scheme:dark]" />
+                    </div>
+                  </div>
                   <div>
-                    <label className="mb-1.5 block text-xs text-muted">{t.call.notesLabel}</label>
+                    <label className="mb-1.5 block text-xs text-muted">{t.call.notesLabel} *</label>
                     <textarea
+                      required
                       rows={3}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
@@ -148,18 +183,6 @@ export default function CallRequestForm() {
             </div>
           </Reveal>
 
-          {status !== "sent" && (
-            <Reveal delay={0.2}>
-              <div className="mx-auto mt-6 max-w-lg text-center">
-                <p className="text-sm text-muted">
-                  {t.call.preferSchedule}{" "}
-                  <Link href={localePath("/schedule")} className="text-accent underline-offset-4 hover:underline">
-                    {t.call.preferScheduleButton}
-                  </Link>
-                </p>
-              </div>
-            </Reveal>
-          )}
         </div>
       </main>
       <Footer />

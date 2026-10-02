@@ -47,7 +47,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
         {
           heading: "What is an AI agent?",
           paragraphs: [
-            "An AI agent is software that uses an AI model to reach a goal with some autonomy. You give it a job, for example \"answer every new customer and book a meeting with the ones who are ready\", and it decides the steps: read the message, look up the right information, write the answer, update the lead and schedule the meeting.",
+            "An AI agent is software that uses an AI model to reach a goal with some autonomy. You give it a job, for example \"answer every new customer and follow up with the ones who are ready to buy\", and it decides the steps: read the message, look up the right information, write the answer, update the lead and send the follow-up.",
             "Three things make it an agent and not just a program that talks: it has a goal, it has access to information and tools (a calendar, a CRM, WhatsApp), and it acts on its own inside the limits you set.",
           ],
         },
@@ -56,7 +56,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           items: [
             { title: "Chatbot", body: "Follows a fixed script or a decision tree. If the customer writes something the script doesn't cover, it gets stuck." },
             { title: "ChatGPT and similar assistants", body: "Answer very well, but only when a person asks them something. They don't know your business unless you tell them each time, and they don't act on their own." },
-            { title: "AI agent", body: "Works on its own toward a goal, with your business information and your tools, and keeps working without anyone writing to it: it follows up, schedules, publishes and reports." },
+            { title: "AI agent", body: "Works on its own toward a goal, with your business information and your tools, and keeps working without anyone writing to it: it follows up, publishes, keeps the books and reports." },
           ],
         },
         {
@@ -72,7 +72,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           heading: "Types of AI agents for a business",
           paragraphs: ["The most useful way to classify them is by the job they do. These are the most common ones in a business:"],
           items: [
-            { title: "Sales agents", body: "Qualify leads, follow up and book meetings." },
+            { title: "Sales agents", body: "Qualify leads, follow up and move them toward the purchase." },
             { title: "Customer service agents", body: "Answer questions instantly, day and night, and pass to a person what needs one." },
             { title: "Marketing and content agents", body: "Create and publish posts and write video scripts based on your customers' real problems." },
             { title: "Research agents", body: "Study your market, your competitors and their prices." },
@@ -104,7 +104,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       faqs: [
         { q: "What is an AI agent in simple words?", a: "A program that receives a job, not just a question, and does it on its own: it reads, decides and acts using your information and your tools, within the limits you set." },
         { q: "Is an AI agent the same as ChatGPT?", a: "No. ChatGPT answers when someone asks it something. An AI agent works on its own toward a goal, with your business information, and keeps working without anyone writing to it." },
-        { q: "What are AI agents used for in a business?", a: "To answer customers, follow up with leads, book meetings, publish content, study the competition and turn your numbers into reports, among other repetitive tasks." },
+        { q: "What are AI agents used for in a business?", a: "To answer customers, follow up with leads, keep the books, publish content, study the competition and turn your numbers into reports, among other repetitive tasks." },
         { q: "Are AI agents safe?", a: "It depends on how they are set up. With VLOUXE each business connects its channels with its own account through official connections, and VLOUXE never asks for passwords." },
         { q: "Do I need to know how to code to use AI agents?", a: "No. With VLOUXE you describe your business in plain words and connect each channel by following a few simple steps." },
       ],
@@ -121,7 +121,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
         {
           heading: "¿Qué es un agente de IA?",
           paragraphs: [
-            "Un agente de IA es un programa que usa un modelo de inteligencia artificial para cumplir un objetivo con cierta autonomía. Le das un trabajo, por ejemplo \"responde a cada cliente nuevo y agenda una reunión con los que estén listos\", y él decide los pasos: lee el mensaje, busca la información correcta, escribe la respuesta, actualiza al prospecto y agenda la reunión.",
+            "Un agente de IA es un programa que usa un modelo de inteligencia artificial para cumplir un objetivo con cierta autonomía. Le das un trabajo, por ejemplo \"responde a cada cliente nuevo y hazle seguimiento a los que estén listos para comprar\", y él decide los pasos: lee el mensaje, busca la información correcta, escribe la respuesta, actualiza al prospecto y envía el seguimiento.",
             "Tres cosas lo convierten en agente y no en un programa que solo conversa: tiene un objetivo, tiene acceso a información y herramientas (un calendario, un CRM, WhatsApp) y actúa por su cuenta dentro de los límites que tú defines.",
           ],
         },
@@ -130,7 +130,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           items: [
             { title: "Chatbot", body: "Sigue un guion fijo o un árbol de opciones. Si el cliente escribe algo que el guion no contempla, se queda trabado." },
             { title: "ChatGPT y asistentes parecidos", body: "Responden muy bien, pero solo cuando una persona les pregunta algo. No conocen tu negocio a menos que se lo cuentes cada vez, y no actúan por su cuenta." },
-            { title: "Agente de IA", body: "Trabaja solo hacia un objetivo, con la información y las herramientas de tu negocio, y sigue trabajando sin que nadie le escriba: hace seguimiento, agenda, publica y reporta." },
+            { title: "Agente de IA", body: "Trabaja solo hacia un objetivo, con la información y las herramientas de tu negocio, y sigue trabajando sin que nadie le escriba: hace seguimiento, publica, lleva las cuentas y reporta." },
           ],
         },
         {
@@ -146,12 +146,12 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           heading: "Tipos de agentes de IA para un negocio",
           paragraphs: ["La forma más útil de clasificarlos es por el trabajo que hacen. Estos son los más comunes en una empresa:"],
           items: [
-            { title: "Agentes de ventas", body: "Califican prospectos, hacen seguimiento y agendan reuniones." },
+            { title: "Agentes de ventas", body: "Califican prospectos, hacen seguimiento y los llevan hacia la compra." },
             { title: "Agentes de atención al cliente", body: "Responden preguntas al instante, de día y de noche, y derivan a una persona lo que lo necesita." },
             { title: "Agentes de marketing y contenido", body: "Crean y publican posts y escriben guiones de video a partir de los problemas reales de tus clientes." },
             { title: "Agentes de investigación", body: "Estudian tu mercado, a tu competencia y sus precios." },
             { title: "Agentes de analítica", body: "Convierten tus ingresos, gastos y prospectos en reportes con los que puedes decidir." },
-            { title: "Agentes de operaciones y asistentes", body: "Ordenan tareas, revisan el trabajo y administran la agenda." },
+            { title: "Agentes de operaciones y contabilidad", body: "Revisan el trabajo del equipo y mantienen las cuentas al día." },
           ],
         },
         {
@@ -178,7 +178,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       faqs: [
         { q: "¿Qué es un agente de IA en palabras simples?", a: "Un programa que recibe un trabajo, no solo una pregunta, y lo hace por su cuenta: lee, decide y actúa usando tu información y tus herramientas, dentro de los límites que tú defines." },
         { q: "¿Un agente de IA es lo mismo que ChatGPT?", a: "No. ChatGPT responde cuando alguien le pregunta algo. Un agente de IA trabaja solo hacia un objetivo, con la información de tu negocio, y sigue trabajando sin que nadie le escriba." },
-        { q: "¿Para qué sirven los agentes de IA en una empresa?", a: "Para responder a los clientes, hacer seguimiento a los prospectos, agendar reuniones, publicar contenido, estudiar a la competencia y convertir tus números en reportes, entre otras tareas repetitivas." },
+        { q: "¿Para qué sirven los agentes de IA en una empresa?", a: "Para responder a los clientes, hacer seguimiento a los prospectos, llevar las cuentas, publicar contenido, estudiar a la competencia y convertir tus números en reportes, entre otras tareas repetitivas." },
         { q: "¿Los agentes de IA son seguros?", a: "Depende de cómo estén configurados. Con VLOUXE cada negocio conecta sus canales con su propia cuenta mediante conexiones oficiales, y VLOUXE nunca pide contraseñas." },
         { q: "¿Necesito saber programar para usar agentes de IA?", a: "No. Con VLOUXE describes tu negocio con palabras simples y conectas cada canal siguiendo unos pocos pasos." },
       ],
@@ -192,7 +192,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       eyebrow: "Guide",
       h1: "AI agents for business: what they do and how to start",
       intro:
-        "An AI agent is software that takes on a piece of real work in your business, like answering a customer, following up with a lead or booking a meeting, and does it on its own, every time, at any hour. This guide explains what AI agents can do for a business today, how they work together and what you need to get started.",
+        "An AI agent is software that takes on a piece of real work in your business, like answering a customer, following up with a lead or keeping the books, and does it on its own, every time, at any hour. This guide explains what AI agents can do for a business today, how they work together and what you need to get started.",
       sections: [
         {
           heading: "What is an AI agent for business?",
@@ -212,7 +212,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
             { title: "Research Agent", body: "Studies your market, your competitors and their prices, and tells you where you can get ahead." },
             { title: "Analytics Agent", body: "Reads your leads, income and expenses and turns them into clear reports and recommendations." },
             { title: "Operations Agent", body: "Reviews the team's work and turns requests into tracked tasks so nothing falls through the cracks." },
-            { title: "Executive Assistant", body: "Books real meetings inside your available hours, with no back-and-forth emails." },
+            { title: "Bookkeeper", body: "Categorizes every income and expense and closes each month with a clear profit and loss." },
           ],
         },
         {
@@ -232,7 +232,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
         },
       ],
       faqs: [
-        { q: "Do AI agents replace my team?", a: "No. They take on the repetitive work, like first replies, follow-ups and scheduling, so your team spends its time on sales calls, decisions and the cases that need a person." },
+        { q: "Do AI agents replace my team?", a: "No. They take on the repetitive work, like first replies, follow-ups and bookkeeping, so your team spends its time on decisions and the cases that need a person." },
         { q: "What languages do the agents speak?", a: "They reply in the language your customer writes in, and switch automatically if the customer changes language in the middle of the conversation." },
         { q: "How long does it take to start?", a: "Days, not months. Your private portal comes with all 8 agents built in; what takes time is telling them about your business and connecting your channels." },
         { q: "Do I need technical knowledge?", a: "No. Each connection is done by choosing your tool and following two or three plain steps, and if you prefer, we guide you on a short video call while you connect it yourself." },
@@ -245,7 +245,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       eyebrow: "Guía",
       h1: "Agentes de IA para empresas: qué hacen y cómo empezar",
       intro:
-        "Un agente de IA es un programa que se hace cargo de una parte real del trabajo de tu negocio, como responder a un cliente, hacerle seguimiento a un prospecto o agendar una reunión, y lo hace solo, siempre y a cualquier hora. Esta guía explica qué pueden hacer hoy los agentes de IA por una empresa, cómo trabajan juntos y qué necesitas para empezar.",
+        "Un agente de IA es un programa que se hace cargo de una parte real del trabajo de tu negocio, como responder a un cliente, hacerle seguimiento a un prospecto o llevar las cuentas, y lo hace solo, siempre y a cualquier hora. Esta guía explica qué pueden hacer hoy los agentes de IA por una empresa, cómo trabajan juntos y qué necesitas para empezar.",
       sections: [
         {
           heading: "¿Qué es un agente de IA para empresas?",
@@ -265,7 +265,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
             { title: "Agente de Investigación", body: "Estudia tu mercado, a tu competencia y sus precios, y te dice dónde puedes sacar ventaja." },
             { title: "Agente de Analítica", body: "Lee tus prospectos, ingresos y gastos y los convierte en reportes y recomendaciones claras." },
             { title: "Agente de Operaciones", body: "Revisa el trabajo del equipo y convierte cada solicitud en una tarea con seguimiento, para que nada se pierda." },
-            { title: "Asistente Ejecutivo", body: "Agenda reuniones reales dentro de tus horarios disponibles, sin correos de ida y vuelta." },
+            { title: "Agente Contable", body: "Categoriza cada ingreso y gasto y cierra cada mes con un estado de resultados claro." },
           ],
         },
         {
@@ -285,7 +285,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
         },
       ],
       faqs: [
-        { q: "¿Los agentes de IA reemplazan a mi equipo?", a: "No. Se hacen cargo del trabajo repetitivo, como las primeras respuestas, los seguimientos y las agendas, para que tu equipo dedique su tiempo a las llamadas de venta, las decisiones y los casos que necesitan a una persona." },
+        { q: "¿Los agentes de IA reemplazan a mi equipo?", a: "No. Se hacen cargo del trabajo repetitivo, como las primeras respuestas, los seguimientos y la contabilidad, para que tu equipo dedique su tiempo a las decisiones y los casos que necesitan a una persona." },
         { q: "¿En qué idiomas hablan los agentes?", a: "Responden en el idioma en que te escribe tu cliente, y cambian solos si el cliente cambia de idioma en medio de la conversación." },
         { q: "¿Cuánto tiempo toma empezar?", a: "Días, no meses. Tu portal privado viene con los 8 agentes listos; lo que toma tiempo es contarles sobre tu negocio y conectar tus canales." },
         { q: "¿Necesito conocimientos técnicos?", a: "No. Cada conexión se hace eligiendo tu herramienta y siguiendo dos o tres pasos simples, y si prefieres, te guiamos en una videollamada corta mientras la conectas tú." },
@@ -436,15 +436,15 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       eyebrow: "Sales",
       h1: "An AI sales agent that follows up with every lead",
       intro:
-        "Most sales are lost in the follow-up, not the first message. An AI sales agent qualifies each lead as soon as it arrives, prepares the follow-up and books a meeting when the lead is ready, so your pipeline keeps moving even when you're busy.",
+        "Most sales are lost in the follow-up, not the first message. An AI sales agent qualifies each lead as soon as it arrives, prepares the follow-up and guides each lead to the purchase when it's ready, so your pipeline keeps moving even when you're busy.",
       sections: [
         {
           heading: "What the AI sales agent does",
           items: [
             { title: "Qualifies each new lead", body: "It reads what the prospect needs from the conversation or your CRM notes and treats each one individually." },
             { title: "Prepares the follow-up", body: "It writes a follow-up message in your company's voice, based on what that person asked." },
-            { title: "Books the meeting", body: "When a lead wants to meet, the Executive Assistant books it inside your available hours." },
-            { title: "Keeps your leads organized", body: "Each lead moves on its own from New to Following up to Meeting booked, and you see everything in your portal." },
+            { title: "Hands off what needs a person", body: "If a lead asks for a person or has an urgent case, you get an alert in your portal with the reason." },
+            { title: "Keeps your leads organized", body: "Each lead moves on its own from New to Following up to Ready to buy, and you see everything in your portal." },
           ],
         },
         {
@@ -456,7 +456,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       ],
       faqs: [
         { q: "Does it invent prices?", a: "No. It only uses the prices written in your business description, and if it doesn't have one it doesn't make it up." },
-        { q: "Who marks a lead as a customer?", a: "You do, with one tap in the lead's profile. The agent moves leads to Following up and Meeting booked on its own." },
+        { q: "Who marks a lead as a customer?", a: "You do, with one tap in the lead's profile. The agent moves leads to Following up and Ready to buy on its own." },
       ],
       ctaTitle: "Stop losing leads in the follow-up",
       ctaBody: "Tell our Sales Agent how your leads reach you today.",
@@ -466,15 +466,15 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       eyebrow: "Ventas",
       h1: "Un agente de ventas con IA que le hace seguimiento a cada prospecto",
       intro:
-        "La mayoría de las ventas se pierde en el seguimiento, no en el primer mensaje. Un agente de ventas con IA califica a cada prospecto apenas llega, prepara el seguimiento y agenda la reunión cuando está listo, para que tu embudo siga avanzando aunque estés ocupado.",
+        "La mayoría de las ventas se pierde en el seguimiento, no en el primer mensaje. Un agente de ventas con IA califica a cada prospecto apenas llega, prepara el seguimiento y lo lleva hacia la compra cuando está listo, para que tu embudo siga avanzando aunque estés ocupado.",
       sections: [
         {
           heading: "Qué hace el agente de ventas con IA",
           items: [
             { title: "Califica a cada prospecto nuevo", body: "Lee lo que necesita la persona en la conversación o en las notas de tu CRM y trata a cada uno por separado." },
             { title: "Prepara el seguimiento", body: "Escribe un mensaje de seguimiento con la voz de tu empresa, a partir de lo que esa persona preguntó." },
-            { title: "Agenda la reunión", body: "Cuando un prospecto quiere reunirse, el Asistente Ejecutivo la agenda dentro de tus horarios disponibles." },
-            { title: "Mantiene ordenados tus prospectos", body: "Cada prospecto pasa solo de Nuevo a En seguimiento y a Reunión agendada, y ves todo en tu portal." },
+            { title: "Te pasa lo que necesita a una persona", body: "Si un prospecto pide hablar con alguien o tiene un caso urgente, te llega una alerta al portal con el motivo." },
+            { title: "Mantiene ordenados tus prospectos", body: "Cada prospecto pasa solo de Nuevo a En seguimiento y a Listo para comprar, y ves todo en tu portal." },
           ],
         },
         {
@@ -486,7 +486,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
       ],
       faqs: [
         { q: "¿Inventa precios?", a: "No. Solo usa los precios que están en la descripción de tu negocio, y si no tiene uno, no lo inventa." },
-        { q: "¿Quién marca a un prospecto como cliente?", a: "Tú, con un toque en la ficha del prospecto. El agente los pasa solo a En seguimiento y a Reunión agendada." },
+        { q: "¿Quién marca a un prospecto como cliente?", a: "Tú, con un toque en la ficha del prospecto. El agente los pasa solo a En seguimiento y a Listo para comprar." },
       ],
       ctaTitle: "Deja de perder prospectos en el seguimiento",
       ctaBody: "Cuéntale a nuestro Agente de Ventas cómo te llegan hoy los prospectos.",

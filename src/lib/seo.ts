@@ -28,7 +28,6 @@ export function toLocalePath(path: string, locale: Locale): string {
 export type PageKey =
   | "home"
   | "comprar"
-  | "schedule"
   | "call"
   | "support"
   | "privacy"
@@ -61,38 +60,25 @@ export const SEO: Record<PageKey, PageSeo> = {
     en: {
       title: "Get Your AI Workforce: 8 AI Agents in One Plan",
       description:
-        "All 8 VLOUXE AI agents (Sales, Support, Marketing, Content, Research, Analytics, Operations and Executive Assistant) in one plan with your own platform.",
+        "All 8 VLOUXE AI agents (Sales, Support, Marketing, Content, Research, Analytics, Operations and Bookkeeper) in one plan with your own platform.",
     },
     es: {
       title: "Tu equipo de IA: 8 agentes de IA en un solo plan",
       description:
-        "Los 8 agentes de IA de VLOUXE (Ventas, Soporte, Marketing, Contenido, Investigación, Analítica, Operaciones y Asistente Ejecutivo) en un plan.",
-    },
-  },
-  schedule: {
-    path: "/schedule",
-    en: {
-      title: "Book a Meeting About AI Agents for Your Business",
-      description:
-        "Pick an open time on our real calendar and see how VLOUXE AI agents can handle sales, support and marketing for your business.",
-    },
-    es: {
-      title: "Agenda una reunión sobre agentes de IA",
-      description:
-        "Elige un horario libre en nuestro calendario real y descubre cómo los agentes de IA de VLOUXE atienden ventas, soporte y marketing por ti.",
+        "Los 8 agentes de IA de VLOUXE (Ventas, Soporte, Marketing, Contenido, Investigación, Analítica, Operaciones y Agente Contable) en un plan.",
     },
   },
   call: {
     path: "/call",
     en: {
-      title: "Request a Call About AI Agents for Your Business",
+      title: "Request an Urgent Call",
       description:
-        "Leave your number and we'll call you to show how VLOUXE AI agents can work for your business. No back-and-forth emails.",
+        "Our AI agents solve almost everything by chat, right away. If it's urgent, leave your details and the best time and we'll call you.",
     },
     es: {
-      title: "Pide una llamada sobre agentes de IA",
+      title: "Pide una llamada urgente",
       description:
-        "Déjanos tu número y te llamamos para mostrarte cómo los agentes de IA de VLOUXE pueden trabajar para tu negocio. Sin correos de ida y vuelta.",
+        "Nuestros agentes de IA resuelven casi todo por chat, al instante. Si es urgente, déjanos tus datos y el mejor horario y te llamamos.",
     },
   },
   support: {
@@ -170,12 +156,12 @@ export const SEO: Record<PageKey, PageSeo> = {
     en: {
       title: "AI Sales Agent That Follows Up Every Lead",
       description:
-        "An AI sales agent that qualifies each new lead, prepares the follow-up and books the meeting, with all your leads organized by stage.",
+        "An AI sales agent that qualifies each new lead, prepares the follow-up and keeps every conversation going, with all your leads organized by stage.",
     },
     es: {
       title: "Agente de ventas con IA para cada prospecto",
       description:
-        "Un agente de ventas con IA que califica a cada prospecto nuevo, prepara el seguimiento y agenda la reunión, con tus prospectos ordenados por etapa.",
+        "Un agente de ventas con IA que califica a cada prospecto nuevo, prepara el seguimiento y mantiene viva cada conversación, con tus prospectos ordenados por etapa.",
     },
   },
   "guide-support": {

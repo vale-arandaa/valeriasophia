@@ -116,9 +116,7 @@ export default function ChatWidget() {
     const arrivalMessage =
       barePath === "/comprar"
         ? t.chat.checkoutArrivedMessage
-        : barePath === "/schedule"
-          ? t.chat.scheduleArrivedMessage
-          : null;
+        : null;
     if (!arrivalMessage || announcedPagesRef.current.has(barePath)) return;
     announcedPagesRef.current.add(barePath);
     setAgent("sales");

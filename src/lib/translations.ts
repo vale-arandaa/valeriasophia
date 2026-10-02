@@ -6,7 +6,7 @@ export type AgentId =
   | "support"
   | "operations"
   | "research"
-  | "executive"
+  | "bookkeeper"
   | "analytics"
   | "content";
 
@@ -198,8 +198,11 @@ export interface Dictionary {
     successTitle: string;
     successBody: string;
     errorMessage: string;
-    preferSchedule: string;
-    preferScheduleButton: string;
+    emailLabel: string;
+    businessLabel: string;
+    dateLabel: string;
+    timeLabel: string;
+    reasonRequired: string;
   };
 }
 
@@ -296,11 +299,11 @@ const en: Dictionary = {
         pitch:
           "Every day, Research Agent studies your market and your competitors on its own, and tells you exactly how to stay ahead of them — the edge to push and the customer pain your competition isn't solving.",
       },
-      executive: {
-        name: "Executive Assistant",
-        blurb: "Handles scheduling, follow-ups, and admin work.",
+      bookkeeper: {
+        name: "Bookkeeper",
+        blurb: "Keeps your books clean and up to date.",
         pitch:
-          "Manages your calendar and books real meetings inside your available hours automatically — no back-and-forth emails just to find a time that works.",
+          "Categorizes every income and expense, catches duplicates and missing details, and closes each month with a clear profit and loss — your books are always ready, without the end-of-month scramble.",
       },
       analytics: {
         name: "Analytics Agent",
@@ -382,7 +385,7 @@ const en: Dictionary = {
     outcomes: [
       {
         title: "More productivity.",
-        body: "Repetitive research, replies, reports, and scheduling stop taking up your team's day — Sales, Support, Research, and Executive Assistant handle them continuously, so your people spend their time on the decisions only they can make.",
+        body: "Repetitive research, replies, reports, and bookkeeping stop taking up your team's day — Sales, Support, Research, and the Bookkeeper handle them continuously, so your people spend their time on the decisions only they can make.",
       },
       {
         title: "Less repetitive work.",
@@ -438,7 +441,7 @@ const en: Dictionary = {
     privacyLabel: "Privacy",
     termsLabel: "Terms",
     supportLabel: "Get Help",
-    scheduleLabel: "Book a Meeting",
+    scheduleLabel: "Request an urgent call",
   },
   legal: {
     backLink: "Back to VLOUXE",
@@ -458,7 +461,7 @@ const en: Dictionary = {
   buy: {
     eyebrow: "Get Started",
     headline: "Your AI workforce, ready to work.",
-    body: "The 8 VLOUXE agents — Sales, Support, Marketing, Content, Research, Executive Assistant, Operations, and Analytics — coordinated in one system, with your own private platform.",
+    body: "The 8 VLOUXE agents — Sales, Support, Marketing, Content, Research, Bookkeeper, Operations, and Analytics — coordinated in one system, with your own private platform.",
     setupLabel: "Implementation (one-time)",
     maintenanceLabel: "Monthly maintenance",
     perMonth: "/mo",
@@ -517,21 +520,24 @@ const en: Dictionary = {
     nextMonth: "Next month",
   },
   call: {
-    eyebrow: "Request a Call",
+    eyebrow: "Urgent call",
     headline: "We'll call you.",
-    body: "Leave your number and a quick note — we'll reach out to schedule a time that works.",
+    body: "Our agents solve almost everything by chat, right away. If it's urgent and you need to talk, leave your details and the best time to call you.",
     nameLabel: "Name",
     countryCodeLabel: "Country code",
     phoneLabel: "Phone number",
-    notesLabel: "Brief note",
-    notesPlaceholder: "What would you like to talk about?",
+    notesLabel: "What is it about?",
+    notesPlaceholder: "Tell us briefly what's urgent",
     submitButton: "Request a call",
     submittingButton: "Sending…",
     successTitle: "Got it — thank you.",
-    successBody: "We'll call you soon at the number you provided.",
+    successBody: "We'll call you at the time you chose, at the number you provided.",
     errorMessage: "Something went wrong sending this. Please try again.",
-    preferSchedule: "Prefer to pick an exact time yourself?",
-    preferScheduleButton: "Book a meeting instead",
+    emailLabel: "Email",
+    businessLabel: "Business",
+    dateLabel: "Best day",
+    timeLabel: "Best time",
+    reasonRequired: "Tell us what it's about",
   },
 };
 
@@ -628,11 +634,11 @@ const es: Dictionary = {
         pitch:
           "Cada día, el Agente de Investigación estudia por su cuenta tu mercado y a tu competencia, y te dice exactamente cómo ponerte por encima — la ventaja que debes empujar y el dolor del cliente que tu competencia no está resolviendo.",
       },
-      executive: {
-        name: "Asistente Ejecutivo",
-        blurb: "Se encarga de agendas, seguimientos y tareas administrativas.",
+      bookkeeper: {
+        name: "Agente Contable",
+        blurb: "Mantiene tus libros ordenados y al día.",
         pitch:
-          "Administra tu calendario y agenda reuniones reales dentro de tus horarios disponibles, de forma automática — sin ida y vuelta de correos para encontrar un horario que funcione.",
+          "Categoriza cada ingreso y gasto, detecta duplicados y datos faltantes, y cierra cada mes con un estado de resultados claro — tus libros siempre listos, sin correr a fin de mes.",
       },
       analytics: {
         name: "Agente de Analítica",
@@ -714,7 +720,7 @@ const es: Dictionary = {
     outcomes: [
       {
         title: "Más productividad.",
-        body: "La investigación, las respuestas, los reportes y la agenda repetitivos dejan de ocupar el día de tu equipo — Ventas, Soporte, Investigación y el Asistente Ejecutivo se encargan de eso de forma continua, para que tu gente use su tiempo en las decisiones que solo ellos pueden tomar.",
+        body: "La investigación, las respuestas, los reportes y la contabilidad repetitivos dejan de ocupar el día de tu equipo — Ventas, Soporte, Investigación y el Agente Contable se encargan de eso de forma continua, para que tu gente use su tiempo en las decisiones que solo ellos pueden tomar.",
       },
       {
         title: "Menos trabajo repetitivo.",
@@ -726,7 +732,7 @@ const es: Dictionary = {
       },
       {
         title: "Menor costo operativo.",
-        body: "Un solo sistema coordinado reemplaza el trabajo administrativo manual de agendar, reportar y dar seguimiento a tareas que antes necesitaba a alguien vigilándolo — así que crecer ya no significa automáticamente contratar más gente.",
+        body: "Un solo sistema coordinado reemplaza el trabajo administrativo manual de llevar las cuentas, reportar y dar seguimiento a tareas que antes necesitaba a alguien vigilándolo — así que crecer ya no significa automáticamente contratar más gente.",
       },
       {
         title: "Empresas más escalables.",
@@ -770,7 +776,7 @@ const es: Dictionary = {
     privacyLabel: "Privacidad",
     termsLabel: "Términos",
     supportLabel: "Ayuda",
-    scheduleLabel: "Agendar Reunión",
+    scheduleLabel: "Solicitar una llamada urgente",
   },
   legal: {
     backLink: "Volver a VLOUXE",
@@ -790,7 +796,7 @@ const es: Dictionary = {
   buy: {
     eyebrow: "Empezar",
     headline: "Tu fuerza laboral de IA, lista para trabajar.",
-    body: "Los 8 agentes de VLOUXE — Ventas, Soporte, Marketing, Contenido, Investigación, Asistente Ejecutivo, Operaciones y Analítica — coordinados en un solo sistema, con tu propia plataforma privada.",
+    body: "Los 8 agentes de VLOUXE — Ventas, Soporte, Marketing, Contenido, Investigación, Agente Contable, Operaciones y Analítica — coordinados en un solo sistema, con tu propia plataforma privada.",
     setupLabel: "Implementación (pago único)",
     maintenanceLabel: "Mantención mensual",
     perMonth: "/mes",
@@ -849,21 +855,24 @@ const es: Dictionary = {
     nextMonth: "Mes siguiente",
   },
   call: {
-    eyebrow: "Solicitar una Llamada",
-    headline: "Te llamamos nosotros.",
-    body: "Déjanos tu número y una nota breve — te contactamos para coordinar un horario que te acomode.",
+    eyebrow: "Llamada urgente",
+    headline: "Te llamamos.",
+    body: "Nuestros agentes resuelven casi todo por chat, al instante. Si es urgente y necesitas hablar, déjanos tus datos y el mejor momento para llamarte.",
     nameLabel: "Nombre",
     countryCodeLabel: "Código de país",
     phoneLabel: "Número de teléfono",
-    notesLabel: "Nota breve",
-    notesPlaceholder: "¿De qué te gustaría hablar?",
+    notesLabel: "¿De qué se trata?",
+    notesPlaceholder: "Cuéntanos brevemente qué es urgente",
     submitButton: "Solicitar llamada",
     submittingButton: "Enviando…",
     successTitle: "Recibido — gracias.",
-    successBody: "Te llamaremos pronto al número que nos diste.",
+    successBody: "Te llamaremos a la hora que elegiste, al número que nos diste.",
     errorMessage: "Algo salió mal al enviar esto. Intenta de nuevo.",
-    preferSchedule: "¿Prefieres elegir el horario exacto tú mismo?",
-    preferScheduleButton: "Agendar una reunión en su lugar",
+    emailLabel: "Email",
+    businessLabel: "Negocio",
+    dateLabel: "Mejor día",
+    timeLabel: "Mejor hora",
+    reasonRequired: "Cuéntanos de qué se trata",
   },
 };
 

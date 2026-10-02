@@ -4,7 +4,6 @@ import { SEO, toLocalePath, type PageKey } from "@/lib/seo";
 const PRIORITY: Record<PageKey, { priority: number; changeFrequency: "weekly" | "monthly" | "yearly" }> = {
   home: { priority: 1, changeFrequency: "weekly" },
   comprar: { priority: 0.9, changeFrequency: "monthly" },
-  schedule: { priority: 0.7, changeFrequency: "monthly" },
   call: { priority: 0.6, changeFrequency: "monthly" },
   support: { priority: 0.4, changeFrequency: "monthly" },
   privacy: { priority: 0.3, changeFrequency: "yearly" },

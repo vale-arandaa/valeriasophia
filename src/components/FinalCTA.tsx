@@ -38,13 +38,6 @@ export default function FinalCTA() {
             <ArrowRight size={16} weight="bold" />
           </button>
         </Reveal>
-        <Reveal delay={0.25}>
-          <p className="mt-6 text-sm">
-            <Link href={localePath("/schedule")} className="text-muted underline underline-offset-4 transition-colors hover:text-foreground">
-              {t.footer.scheduleLabel}
-            </Link>
-          </p>
-        </Reveal>
       </div>
     </section>
   );

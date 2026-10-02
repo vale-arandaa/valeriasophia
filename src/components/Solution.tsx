@@ -7,7 +7,7 @@ import {
   Headset,
   Gear,
   MagnifyingGlass,
-  Briefcase,
+  Calculator,
   ChartLineUp,
   PenNib,
   Plus,
@@ -21,7 +21,7 @@ import type { AgentId } from "@/lib/translations";
 // 8 tarjetas del mismo tamaño en una grilla de 4×2, todas con el mismo
 // fondo degradado brillante. Ordenadas por función: fila 1 = captar y
 // atender clientes (Ventas, Marketing, Contenido, Soporte); fila 2 = operar
-// el negocio (Investigación, Analítica, Operaciones, Asistente Ejecutivo).
+// el negocio (Investigación, Analítica, Operaciones, Agente Contable).
 const AGENT_ORDER: { id: AgentId; IconEl: Icon }[] = [
   { id: "sales", IconEl: Handshake },
   { id: "marketing", IconEl: Megaphone },
@@ -30,7 +30,7 @@ const AGENT_ORDER: { id: AgentId; IconEl: Icon }[] = [
   { id: "research", IconEl: MagnifyingGlass },
   { id: "analytics", IconEl: ChartLineUp },
   { id: "operations", IconEl: Gear },
-  { id: "executive", IconEl: Briefcase },
+  { id: "bookkeeper", IconEl: Calculator },
 ];
 
 // Grafito plano y sobrio: el fondo no compite con el texto.
