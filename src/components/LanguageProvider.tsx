@@ -12,7 +12,11 @@ import { usePathname } from "next/navigation";
 import { translations, type Dictionary, type Locale } from "@/lib/translations";
 import { fullTitle, pageKeyForPath, toLocalePath } from "@/lib/seo";
 
-const STORAGE_KEY = "vlouxe-locale";
+// Antes se recordaba el idioma elegido y quien había elegido español volvía
+// a caer en /es aunque entrara por vlouxe.com. Ahora siempre arranca en
+// inglés (pedido de Valeria, 2/10/2026): manda solo la dirección. Se borra
+// lo que quedó guardado de la versión anterior.
+const OLD_STORAGE_KEY = "vlouxe-locale";
 
 type LanguageContextValue = {
   locale: Locale;
@@ -23,14 +27,6 @@ type LanguageContextValue = {
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
-
-function saveLocale(locale: Locale) {
-  try {
-    localStorage.setItem(STORAGE_KEY, locale);
-  } catch {
-    // ignore storage failures (private browsing, disabled storage)
-  }
-}
 
 // El idioma sale de la dirección: "/es/..." es español y todo lo demás es
 // inglés. Cambiar el interruptor no recarga la página: solo cambia la
@@ -53,25 +49,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const locale: Locale = override && override.path === pathname ? override.locale : pathLocale;
 
   useEffect(() => {
-    // Quien entra por una dirección en español la ve en español. Quien entra
-    // por una en inglés pero antes eligió español, pasa a su versión /es.
-    if (locale === "es") {
-      saveLocale("es");
-      return;
-    }
-    let saved: string | null = null;
     try {
-      saved = localStorage.getItem(STORAGE_KEY);
+      localStorage.removeItem(OLD_STORAGE_KEY);
     } catch {
-      saved = null;
+      // ignore storage failures (private browsing, disabled storage)
     }
-    if (saved === "es") {
-      moveUrlTo("es");
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setOverride({ path: pathname, locale: "es" });
-    }
-    // Solo al cargar: después manda el interruptor.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -80,7 +62,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const setLocale = useCallback(
     (next: Locale) => {
-      saveLocale(next);
       moveUrlTo(next);
       setOverride({ path: pathname, locale: next });
     },
