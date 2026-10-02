@@ -7,7 +7,7 @@ import Reveal from "./Reveal";
 import { useLanguage } from "./LanguageProvider";
 
 export default function Hero() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <section
@@ -55,18 +55,6 @@ export default function Hero() {
               {t.hero.secondaryCta}
             </a>
           </div>
-        </Reveal>
-        {/* Demo en vivo de la oficina de agentes (pedido de Valeria, 1/10/2026). */}
-        <Reveal delay={0.3}>
-          <a
-            href="https://agents.vlouxe.com"
-            target="_blank"
-            rel="noopener"
-            className="relative z-10 mt-7 inline-flex items-center gap-2 text-sm text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline"
-          >
-            {locale === "es" ? "Ver la demo en vivo de una oficina de agentes" : "See a live demo of an agent office"}
-            <ArrowRight size={14} weight="bold" />
-          </a>
         </Reveal>
       </div>
     </section>

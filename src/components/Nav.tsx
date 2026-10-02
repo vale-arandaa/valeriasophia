@@ -8,7 +8,7 @@ import { useLanguage } from "./LanguageProvider";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/70 backdrop-blur-md">
@@ -41,14 +41,6 @@ export default function Nav() {
           <LanguageSwitcher />
           {/* Acceso de clientes: app.vlouxe.com es el portal donde viven los
               agentes que compró cada empresa (usuario y contraseña). */}
-          <a
-            href="https://agents.vlouxe.com"
-            target="_blank"
-            rel="noopener"
-            className="hidden whitespace-nowrap text-sm text-muted transition-colors hover:text-foreground xl:inline"
-          >
-            {locale === "es" ? "Demo" : "Live demo"}
-          </a>
           <a
             href="https://app.vlouxe.com/login"
             className="text-sm text-muted transition-colors hover:text-foreground"
@@ -93,14 +85,6 @@ export default function Nav() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="https://agents.vlouxe.com"
-              target="_blank"
-              rel="noopener"
-              className="rounded-lg px-2 py-3 text-base text-muted transition-colors hover:bg-surface hover:text-foreground"
-            >
-              {locale === "es" ? "Demo en vivo" : "Live demo"}
-            </a>
             <a
               href="https://app.vlouxe.com/login"
               className="rounded-lg px-2 py-3 text-base text-muted transition-colors hover:bg-surface hover:text-foreground"

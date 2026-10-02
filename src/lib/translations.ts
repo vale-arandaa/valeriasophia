@@ -111,7 +111,6 @@ export interface Dictionary {
     supportGreeting: string;
     switchToSales: string;
     checkoutArrivedMessage: string;
-    scheduleArrivedMessage: string;
   };
   footer: {
     tagline: string;
@@ -157,32 +156,6 @@ export interface Dictionary {
     errorMessage: string;
     preferChat: string;
     preferChatButton: string;
-  };
-  schedule: {
-    eyebrow: string;
-    headline: string;
-    body: string;
-    loading: string;
-    noSlots: string;
-    pickedLabel: string;
-    nameLabel: string;
-    emailLabel: string;
-    notesLabel: string;
-    notesPlaceholder: string;
-    confirmButton: string;
-    confirmingButton: string;
-    successTitle: string;
-    successBody: string;
-    errorMessage: string;
-    changeSlot: string;
-    preferCall: string;
-    preferCallButton: string;
-    pickDay: string;
-    noSlotsMonth: string;
-    timesTitle: string;
-    timezoneNote: string;
-    prevMonth: string;
-    nextMonth: string;
   };
   call: {
     eyebrow: string;
@@ -397,7 +370,7 @@ const en: Dictionary = {
       },
       {
         title: "Lower operational overhead.",
-        body: "One coordinated system replaces the manual admin work of scheduling, reporting, and task-tracking that used to need someone watching over it — so growth doesn't automatically mean growing headcount.",
+        body: "One coordinated system replaces the manual admin work of bookkeeping, reporting, and task-tracking that used to need someone watching over it — so growth doesn't automatically mean growing headcount.",
       },
       {
         title: "More scalable businesses.",
@@ -431,8 +404,6 @@ const en: Dictionary = {
     switchToSales: "Talk to Sales instead",
     checkoutArrivedMessage:
       "We're on the payment page now. I'll be right here with you through the whole process — just ask if you need anything.",
-    scheduleArrivedMessage:
-      "Here you can pick any open time that works for you. I'm still right here if you have questions.",
   },
   footer: {
     tagline: "AI workforce for modern businesses.",
@@ -492,32 +463,6 @@ const en: Dictionary = {
     errorMessage: "Something went wrong sending this. Please try again in a moment.",
     preferChat: "Prefer to talk it through right now?",
     preferChatButton: "Open live chat instead",
-  },
-  schedule: {
-    eyebrow: "Book a Meeting",
-    headline: "Pick a time that works for you.",
-    body: "Real open slots, straight from our calendar — no back-and-forth emails.",
-    loading: "Loading available times…",
-    noSlots: "No open slots right now — try requesting a call instead.",
-    pickedLabel: "Selected time",
-    nameLabel: "Name",
-    emailLabel: "Email",
-    notesLabel: "Anything we should know?",
-    notesPlaceholder: "What would you like to talk about?",
-    confirmButton: "Confirm meeting",
-    confirmingButton: "Confirming…",
-    successTitle: "You're booked.",
-    successBody: "We've sent the details to your email. See you then.",
-    errorMessage: "Something went wrong booking this. Please try again.",
-    changeSlot: "Choose a different time",
-    preferCall: "Prefer we call you instead?",
-    preferCallButton: "Request a call",
-    pickDay: "Pick a day",
-    noSlotsMonth: "No open times this month — try the next one.",
-    timesTitle: "Available times",
-    timezoneNote: "Times shown in your time zone",
-    prevMonth: "Previous month",
-    nextMonth: "Next month",
   },
   call: {
     eyebrow: "Urgent call",
@@ -766,8 +711,6 @@ const es: Dictionary = {
     switchToSales: "Hablar con Ventas en cambio",
     checkoutArrivedMessage:
       "Ya estamos en la página de pago. Te voy a acompañar en todo este proceso — cualquier duda, aquí estoy.",
-    scheduleArrivedMessage:
-      "Aquí puedes elegir cualquier horario disponible que te acomode. Sigo aquí por si tienes alguna duda.",
   },
   footer: {
     tagline: "Fuerza laboral de IA para empresas modernas.",
@@ -827,32 +770,6 @@ const es: Dictionary = {
     errorMessage: "Algo salió mal al enviar esto. Intenta de nuevo en un momento.",
     preferChat: "¿Prefieres resolverlo ahora mismo?",
     preferChatButton: "Abrir el chat en vivo",
-  },
-  schedule: {
-    eyebrow: "Agenda una Reunión",
-    headline: "Elige un horario que te acomode.",
-    body: "Horarios reales y disponibles, directo de nuestro calendario — sin ida y vuelta de emails.",
-    loading: "Cargando horarios disponibles…",
-    noSlots: "No hay horarios disponibles en este momento — prueba solicitar una llamada.",
-    pickedLabel: "Horario elegido",
-    nameLabel: "Nombre",
-    emailLabel: "Email",
-    notesLabel: "¿Algo que debamos saber?",
-    notesPlaceholder: "¿De qué te gustaría hablar?",
-    confirmButton: "Confirmar reunión",
-    confirmingButton: "Confirmando…",
-    successTitle: "Listo, quedaste agendado.",
-    successBody: "Te mandamos los detalles a tu email. Nos vemos entonces.",
-    errorMessage: "Algo salió mal al agendar. Intenta de nuevo.",
-    changeSlot: "Elegir otro horario",
-    preferCall: "¿Prefieres que te llamemos nosotros?",
-    preferCallButton: "Solicitar una llamada",
-    pickDay: "Elige un día",
-    noSlotsMonth: "No hay horarios disponibles este mes — prueba el siguiente.",
-    timesTitle: "Horarios disponibles",
-    timezoneNote: "Horas en tu zona horaria",
-    prevMonth: "Mes anterior",
-    nextMonth: "Mes siguiente",
   },
   call: {
     eyebrow: "Llamada urgente",

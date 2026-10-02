@@ -48,7 +48,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           heading: "What is an AI agent?",
           paragraphs: [
             "An AI agent is software that uses an AI model to reach a goal with some autonomy. You give it a job, for example \"answer every new customer and follow up with the ones who are ready to buy\", and it decides the steps: read the message, look up the right information, write the answer, update the lead and send the follow-up.",
-            "Three things make it an agent and not just a program that talks: it has a goal, it has access to information and tools (a calendar, a CRM, WhatsApp), and it acts on its own inside the limits you set.",
+            "Three things make it an agent and not just a program that talks: it has a goal, it has access to information and tools (email, a CRM, WhatsApp), and it acts on its own inside the limits you set.",
           ],
         },
         {
@@ -64,7 +64,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           items: [
             { title: "1. A goal", body: "What the agent is responsible for, such as answering customers or following up with leads." },
             { title: "2. Information", body: "What it needs to do it well: your prices, hours, services, tone and the history of each customer." },
-            { title: "3. Tools", body: "Where it acts: your website chat, WhatsApp, your calendar, your spreadsheet or CRM, your Facebook Page." },
+            { title: "3. Tools", body: "Where it acts: your website chat, WhatsApp, your email, your spreadsheet or CRM, your Facebook Page." },
             { title: "4. Limits and review", body: "What it can and can't do on its own, and when it has to hand the case to a person." },
           ],
         },
@@ -77,7 +77,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
             { title: "Marketing and content agents", body: "Create and publish posts and write video scripts based on your customers' real problems." },
             { title: "Research agents", body: "Study your market, your competitors and their prices." },
             { title: "Analytics agents", body: "Turn your income, expenses and leads into reports you can act on." },
-            { title: "Operations and assistant agents", body: "Organize tasks, review work and manage the calendar." },
+            { title: "Operations and bookkeeping agents", body: "Review the team's work and keep the books up to date." },
           ],
         },
         {
@@ -97,7 +97,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
         {
           heading: "AI agents with VLOUXE",
           paragraphs: [
-            "VLOUXE gives a business a team of 8 AI agents that work together (sales, customer service, marketing, content, research, analytics, operations and executive assistant) with a private portal where you see everything they do, organized by day, agent and customer. They answer as your company, in your customer's language, and you connect each channel yourself without sharing passwords.",
+            "VLOUXE gives a business a team of 8 AI agents that work together (sales, customer service, marketing, content, research, analytics, operations and bookkeeping) with a private portal where you see everything they do, organized by day, agent and customer. They answer as your company, in your customer's language, and you connect each channel yourself without sharing passwords.",
           ],
         },
       ],
@@ -122,7 +122,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           heading: "¿Qué es un agente de IA?",
           paragraphs: [
             "Un agente de IA es un programa que usa un modelo de inteligencia artificial para cumplir un objetivo con cierta autonomía. Le das un trabajo, por ejemplo \"responde a cada cliente nuevo y hazle seguimiento a los que estén listos para comprar\", y él decide los pasos: lee el mensaje, busca la información correcta, escribe la respuesta, actualiza al prospecto y envía el seguimiento.",
-            "Tres cosas lo convierten en agente y no en un programa que solo conversa: tiene un objetivo, tiene acceso a información y herramientas (un calendario, un CRM, WhatsApp) y actúa por su cuenta dentro de los límites que tú defines.",
+            "Tres cosas lo convierten en agente y no en un programa que solo conversa: tiene un objetivo, tiene acceso a información y herramientas (el email, un CRM, WhatsApp) y actúa por su cuenta dentro de los límites que tú defines.",
           ],
         },
         {
@@ -138,7 +138,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           items: [
             { title: "1. Un objetivo", body: "De qué se hace cargo el agente, como responder a los clientes o hacerle seguimiento a los prospectos." },
             { title: "2. Información", body: "Lo que necesita para hacerlo bien: tus precios, horarios, servicios, tono y el historial de cada cliente." },
-            { title: "3. Herramientas", body: "Dónde actúa: el chat de tu web, WhatsApp, tu calendario, tu planilla o CRM, tu Página de Facebook." },
+            { title: "3. Herramientas", body: "Dónde actúa: el chat de tu web, WhatsApp, tu email, tu planilla o CRM, tu Página de Facebook." },
             { title: "4. Límites y revisión", body: "Qué puede y qué no puede hacer solo, y cuándo tiene que pasarle el caso a una persona." },
           ],
         },
@@ -171,7 +171,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
         {
           heading: "Agentes de IA con VLOUXE",
           paragraphs: [
-            "VLOUXE le da a un negocio un equipo de 8 agentes de IA que trabajan juntos (ventas, atención al cliente, marketing, contenido, investigación, analítica, operaciones y asistente ejecutivo) con un portal privado donde ves todo lo que hacen, ordenado por día, agente y cliente. Responden como tu empresa, en el idioma de tu cliente, y cada canal lo conectas tú sin compartir contraseñas.",
+            "VLOUXE le da a un negocio un equipo de 8 agentes de IA que trabajan juntos (ventas, atención al cliente, marketing, contenido, investigación, analítica, operaciones y contabilidad) con un portal privado donde ves todo lo que hacen, ordenado por día, agente y cliente. Responden como tu empresa, en el idioma de tu cliente, y cada canal lo conectas tú sin compartir contraseñas.",
           ],
         },
       ],
@@ -307,7 +307,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           items: [
             { title: "1. Define one job", body: "\"Answer customers on WhatsApp\" works. \"Help with the business\" doesn't. An agent with a clear goal makes better decisions." },
             { title: "2. Write down the information it needs", body: "Prices, hours, services, policies and the questions you get most, in plain words." },
-            { title: "3. Choose where it will work", body: "Your website chat, WhatsApp, your calendar or your CRM. Each channel has to be connected with the business's own account." },
+            { title: "3. Choose where it will work", body: "Your website chat, WhatsApp, your email or your CRM. Each channel has to be connected with the business's own account." },
             { title: "4. Set its limits", body: "What it can decide alone and when it must hand the case to a person, for example discounts or complaints." },
             { title: "5. Test it with real questions", body: "Write to it as a customer would, including the hard questions, and correct its information where it fails." },
             { title: "6. Review what it does", body: "Read its conversations regularly. A good agent leaves a record of everything it does." },
@@ -341,7 +341,7 @@ export const GUIDES: Record<GuideKey, Record<Locale, GuideContent>> = {
           items: [
             { title: "1. Define un solo trabajo", body: "\"Responder a los clientes en WhatsApp\" funciona. \"Ayudar con el negocio\" no. Un agente con un objetivo claro toma mejores decisiones." },
             { title: "2. Escribe la información que necesita", body: "Precios, horarios, servicios, políticas y las preguntas que más te hacen, con palabras simples." },
-            { title: "3. Elige dónde va a trabajar", body: "El chat de tu web, WhatsApp, tu calendario o tu CRM. Cada canal se conecta con la cuenta del propio negocio." },
+            { title: "3. Elige dónde va a trabajar", body: "El chat de tu web, WhatsApp, tu email o tu CRM. Cada canal se conecta con la cuenta del propio negocio." },
             { title: "4. Define sus límites", body: "Qué puede decidir solo y cuándo tiene que pasarle el caso a una persona, por ejemplo descuentos o reclamos." },
             { title: "5. Pruébalo con preguntas reales", body: "Escríbele como lo haría un cliente, incluidas las preguntas difíciles, y corrige su información donde falle." },
             { title: "6. Revisa lo que hace", body: "Lee sus conversaciones con frecuencia. Un buen agente deja registro de todo lo que hace." },
